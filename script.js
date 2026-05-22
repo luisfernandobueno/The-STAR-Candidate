@@ -1,5 +1,19 @@
+// GLOBAL VARIABLES;
 
 const url_interview_data = "https://api.jsonbin.io/v3/b/69ebbe8f856a6821896c0d22";
+let randomQuestion;
+
+
+// FUNCTIONS;
+
+function sectionEditableContent(randomQuestion) {
+    console.log(randomQuestion.question);
+    document.getElementById("question").innerText = randomQuestion.question;
+    document.getElementById("explanation").innerHTML = randomQuestion.explanation;
+    document.getElementById("answer").innerHTML = randomQuestion.answer;
+    document.getElementById("example").innerHTML = randomQuestion.example;
+    document.getElementById("topic").innerHTML = randomQuestion.topic;
+}
 
 function showDataOnScreen(data) {
 
@@ -12,7 +26,7 @@ function showDataOnScreen(data) {
     Math.floor() → converts it into a valid integer index (0 to length-1)
     */
 
-    let randomQuestion = data[randomIndex];
+    randomQuestion = data[randomIndex];
     console.log(randomQuestion);
 
     /*
@@ -20,12 +34,7 @@ function showDataOnScreen(data) {
     back from just editing.In that case it should show the same data as before.
     */
 
-    console.log(randomQuestion.question);
-    document.getElementById("question").innerText = randomQuestion.question;
-    document.getElementById("explanation").innerHTML = randomQuestion.explanation;
-    document.getElementById("answer").innerHTML = randomQuestion.answer;
-    document.getElementById("example").innerHTML = randomQuestion.example;
-    document.getElementById("topic").innerHTML = randomQuestion.topic;
+    sectionEditableContent(randomQuestion);
 
     /* 
     Save the question on localStorage to coninue where you left every time. Useful 
@@ -37,10 +46,10 @@ function showDataOnScreen(data) {
     console.log(localStorage.getItem("currentQuestion"));
 }
 
-function btn_moveToNextQuestion(data) {
-    btn_nextQuestion = document.getElementById("nextQuestion");
-    btn_nextQuestion.addEventListener("click", () => {
-        console.log("click on btn_nextQuestion");
+function showNextData(data) {
+    showNextData_btn = document.getElementById("showNextData_btn");
+    showNextData_btn.addEventListener("click", () => {
+        console.log("click on showNextData_btn");
 
         /* 
         - Add here the behaviour for showing the next data in the array
@@ -82,8 +91,7 @@ function toggleButtonsVisibilityAndEditableAreas() {
                         ? "false"
                         : "true";
 
-                /* 
-                is basically shorthand for:
+                /* is basically shorthand for:
                 
                 if (c.contentEditable === "true") {
                     c.contentEditable = "false";
@@ -92,11 +100,35 @@ function toggleButtonsVisibilityAndEditableAreas() {
                 }
                 */
 
+
+
             });
         });
     });
 }
 
+function uploadingNewData() {
+    const addNew_btn = document.getElementById("creatingNewData_btn");
+    addNew_btn.addEventListener("click", () => {
+        console.log("addNew_btn onClick");
+
+        console.log(randomQuestion);
+
+        document.querySelectorAll(".editable").forEach(c => {
+            c.innerHTML = "";
+        });
+
+
+
+
+        // BEHAVIOR FOR THE CANCEL BUTTON
+        const cancelChanges_btn = document.getElementById("cancelChanges_btn");
+        cancelChanges_btn.addEventListener("click", () => {
+            sectionEditableContent(randomQuestion);
+        });
+
+    });
+}
 
 
 
@@ -111,8 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("data saved on localStorage: ");
     console.log(dataSavedOnLocalStorage);
 
-    /*
-    - The lines above are meant to bring back the last data that was uploaded to JSONBin.
+    /* - The lines above are meant to bring back the last data that was uploaded to JSONBin.
     In case of the API being offline or some other issues, localStorage has the latest 
     most recent updates to show.
     
@@ -131,11 +162,13 @@ document.addEventListener("DOMContentLoaded", function () {
             // Save data on localStorage
             localStorage.setItem("data_JSONBin", data);
 
+
             showDataOnScreen(data);
-            btn_moveToNextQuestion(data);
+            showNextData(data);
             toggleButtonsVisibilityAndEditableAreas();
-            /* 
-            If the data is undefined, bring from the local json
+            uploadingNewData();
+
+            /* If the data is undefined, bring from the local json
             
             
             if (url_interview_data === undefined) {
@@ -150,5 +183,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 ) 
             */
+
         });
 });

@@ -10,9 +10,9 @@
 
 <body>
 
-    <section>
+    <section id="editableContent">
+
         <div class="eight-px-separation editable" id="question" contentEditable="false"></div>
-     
         <div class="eight-px-separation editable" id="explanation" contentEditable="false">
         </div>
         <div class="eight-px-separation editable" id="answer" contentEditable="false">
@@ -20,35 +20,39 @@
         <div class="eight-px-separation editable" id="example" contentEditable="false">
         </div>
 
-        
+
         <label for="topic">Category</label>
         <select name="topic" id="topic">
             <option value="Recruiter" selected>Recruiter</option>
             <option value="Advice">Advice</option>
             <option value="Candidate">Candidate</option>
             <option value="Encouragement">Encouragement</option>
-            
+
         </select>
+
+
+        
     </section>
 
     <section id="buttonsHomePage" class="eight-px-separation buttons">
-        <button id="previousQuestion_btn" class="">Back</button>
-        <button id="nextQuestion" class="">Next</button>
+        <button id="showPreviousData_btn" class="">Back</button>
+        <button id="showNextData_btn" class="">Next</button>
 
         <div class="manipulatingInformation">
-            <button id="btn_editCurrentQuestion">Edit</button>
+            <button id="editCurrentInformation_btn">Edit</button>
             <button class="saveChangesAndCancelChanges" hidden>
                 Save
             </button>
-            <button class="saveChangesAndCancelChanges" hidden>
+            <button id="cancelChanges_btn" hidden>
                 Cancel
+            </button>
+            <button id="creatingNewData_btn">
+                Add New
             </button>
         </div>
 
-        <button class="saveChangesAndCancelChanges">
-            Add New
-        </button><button id="deleteCurrentQuestion">Delete</button>
-        <button id="showAllQuestions" onclick="window.location.href='showAllQuestions.html'">Search</button>
+        <button id="deleteCurrentInformation_btn">Delete</button>
+        <button onclick="window.location.href='showAllQuestions.html'">Search</button>
     </section>
 
     <script src="script.js"></script>
