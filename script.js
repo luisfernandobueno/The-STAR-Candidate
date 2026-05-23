@@ -1,36 +1,46 @@
 // GLOBAL VARIABLES;
 
 const url_interview_data = "https://api.jsonbin.io/v3/b/69ebbe8f856a6821896c0d22";
+
+const question = document.getElementById("question");
+const explanation = document.getElementById("explanation");
+const answer = document.getElementById("answer");
+const example = document.getElementById("example");
+const topic = document.getElementById("topic");
+
+
+
 let randomQuestion;
+const contentEditableArray = document.querySelectorAll(".editable");
+
+
 
 
 // FUNCTIONS;
 
 function sectionEditableContent(randomQuestion) {
-    console.log(randomQuestion.question);
-    document.getElementById("question").innerText = randomQuestion.question;
-    document.getElementById("explanation").innerHTML = randomQuestion.explanation;
-    document.getElementById("answer").innerHTML = randomQuestion.answer;
-    document.getElementById("example").innerHTML = randomQuestion.example;
-    document.getElementById("topic").innerHTML = randomQuestion.topic;
+
+    question.innerText = randomQuestion.question;
+    explanation.innerHTML = randomQuestion.explanation;
+    answer.innerHTML = randomQuestion.answer;
+    example.innerHTML = randomQuestion.example;
+    topic.innerHTML = randomQuestion.topic;
+
 }
 
 function showDataOnScreen(data) {
 
     let randomIndex = Math.floor(Math.random() * data.length);
 
-    /* 
-    Why this works:
+    /* Why this works:
     Math.random() → gives something like 0.37482
     Multiply by data.length → scales it to your array size
     Math.floor() → converts it into a valid integer index (0 to length-1)
     */
 
     randomQuestion = data[randomIndex];
-    console.log(randomQuestion);
-
-    /*
-    - Keep in mind that that behaviour must be avoided if we're comming 
+    console.log(randomQuestion)
+    /*- Keep in mind that that behaviour must be avoided if we're comming 
     back from just editing.In that case it should show the same data as before.
     */
 
@@ -41,18 +51,14 @@ function showDataOnScreen(data) {
     when you edit and need to come back to the same question showing the new data, for example. 
     */
 
-    localStorage.setItem("currentQuestion", randomQuestion.question);
-    console.log("current Question in locaStorage");
-    console.log(localStorage.getItem("currentQuestion"));
+    /* localStorage.setItem("currentQuestion", randomQuestion.question); */
 }
 
 function showNextData(data) {
     showNextData_btn = document.getElementById("showNextData_btn");
     showNextData_btn.addEventListener("click", () => {
-        console.log("click on showNextData_btn");
 
-        /* 
-        - Add here the behaviour for showing the next data in the array
+        /* - Add here the behaviour for showing the next data in the array
         - Se necesita un bucle for each para iterar en todos los indices del array
         - Al llamar nuevamente a la funcion showDataOnScreen, la misma lo hace actualmente
         sólo por el indice data[0] del array. Arreglar dicha función.      
@@ -84,7 +90,7 @@ function toggleButtonsVisibilityAndEditableAreas() {
             });
 
             // Toggle editable state
-            document.querySelectorAll(".editable").forEach(c => {
+            contentEditableArray.forEach(c => {
 
                 c.contentEditable =
                     c.contentEditable === "true"
@@ -114,11 +120,9 @@ function uploadingNewData() {
 
         console.log(randomQuestion);
 
-        document.querySelectorAll(".editable").forEach(c => {
+        contentEditableArray.forEach(c => {
             c.innerHTML = "";
         });
-
-
 
 
         // BEHAVIOR FOR THE CANCEL BUTTON
@@ -127,10 +131,50 @@ function uploadingNewData() {
             sectionEditableContent(randomQuestion);
         });
 
+
     });
 }
 
+function savingNewDataOnline() {
 
+    /* FIRST: 
+    Save the new data just created or modified into an object
+    */
+
+    let saveChanges_btn = document.getElementById("saveChanges_btn");
+    saveChanges_btn.addEventListener("click", () => {
+
+        let newDataToUploadOnline = {
+            question: question.innerHTML,
+            explanation: explanation.innerHTML,
+            answer: answer.innerHTML,
+            example: example.innerHTML,
+            topic: topic.innerHTML,
+            edition: false,
+        };
+
+        console.log(`SAVING CHANGES: ${newDataToUploadOnline}`);
+
+        sectionEditableContent(newDataToUploadOnline);
+        
+    }
+    )
+
+
+
+    /* SECOND:
+    You're gonna save that object into the array: 
+        - If you already have an index (because youre just editing), overwrite that data with the new one.
+        - If you don't have an index (because youre adding new data), push the info at the end of the array.
+    */
+
+
+
+
+    /* THIRD:
+    POST the array using fetch to get it back online   */
+
+}
 
 
 
@@ -140,8 +184,6 @@ function uploadingNewData() {
 
 document.addEventListener("DOMContentLoaded", function () {
     let dataSavedOnLocalStorage = localStorage.getItem("data_JSONBin");
-    console.log("data saved on localStorage: ");
-    console.log(dataSavedOnLocalStorage);
 
     /* - The lines above are meant to bring back the last data that was uploaded to JSONBin.
     In case of the API being offline or some other issues, localStorage has the latest 
@@ -156,17 +198,21 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch(url_interview_data)
         .then((res) => res.json())
         .then((json) => {
-            console.log(json);
             data = json.record.lines;
-            console.log(data);
-            // Save data on localStorage
+
+            // SAVE DATA ON LOCALSTORAGE
             localStorage.setItem("data_JSONBin", data);
 
 
+            // CALL THE FUNCTIONS TO EXEUTE THE PROGRAM
             showDataOnScreen(data);
             showNextData(data);
             toggleButtonsVisibilityAndEditableAreas();
             uploadingNewData();
+
+
+            // SAVE NEW DATA ONLINE - JSONBIN
+            savingNewDataOnline()
 
             /* If the data is undefined, bring from the local json
             
