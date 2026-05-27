@@ -168,9 +168,6 @@ function savingNewDataOnline() {
         - If you don't have an index (because youre adding new data), push the info at the end of the array.
     */
 
-
-
-
     /* THIRD:
     POST the array using fetch to get it back online   */
 

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
@@ -15,7 +16,7 @@
         <div class="eight-px-separation editable" id="question" contentEditable="false"></div>
         <div class="eight-px-separation editable" id="explanation" contentEditable="false">
         </div>
-        <div class="eight-px-separation editable" id="answer" contentEditable="false">
+        <div class="bg-sky-500 eight-px-separation text-xl editable" id="answer" contentEditable="false">
         </div>
         <div class="eight-px-separation editable" id="example" contentEditable="false">
         </div>
@@ -35,24 +36,24 @@
     </section>
 
     <section id="buttonsHomePage" class="eight-px-separation buttons">
-        <button id="showPreviousData_btn" class="">Back</button>
-        <button id="showNextData_btn" class="">Next</button>
+        <button id="showPreviousData_btn" class="bg-sky-500 px-4">Back</button>
+        <button id="showNextData_btn" class="bg-sky-500 px-4">Next</button>
 
         <div class="manipulatingInformation">
-            <button id="editCurrentInformation_btn">Edit</button>
-            <button id="saveChanges_btn" class="saveChangesAndCancelChanges" hidden>
+            <button id="editCurrentInformation_btn" class="bg-sky-500 px-4">Edit</button>
+            <button id="saveChanges_btn" class="bg-sky-500 px-4 saveChangesAndCancelChanges" hidden>
                 Save
             </button>
-            <button id="cancelChanges_btn" hidden>
+            <button id="cancelChanges_btn" class="bg-sky-500 px-4" hidden>
                 Cancel
             </button>
-            <button id="creatingNewData_btn">
+            <button id="creatingNewData_btn" class="bg-sky-500 px-4">
                 Add New
             </button>
         </div>
 
-        <button id="deleteCurrentInformation_btn">Delete</button>
-        <button onclick="window.location.href='showAllQuestions.html'">Search</button>
+        <button id="deleteCurrentInformation_btn"  class="bg-sky-500 px-4">Delete</button>
+        <button onclick="window.location.href='showAllQuestions.html'"  class="bg-sky-500 px-4">Search</button>
     </section>
 
     <script src="script.js"></script>
