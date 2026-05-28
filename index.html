@@ -11,14 +11,15 @@
 
 <body>
 
-    <section id="sectionEditableContent">
+    <section id="sectionEditableContent" class="p-2">
 
-        <div class="eight-px-separation editable" id="question" contentEditable="false"></div>
-        <div class="eight-px-separation editable" id="explanation" contentEditable="false">
+        <div id="question" class="mb-2 p-1 eight-px-separation rounded-lg text-xl editable" contentEditable="false">
         </div>
-        <div class="bg-sky-500 eight-px-separation text-xl editable" id="answer" contentEditable="false">
+        <div class="mb-2 p-1 eight-px-separation rounded-lg editable" id="explanation" contentEditable="false">
         </div>
-        <div class="eight-px-separation editable" id="example" contentEditable="false">
+        <div class="mb-2 p-1 eight-px-separation rounded-lg editable" id="answer" contentEditable="false">
+        </div>
+        <div class="mb-2 p-1 eight-px-separation rounded-lg editable" id="example" contentEditable="false">
         </div>
 
 
@@ -28,32 +29,45 @@
             <option value="Advice">Advice</option>
             <option value="Candidate">Candidate</option>
             <option value="Encouragement">Encouragement</option>
-
         </select>
 
-
-        
     </section>
 
-    <section id="buttonsHomePage" class="eight-px-separation buttons">
-        <button id="showPreviousData_btn" class="bg-sky-500 px-4 text-orange-800">Back</button>
-        <button id="showNextData_btn" class="bg-sky-500 px-4">Next</button>
 
-        <div class="manipulatingInformation">
-            <button id="editCurrentInformation_btn" class="bg-sky-500 px-4 rounded-full text-orange-800">Edit</button>
-            <button id="saveChanges_btn" class="bg-sky-500 px-4 saveChangesAndCancelChanges" hidden>
+    <section id="buttonsHomePage" class="p-2 eight-px-separation buttons">
+
+        <div>
+
+            <button id="showPreviousData_btn" class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800">Back</button>
+            <button id="showNextData_btn" class="bg-sky-500 px-4 py-2 rounded-lg">Next</button>
+        </div>
+
+
+        <div class="m-auto manipulatingInformation">
+            <button id="editCurrentInformation_btn"
+                class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800">
+                Edit
+            </button>
+            <button id="saveChanges_btn" class="bg-sky-500 px-4 py-2 rounded-lg saveChangesAndCancelChanges" hidden>
                 Save
             </button>
-            <button id="cancelChanges_btn" class="bg-sky-500 px-4" hidden>
+            <button id="cancelChanges_btn" class="bg-sky-500 px-4 py-2 rounded-lg" hidden>
                 Cancel
             </button>
-            <button id="creatingNewData_btn" class="bg-sky-500 px-4">
+            <button id="creatingNewData_btn" class="bg-sky-500 px-4 py-2 rounded-lg">
                 Add New
             </button>
         </div>
 
-        <button id="deleteCurrentInformation_btn"  class="bg-sky-500 px-4 text-orange-800">Delete</button>
-        <button onclick="window.location.href='showAllQuestions.html'"  class="bg-sky-500 px-4">Search</button>
+        <div>
+
+            <button id="deleteCurrentInformation_btn"
+                class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800">Delete</button>
+            <button onclick="window.location.href='showAllQuestions.html'"
+                class="bg-sky-500 px-4 py-2 rounded-lg">Search</button>
+        </div>
+
+
     </section>
 
     <script src="script.js"></script>
