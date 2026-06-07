@@ -1,3 +1,4 @@
+
 // GLOBAL VARIABLES;
 
 const url_interview_data = "https://api.jsonbin.io/v3/b/69ebbe8f856a6821896c0d22";
@@ -14,6 +15,8 @@ const contentEditableArray = document.querySelectorAll(".editable");
 
 
 
+
+
 // FUNCTIONS;
 
 function sectionEditableContent(randomQuestion) {
@@ -25,6 +28,8 @@ function sectionEditableContent(randomQuestion) {
     topic.innerHTML = randomQuestion.topic;
 
 }
+
+
 
 function showDataOnScreen(data) {
 
@@ -52,6 +57,8 @@ function showDataOnScreen(data) {
     /* localStorage.setItem("currentQuestion", randomQuestion.question); */
 }
 
+
+
 function showNextData(data) {
     showNextData_btn = document.getElementById("showNextData_btn");
     showNextData_btn.addEventListener("click", () => {
@@ -65,6 +72,8 @@ function showNextData(data) {
         showDataOnScreen(data);
     });
 }
+
+
 
 function toggleButtonsVisibilityAndEditableAreas() {
     // Toggle: alternar entre estados.
@@ -111,7 +120,19 @@ function toggleButtonsVisibilityAndEditableAreas() {
     });
 }
 
+
+
 function uploadingNewData() {
+
+
+ // BEHAVIOR FOR THE "CANCEL" BUTTON
+    const cancelChanges_btn = document.getElementById("cancelChanges_btn");
+    cancelChanges_btn.addEventListener("click", () => {
+        sectionEditableContent(randomQuestion);
+    });
+
+
+ // BEHAVIOR FOR THE "SAVE" BUTTON
     const addNew_btn = document.getElementById("creatingNewData_btn");
     addNew_btn.addEventListener("click", () => {
         console.log("addNew_btn onClick");
@@ -121,17 +142,10 @@ function uploadingNewData() {
         contentEditableArray.forEach(c => {
             c.innerHTML = "";
         });
-
-
-        // BEHAVIOR FOR THE CANCEL BUTTON
-        const cancelChanges_btn = document.getElementById("cancelChanges_btn");
-        cancelChanges_btn.addEventListener("click", () => {
-            sectionEditableContent(randomQuestion);
-        });
-
-
     });
 }
+
+
 
 function savingNewDataOnline() {
 
@@ -154,7 +168,7 @@ function savingNewDataOnline() {
         console.log(`SAVING CHANGES: ${newDataToUploadOnline}`);
 
         sectionEditableContent(newDataToUploadOnline);
-        
+
     }
     )
 

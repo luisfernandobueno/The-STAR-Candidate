@@ -12,6 +12,36 @@
 </head>
 
 <body>
+    <header id="header" class="manipulatingInformation p-2  buttons flex text-xs">
+        <div class="">
+            <!--             <button id="showPreviousData_btn" class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800">Back</button>
+            --> 
+            <button id="creatingNewData_btn" class="border px-4 py-2 rounded-lg m-auto">
+                Add
+            </button>
+            <button onclick="window.location.href='showAllQuestions.html'"
+                class="border px-4 py-2 rounded-lg m-auto">
+                Srch
+            </button>
+        </div>
+
+        <div class="m-auto"></div>
+
+        <div class=" ">
+            <button id="editCurrentInformation_btn" class="border px-4 py-2 rounded-lg text-orange-800 m-auto">
+                Edit
+            </button>
+            <button id="deleteCurrentInformation_btn"
+                class="border px-4 py-2 rounded-lg text-orange-800 justify-end">
+                Del
+            </button>
+        </div>
+
+        <div class="manipulatinInformation">
+            
+        </div>
+    </header>
+
 
     <section id="sectionEditableContent" class="p-2">
         <div id="question" class="mb-2 p-1 border rounded-lg text-xl editable" contentEditable="false"> </div>
@@ -35,32 +65,18 @@
         </div>
 
         <div class="m-auto manipulatingInformation">
-            <button id="editCurrentInformation_btn"
-                class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800 m-auto">
-                Edit
-            </button>
             <button id="saveChanges_btn" class="bg-sky-500 px-4 py-2 rounded-lg saveChangesAndCancelChanges" hidden>
                 Save
             </button>
             <button id="cancelChanges_btn" class="bg-sky-500 px-4 py-2 rounded-lg" hidden>
                 Cancel
             </button>
-            <button id="creatingNewData_btn" class="bg-sky-500 px-4 py-2 rounded-lg m-auto">
-                Add New
-            </button>
-            <button id="deleteCurrentInformation_btn" class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800 justify-end" hidden>
-                Delete
-            </button>
-            <button onclick="window.location.href='showAllQuestions.html'"
-                class="bg-sky-500 px-4 py-2 rounded-lg m-auto">
-                Search
-            </button>
         </div>
 
         <div class=" ">
-                <button id="showNextData_btn" class="bg-sky-500 px-4 py-2 rounded-lg">
-                    Next
-                </button>
+            <button id="showNextData_btn" class="bg-sky-500 px-4 py-2 rounded-lg">
+                Next
+            </button>
         </div>
     </footer>
 
