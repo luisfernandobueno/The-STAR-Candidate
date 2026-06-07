@@ -7,20 +7,14 @@ body {
     height: 100dvh;
 }
 
-.eight-px-separation {
+.border {
     border: 1px grey solid;
 }
 
 .buttons {
   position: fixed;
-  justify-items: center;
   bottom: 0;
-  left: 0;
   width: 100vw;
 }
 
-#buttonsHomePage {
-    display: flex;
-    justify-content: space-between;
-}
 

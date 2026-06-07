@@ -8,8 +8,6 @@ const answer = document.getElementById("answer");
 const example = document.getElementById("example");
 const topic = document.getElementById("topic");
 
-
-
 let randomQuestion;
 const contentEditableArray = document.querySelectorAll(".editable");
 
@@ -192,6 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
     remember if it's with setItem or now with getItem.
     */
 
+
     fetch(url_interview_data)
         .then((res) => res.json())
         .then((json) => {
@@ -211,12 +210,12 @@ document.addEventListener("DOMContentLoaded", function () {
             // SAVE NEW DATA ONLINE - JSONBIN
             savingNewDataOnline()
 
+
+
             /* If the data is undefined, bring from the local json
-            
-            
+                        
             if (url_interview_data === undefined) {
- 
-            fetch("data.json")
+             fetch("data.json")
                 .then(res => res.json())
                 .then(json => {
                     console.log(json);
