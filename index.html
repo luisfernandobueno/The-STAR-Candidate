@@ -12,42 +12,66 @@
 </head>
 
 <body>
-    <header id="header" class="manipulatingInformation p-2  buttons flex text-xs">
+    <header id="header" class="p-2  buttons flex text-xs">
         <div class="">
             <!--             <button id="showPreviousData_btn" class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800">Back</button>
-            --> 
-            <button id="creatingNewData_btn" class="border px-4 py-2 rounded-lg m-auto">
+            -->
+            <button id="creatingNewData_btn" class="manipulatingInformation toggleable border px-4 py-2 rounded-lg m-auto">
                 Add
             </button>
-            <button onclick="window.location.href='showAllQuestions.html'"
-                class="border px-4 py-2 rounded-lg m-auto">
+            <button onclick="window.location.href='showAllQuestions.html'" class="toggleable border px-4 py-2 rounded-lg m-auto">
                 Srch
             </button>
         </div>
 
-        <div class="m-auto"></div>
+        <div class="m-auto">  </div>
 
         <div class=" ">
-            <button id="editCurrentInformation_btn" class="border px-4 py-2 rounded-lg text-orange-800 m-auto">
+            <button id="editCurrentInformation_btn" class="manipulatingInformation toggleable border px-4 py-2 rounded-lg text-orange-800 m-auto">
                 Edit
             </button>
-            <button id="deleteCurrentInformation_btn"
-                class="border px-4 py-2 rounded-lg text-orange-800 justify-end">
+            <button id="toggleDeleteAlert_btn"
+                class="toggleable border px-4 py-2 rounded-lg text-orange-800 justify-end" hidden>
                 Del
             </button>
-        </div>
-
-        <div class="manipulatinInformation">
-            
         </div>
     </header>
 
 
+
+
+    
+    <!-- ----------------------- DELETE ALERT:
+     IT SHOULD BECOME VISIBLE EXCLUSIVELY AFTER PRESSING THE BUTTON "DELETE" WHICH IS INSIDE THE EDIT SECTION EXCLUSIVELY -->
+
+    <section id="alertDeleteData_Section" class=" m-2 border rounded-lg p-1 text-center  toggleable " hidden>
+
+        <h1 class="text-xl">Are you sure you want to delete?</h1>
+        <p>This action can not be undone in the future</p>
+        
+        <div id="" class="alertDeleteButtons flex m-2 text-center" >
+            <button id="deleteDataAccepted_btn" class="manipulatingInformation bg-sky-500 px-4 py-2 rounded-lg ml-auto text-red-800" hidden>
+                Delete
+            </button>
+            <button id="doNotDeleteData_btn" class="bg-sky-500 px-4 py-2 rounded-lg mr-auto" hidden>
+                Cancel
+            </button>
+        </div>
+    </section>
+
+
+
+
+
     <section id="sectionEditableContent" class="p-2">
         <div id="question" class="mb-2 p-1 border rounded-lg text-xl editable" contentEditable="false"> </div>
-        <div class="mb-2 p-1 border rounded-lg editable" id="explanation" contentEditable="false"></div>
-        <div class="mb-2 p-1 border rounded-lg editable" id="answer" contentEditable="false"></div>
-        <div class="mb-2 p-1 border rounded-lg editable" id="example" contentEditable="false"></div>
+        <div id="explanation"  class="mb-2 p-1 border rounded-lg text-xs editable" contentEditable="false"></div>
+        <div id="answer"  class="mb-2 p-1 border rounded-lg text-sm editable" contentEditable="false"></div>
+        <div id="example"  class="mb-2 p-1 border rounded-lg text-xs editable" contentEditable="false">
+
+            <!--   THIS PARTUCULAR DIV IS LACKING OF SCROLLABLE BEHAVIOUR, JUST AS SEARCH.HTML -->
+
+        </div>
 
         <label for="topic">Category</label>
         <select name="topic" id="topic">
@@ -58,23 +82,29 @@
         </select>
     </section>
 
+    
+
+    
+
 
     <footer id="navBar" class="p-2 border buttons flex text-xs">
         <div class="">
-            <button id="showPreviousData_btn" class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800">Back</button>
+            <button id="showPreviousData_btn" class="showNextAndPreviousData_btn toggleable bg-sky-500 px-4 py-2 rounded-lg text-orange-800">
+                Back
+            </button>
         </div>
 
         <div class="m-auto manipulatingInformation">
-            <button id="saveChanges_btn" class="bg-sky-500 px-4 py-2 rounded-lg saveChangesAndCancelChanges" hidden>
+            <button id="saveChanges_btn" class="toggleable bg-sky-500 px-4 py-2 rounded-lg saveChangesAndCancelChanges" hidden>
                 Save
             </button>
-            <button id="cancelChanges_btn" class="bg-sky-500 px-4 py-2 rounded-lg" hidden>
+            <button id="cancelChanges_btn" class="toggleable bg-sky-500 px-4 py-2 rounded-lg" hidden>
                 Cancel
             </button>
         </div>
 
         <div class=" ">
-            <button id="showNextData_btn" class="bg-sky-500 px-4 py-2 rounded-lg">
+            <button id="showNextData_btn" class="showNextAndPreviousData_btn toggleable bg-sky-500 px-4 py-2 rounded-lg">
                 Next
             </button>
         </div>

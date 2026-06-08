@@ -3,6 +3,10 @@
     border: 0.5px red dashed;
 }
 
+.border {
+    border: 1px grey solid;
+}
+
 body {
     height: 100dvh;
 }
@@ -10,8 +14,10 @@ body {
 header { height: 52px;
 }
 
-.border {
-    border: 1px grey solid;
+#alertDeleteData_Section {
+    position: absolute;
+    z-index: 10;
+    background-color: aquamarine;
 }
 
 footer {

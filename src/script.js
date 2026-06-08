@@ -1,8 +1,10 @@
 
 // GLOBAL VARIABLES;
 
-const url_interview_data = "https://api.jsonbin.io/v3/b/69ebbe8f856a6821896c0d22";
+const url_interview_data = "https://github.com/luisfernandobueno/json/blob/700bd6dd500a961c42c04bff93aceddaed826641/api";
 
+
+const contentEditableArray = document.querySelectorAll(".editable");
 const question = document.getElementById("question");
 const explanation = document.getElementById("explanation");
 const answer = document.getElementById("answer");
@@ -10,7 +12,6 @@ const example = document.getElementById("example");
 const topic = document.getElementById("topic");
 
 let randomQuestion;
-const contentEditableArray = document.querySelectorAll(".editable");
 
 
 
@@ -60,40 +61,40 @@ function showDataOnScreen(data) {
 
 
 function showNextData(data) {
-    showNextData_btn = document.getElementById("showNextData_btn");
+    /* showNextData_btn = document.getElementById("showNextData_btn");
     showNextData_btn.addEventListener("click", () => {
 
-        /* - Add here the behaviour for showing the next data in the array
+        - Add here the behaviour for showing the next data in the array
         - Se necesita un bucle for each para iterar en todos los indices del array
         - Al llamar nuevamente a la funcion showDataOnScreen, la misma lo hace actualmente
         sólo por el indice data[0] del array. Arreglar dicha función.      
-        */
+       
 
         showDataOnScreen(data);
-    });
+    }); */
+
+
+
+    // TAKES BUTTONS "BACK" AND "NEXT" TO SHOW NEXT RANDOM DATA
+    document.querySelectorAll(".showNextAndPreviousData_btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            showDataOnScreen(data);
+        })
+    })
 }
 
 
 
 function toggleButtonsVisibilityAndEditableAreas() {
-    // Toggle: alternar entre estados.
 
+    // Toggle: alternar entre estados.
     document.querySelectorAll(".manipulatingInformation").forEach(btn => {
 
         btn.addEventListener("click", () => {
 
             // Toggle all buttons
             document.querySelectorAll("button").forEach(b => {
-
                 b.hidden = !b.hidden;
-                /* is basically shorthand for:
-
-                        if (b.hidden === true) {
-                        b.hidden = false;
-                        } else {
-                        b.hidden = true;
-                        } 
-                */
             });
 
             // Toggle editable state
@@ -112,12 +113,55 @@ function toggleButtonsVisibilityAndEditableAreas() {
                     c.contentEditable = "true";
                 }
                 */
-
-
-
             });
+
+
+            visibilityOFAlertDeleteData();
+
         });
     });
+}
+
+
+function visibilityOFAlertDeleteData() {
+
+            // DELETE BUTTON BEHAVIOUR: IT TOGGLES ALERT VISIBILITY 
+            const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
+            toggleDeleteAlert_btn.addEventListener("click", () => {
+
+                showHideDeleteAlert();
+
+            })
+
+
+
+            // CANCELLING DELETE:
+            const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
+            doNotDeleteData_btn.addEventListener("click", () => {
+
+                showHideDeleteAlert();
+
+            });
+
+
+
+            // CONFIRMATION FOR DELETING CURRENT DATA:
+            const deleteDataAccepted_btn = document.getElementById("deleteDataAccepted_btn");
+            deleteDataAccepted_btn.addEventListener("click", () => {
+
+                document.querySelectorAll("button").forEach(b => {
+                    b.hidden;
+                });
+
+                showHideDeleteAlert();
+                showDataOnScreen(data);
+            });
+}
+
+
+function showHideDeleteAlert() {
+    const alertDeleteData_Section = document.getElementById("alertDeleteData_Section");
+    alertDeleteData_Section.hidden = !alertDeleteData_Section.hidden;
 }
 
 
@@ -125,14 +169,14 @@ function toggleButtonsVisibilityAndEditableAreas() {
 function uploadingNewData() {
 
 
- // BEHAVIOR FOR THE "CANCEL" BUTTON
+    // BEHAVIOR FOR THE "CANCEL" BUTTON
     const cancelChanges_btn = document.getElementById("cancelChanges_btn");
     cancelChanges_btn.addEventListener("click", () => {
         sectionEditableContent(randomQuestion);
     });
 
 
- // BEHAVIOR FOR THE "SAVE" BUTTON
+    // BEHAVIOR FOR THE "SAVE" BUTTON
     const addNew_btn = document.getElementById("creatingNewData_btn");
     addNew_btn.addEventListener("click", () => {
         console.log("addNew_btn onClick");
@@ -168,6 +212,7 @@ function savingNewDataOnline() {
         console.log(`SAVING CHANGES: ${newDataToUploadOnline}`);
 
         sectionEditableContent(newDataToUploadOnline);
+        // Still needs to actually send the data to JSONBin to store it there.
 
     }
     )
@@ -205,16 +250,18 @@ document.addEventListener("DOMContentLoaded", function () {
     */
 
 
-    fetch(url_interview_data)
+    fetch("data.json")
         .then((res) => res.json())
         .then((json) => {
-            data = json.record.lines;
+            data = json.lines;
+            console.log(data)
+
 
             // SAVE DATA ON LOCALSTORAGE
-            localStorage.setItem("data_JSONBin", data);
+            // localStorage.setItem("data_JSONBin", data);
 
 
-            // CALL THE FUNCTIONS TO EXEUTE THE PROGRAM
+            // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
             showDataOnScreen(data);
             showNextData(data);
             toggleButtonsVisibilityAndEditableAreas();
