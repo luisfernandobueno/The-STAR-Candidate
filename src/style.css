@@ -16,14 +16,17 @@ body {
 header { height: 52px;
 }
 
-#alertDeleteData_Section {
+#deleteData_alert {
     position: absolute;
     background-color: rgb(244, 255, 251);
     bottom: 50%;
     
+    width: 100%;
+    max-width: 600px;
+    
 }
 
-#sectionEditableContent {
+#areaWhereTheTextIsGonnaBeShown {
     height: 85%;
     overflow-y: auto;
 }
@@ -31,8 +34,13 @@ header { height: 52px;
 footer {
   position: fixed;
   bottom: 0;
+  z-index: 0;
   width: 100dvw;
   max-width: 600px;
+  background-color: white;
 }
 
+.showNextAndPreviousData_btn {
+    width: 100%;
+}
 

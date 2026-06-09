@@ -14,11 +14,10 @@
 <body class="m-auto border-solid rounded-lg">
     <header id="header" class="p-2  buttons flex text-xs">
         <div class="">
-            <!--             <button id="showPreviousData_btn" class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800">Back</button>
-            -->
-            <button id="creatingNewData_btn"
-                class="manipulatingInformation toggleable border-solid px-4 py-2 rounded-lg m-auto">
-                Add
+
+            <button id="addNewData_btnHeader"
+                class="switchVisibilityOrEditableState toggleable border-solid px-4 py-2 rounded-lg m-auto">
+                +New
             </button>
             <button onclick="window.location.href='showAllQuestions.html'"
                 class="toggleable border-solid px-4 py-2 rounded-lg m-auto">
@@ -28,17 +27,22 @@
 
         <div class="m-auto"> </div>
 
-        <div class=" ">
-            <button id="editCurrentData_btn"
-                class="manipulatingInformation toggleable border-solid px-4 py-2 rounded-lg text-orange-800 m-auto">
-                Edit
-            </button>
+        <div id="editOrDelete">
+
             <button id="toggleDeleteAlert_btn"
                 class="toggleable border-solid px-4 py-2 rounded-lg text-orange-800 justify-end" hidden>
                 Del
             </button>
+            <button id="editCurrentData_btn"
+                class="switchVisibilityOrEditableState toggleable border-solid px-4 py-2 rounded-lg text-orange-800 m-auto">
+                Edit
+            </button>
+
         </div>
     </header>
+
+
+
 
 
 
@@ -46,14 +50,15 @@
      IT SHOULD BECOME VISIBLE EXCLUSIVELY AFTER PRESSING THE BUTTON "DELETE" WHICH IS INSIDE THE EDIT SECTION EXCLUSIVELY -->
 
 
-    <section id="alertDeleteData_Section" class=" m-2 border-solid rounded-lg p-2 text-center" hidden>
+    <section id="deleteData_alert" class=" border-solid rounded-lg p-2 text-center" hidden>
 
         <h1 class="text-xl">Are you sure you want to delete?</h1>
         <p>This action can not be undone in the future</p>
 
         <div id="" class="alertDeleteButtons flex  text-center">
             <button id="deleteDataAccepted_btn"
-                class="manipulatingInformation flex-1 bg-sky-500 px-4 py-2 rounded-lg ml-auto text-red-800" hidden>
+                class="switchVisibilityOrEditableState flex-1 bg-sky-500 px-4 py-2 rounded-lg ml-auto text-red-800"
+                hidden>
                 Delete
             </button>
             <button id="doNotDeleteData_btn" class=" flex-1 bg-sky-500 px-4 py-2 rounded-lg mr-auto" hidden>
@@ -65,8 +70,11 @@
 
 
 
-    <section id="sectionEditableContent" class="m-2 mt-0 p-2 border-solid rounded-lg bg-fixed">
 
+
+
+
+    <section id="areaWhereTheTextIsGonnaBeShown" class="m-2 mt-0 p-2 border-solid rounded-lg bg-fixed">
 
         <section id="categories" class="flex pt-1 pb-2 rounded-lg">
             <div class="border-solid rounded-lg text-xs m-1 p-1 ml-auto">Recruiter</div>
@@ -85,6 +93,10 @@
 
 
 
+
+
+
+
     <footer id="navBar" class="p-2 mb-1 buttons flex text-xs">
         <div class="">
             <button id="showPreviousData_btn"
@@ -93,18 +105,19 @@
             </button>
         </div>
 
-        <div class="m-auto manipulatingInformation">
-            <button id="saveChanges_btn"
-                class="border-solid bg-sky-500 px-4 py-2 rounded-lg saveChangesAndCancelChanges" hidden>
+        <div id="submitSection" class="m-auto switchVisibilityOrEditableState">
+            <button id="submitChanges_btn"
+                class="submitChangesAndCancelChanges border-solid bg-sky-500 px-4 py-2 rounded-lg " hidden>
                 Save
             </button>
-            <button id="cancelChanges_btn" class="border-solid bg-sky-500 px-4 py-2 rounded-lg" hidden>
+            <button id="cancelChangesDoNotSumbit_btn"
+                class="submitChangesAndCancelChanges border-solid bg-sky-500 px-4 py-2 rounded-lg" hidden>
                 Cancel
             </button>
         </div>
 
         <div class=" ">
-            <button id="showNextData_btn"
+            <button id="displayTheNextTextOnScreen_btn"
                 class="showNextAndPreviousData_btn border-solid bg-sky-500 px-4 py-2 rounded-lg">
                 Next
             </button>

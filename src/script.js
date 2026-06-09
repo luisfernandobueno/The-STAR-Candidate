@@ -1,13 +1,21 @@
 
-// GLOBAL VARIABLES;
+/* ------------------------- GLOBAL VARIABLES ------------------------- */
+
+
+
 
 const url_interview_data = "https://github.com/luisfernandobueno/json/blob/700bd6dd500a961c42c04bff93aceddaed826641/api";
 
 
-const alertDeleteData_Section = document.getElementById("alertDeleteData_Section");
+const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
+const deleteData_alert = document.getElementById("deleteData_alert");
+const submitSection = document.getElementById("submitSection");
+const deleteDataAccepted_btn = document.getElementById("deleteDataAccepted_btn");
+const cancelChangesDoNotSumbit_btn = document.getElementById("cancelChangesDoNotSumbit_btn");
+const addNewData_btnHeader = document.getElementById("addNewData_btnHeader");
+const editOrDelete_div = document.getElementById("editOrDelete");
 
-
-const contentEditableArray = document.querySelectorAll(".editable");
+const textAreasForEditableContent_array = document.querySelectorAll(".editable");
 const question = document.getElementById("question");
 const explanation = document.getElementById("explanation");
 const answer = document.getElementById("answer");
@@ -18,21 +26,28 @@ let randomQuestion;
 
 
 
+/* ------------------------- FUNCTIONS ------------------------- */
 
-// FUNCTIONS;
 
-function sectionEditableContent(randomQuestion) {
+
+
+/* Finds the text areas where the info is gonna be displayed on the HTML
+and pastes there the corresponding data to finally be shown on screen*/
+function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
+
 
     question.innerText = randomQuestion.question;
     explanation.innerHTML = randomQuestion.explanation;
     answer.innerHTML = randomQuestion.answer;
     example.innerHTML = randomQuestion.example;
-
 }
 
 
 
-function showDataOnScreen(data) {
+/* Chooses a random index from the array and passes that one to the function that displayes
+the text on screen, so it shows specifically the info in that particular index of the array */
+function showTextOnUserScreen(dataToBeDisplayed) {
+
 
     let randomIndex = Math.floor(Math.random() * data.length);
 
@@ -44,51 +59,34 @@ function showDataOnScreen(data) {
 
     randomQuestion = data[randomIndex];
     // console.log(randomQuestion)
-    /*- Keep in mind that that behaviour must be avoided if we're comming 
-    back from just editing.In that case it should show the same data as before.
-    */
-
-    sectionEditableContent(randomQuestion);
-
-    /* 
-    Save the question on localStorage to coninue where you left every time. Useful 
-    when you edit and need to come back to the same question showing the new data, for example. 
-    */
-
-    /* localStorage.setItem("currentQuestion", randomQuestion.question); */
+    areaWhereTheTextIsGonnaBeShown(randomQuestion);
 }
 
 
 
-function showNextData(data) {
-    /* showNextData_btn = document.getElementById("showNextData_btn");
-    showNextData_btn.addEventListener("click", () => {
+/* Takes both: Back & Next Buttons and applys the same behaviour for both of them:
+To show a random index data to the user screen. */
+function displayTheNextTextOnScreen(data) {
 
-        - Add here the behaviour for showing the next data in the array
-        - Se necesita un bucle for each para iterar en todos los indices del array
-        - Al llamar nuevamente a la funcion showDataOnScreen, la misma lo hace actualmente
-        sólo por el indice data[0] del array. Arreglar dicha función.      
-       
-
-        showDataOnScreen(data);
-    }); */
-
-
-
-    // TAKES BUTTONS "BACK" AND "NEXT" TO SHOW NEXT RANDOM DATA
     document.querySelectorAll(".showNextAndPreviousData_btn").forEach(btn => {
         btn.addEventListener("click", () => {
-            showDataOnScreen(data);
+
+            showTextOnUserScreen(data);
+
         })
     })
 }
 
 
 
-function toggleButtonsVisibilityAndEditableAreas() {
+/* SWITCHING STATES FOR BUTTONS AND TEXT AREAS: 
+- THOSE BUTTONS THAT ARE INITIALLY HIDDEN WILL APPEAR ON SCREEN WHEN THE VISIBLES ARE CLICKED, AND THESE LAST ONES WILL HIDE ACCORDINGLY 
+- THE SAME WITH THE TEXT AREAS; THEY WILL SWTCH BETWEEN EDITABLE OR NOT DEPENDING IF YOURE ADDING NEW DATA OR EDITING EXISTING ONE*/
+function switchVisibilityOrEditableState() {
 
     // Toggle: alternar entre estados.
-    document.querySelectorAll(".manipulatingInformation").forEach(btn => {
+    document.querySelectorAll(".switchVisibilityOrEditableState").forEach(btn => {
+
 
         btn.addEventListener("click", () => {
 
@@ -97,14 +95,13 @@ function toggleButtonsVisibilityAndEditableAreas() {
                 b.hidden = !b.hidden;
             });
 
-            // Toggle editable state
-            contentEditableArray.forEach(c => {
 
+            // Toggle editable state
+            textAreasForEditableContent_array.forEach(c => {
                 c.contentEditable =
                     c.contentEditable === "true"
                         ? "false"
                         : "true";
-
                 /* is basically shorthand for:
                 
                 if (c.contentEditable === "true") {
@@ -116,134 +113,149 @@ function toggleButtonsVisibilityAndEditableAreas() {
             });
 
 
-            visibilityOFAlertDeleteData();
-
+            
         });
+
     });
 }
 
 
+/* IT HANDLES ALERT AND ITS BUTTONS */
 function visibilityOFAlertDeleteData() {
 
     // DELETE BUTTON BEHAVIOUR: IT TOGGLES ALERT VISIBILITY 
-    const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
-    toggleDeleteAlert_btn.addEventListener("click", () => {
 
+    toggleDeleteAlert_btn.addEventListener("click", () => {
+        
+        disableSubmitAndCancelButtonsOnFooter()
         showHideDeleteAlert();
 
     })
 
-
-
-    // CANCELLING DELETE:
-    const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
-    doNotDeleteData_btn.addEventListener("click", () => {
-
-        showHideDeleteAlert();
-
-    });
-
-
-
     // CONFIRMATION FOR DELETING CURRENT DATA:
-    const deleteDataAccepted_btn = document.getElementById("deleteDataAccepted_btn");
+    
     deleteDataAccepted_btn.addEventListener("click", () => {
 
         document.querySelectorAll("button").forEach(b => {
             b.hidden;
         });
-
-        showDataOnScreen(data);
-
-        showHideDeleteAlert()
+        showTextOnUserScreen(data);
+        deleteData_alert.hidden = !deleteData_alert.hidden;
+        submitSection.hidden = !submitSection.hidden
 
     });
-}
 
+    // CANCELLING DELETE:
+    const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
+    doNotDeleteData_btn.addEventListener("click", () => {
+        
+        submitSection.hidden = !submitSection.hidden;
+        showHideDeleteAlert();
+
+    });
+
+}
 
 function showHideDeleteAlert() {
-    
-/*     alertDeleteData_Section.hidden = !alertDeleteData_Section.hidden;
- */
+    deleteData_alert.hidden = !deleteData_alert.hidden;
+    /* document.querySelector(".alertDeleteButtons").array.forEach(element => {
+        !element.hidden;
+    }); */
 }
 
 
 
-function uploadingNewData() {
+/* GO TO "ADD NEW" SCREEN */
+function linkToScreenAddNew() {
+
+    /* Textareas go empty on click the "Add New"" button */
+    
+    addNewData_btnHeader.addEventListener("click", () => {
+        
+        //editOrDelete_div.hidden = !editOrDelete_div.hidden;
+        submitSection.hidden;
 
 
-
-    // BEHAVIOR FOR THE "SAVE" BUTTON
-    const addNew_btn = document.getElementById("creatingNewData_btn");
-    addNew_btn.addEventListener("click", () => {
-
-        // console.log(randomQuestion);
-
-        contentEditableArray.forEach(c => {
+        textAreasForEditableContent_array.forEach(c => {
             c.innerHTML = "";
+            //console.log(c.id)
+
         });
 
-        alertDeleteData_Section.hidden = !alertDeleteData_Section.hidden;
         
+
+
+        // IN HERE: UPLOAD THE DATA ONLINE
+        submittingNewDataOnline()
+
     });
 
 
 
-
-
-
-
-
-    // BEHAVIOR FOR THE "CANCEL" BUTTON
-    const cancelChanges_btn = document.getElementById("cancelChanges_btn");
-    cancelChanges_btn.addEventListener("click", () => {
-        showHideDeleteAlert();
-        sectionEditableContent(randomQuestion);
+    /* On click, the "Cancel" button turns the screen back to what it looked like */
+    
+    cancelChangesDoNotSumbit_btn.addEventListener("click", () => {
+        //toggleDeleteAlert_btn.hidden = !toggleDeleteAlert_btn.hidden;
+        deleteDataAccepted_btn.hidden;
+        toggleDeleteAlert_btn.hidden
+        //editOrDelete_div.hidden = !editOrDelete_div.hidden;
+        areaWhereTheTextIsGonnaBeShown(randomQuestion);
     });
 }
 
 
 
-function savingNewDataOnline() {
+/* SAVES THE TEXTS INTO AN OBJECT. THEN, SUBMITS IT ONLINE */
+function submittingNewDataOnline() {
 
-    /* FIRST: 
-    Save the new data just created or modified into an object
-    */
+    /* FIRST: Save the new data just created or just edited into an object */
 
-    let saveChanges_btn = document.getElementById("saveChanges_btn");
-    saveChanges_btn.addEventListener("click", () => {
+    let submitChanges_btn = document.getElementById("submitChanges_btn");
+    submitChanges_btn.addEventListener("click", () => {
+        //!toggleDeleteAlert_btn.hidden;
+        //disableSubmitAndCancelButtonsOnFooter();
+        submitSection.hidden;
+        editOrDelete_div.hidden = !editOrDelete_div.hidden
+        
 
-        let newDataToUploadOnline = {
+        let newDataToSubmitOnline = {
             question: question.innerHTML,
             explanation: explanation.innerHTML,
             answer: answer.innerHTML,
             example: example.innerHTML,
-            topic: topic.innerHTML,
+            // topic: topic.innerHTML,
             edition: false,
         };
+        console.log("SAVING CHANGES:", newDataToSubmitOnline);
 
-        console.log(`SAVING CHANGES: ${newDataToUploadOnline}`);
 
-        sectionEditableContent(newDataToUploadOnline);
-        alertDeleteData_Section.hidden = !alertDeleteData_Section.hidden;
-        // Still needs to actually send the data to JSONBin to store it there.
+
+        /* FROM HERE -> POST (FETCH) THE DATA TO BE SUBMITTED
+
+        SECOND:
+            You're gonna save that object into the array: 
+                - If you already have an index (because youre just editing), overwrite that data with the new one.
+                - If you don't have an index (because youre adding new data), push the info at the end of the array.
+            
+            
+        THIRD:
+            POST the array using fetch to get it back online   
+        */
+
+
+
+        areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
+        // deleteData_alert.hidden = !deleteData_alert.hidden;
+
     }
     )
-
-
-
-    /* SECOND:
-    You're gonna save that object into the array: 
-        - If you already have an index (because youre just editing), overwrite that data with the new one.
-        - If you don't have an index (because youre adding new data), push the info at the end of the array.
-    */
-
-    /* THIRD:
-    POST the array using fetch to get it back online   */
-
 }
 
 
+
+function disableSubmitAndCancelButtonsOnFooter() {
+    submitSection.hidden = !submitSection.hidden;
+}
 
 
 
@@ -251,17 +263,6 @@ function savingNewDataOnline() {
 
 document.addEventListener("DOMContentLoaded", function () {
     let dataSavedOnLocalStorage = localStorage.getItem("data_JSONBin");
-
-    /* - The lines above are meant to bring back the last data that was uploaded to JSONBin.
-    In case of the API being offline or some other issues, localStorage has the latest 
-    most recent updates to show.
-    
-    - Still needed to figure out how to use it in case the JSONBin data is unreachable.
- 
-    - There's still the need of using STRINGIFY somewher with localStorage, but don't 
-    remember if it's with setItem or now with getItem.
-    */
-
 
     fetch("data.json")
         .then((res) => res.json())
@@ -272,32 +273,12 @@ document.addEventListener("DOMContentLoaded", function () {
             // SAVE DATA ON LOCALSTORAGE
             // localStorage.setItem("data_JSONBin", data);
 
-
             // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
-            showDataOnScreen(data);
-            showNextData(data);
-            toggleButtonsVisibilityAndEditableAreas();
-            uploadingNewData();
-
-
-            // SAVE NEW DATA ONLINE - JSONBIN
-            savingNewDataOnline()
-
-
-
-            /* If the data is undefined, bring from the local json
-                        
-            if (url_interview_data === undefined) {
-             fetch("data.json")
-                .then(res => res.json())
-                .then(json => {
-                    console.log(json);
-                    data = json.lines;
-                    console.log(data);
-                    showDataOnScreen(data);
-                }
-                ) 
-            */
+            showTextOnUserScreen(data);
+            displayTheNextTextOnScreen(data);
+            switchVisibilityOrEditableState();
+            linkToScreenAddNew();
+            visibilityOFAlertDeleteData();
 
         });
 });
