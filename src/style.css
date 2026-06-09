@@ -1,14 +1,16 @@
 
 * {
-    border: 0.5px red dashed;
+    border: 0.5px red dotted;
 }
 
-.border {
-    border: 1px grey solid;
+.border-solid {
+    border: 1px grey dashed;
 }
 
 body {
-    height: 100dvh;
+    height: 100vh;
+/*     width: 100dvw;
+ */    max-width: 600px;
 }
 
 header { height: 52px;
@@ -16,14 +18,21 @@ header { height: 52px;
 
 #alertDeleteData_Section {
     position: absolute;
-    z-index: 10;
-    background-color: aquamarine;
+    background-color: rgb(244, 255, 251);
+    bottom: 50%;
+    
+}
+
+#sectionEditableContent {
+    height: 85%;
+    overflow-y: auto;
 }
 
 footer {
   position: fixed;
   bottom: 0;
-  width: 100vw;
+  width: 100dvw;
+  max-width: 600px;
 }
 
 
