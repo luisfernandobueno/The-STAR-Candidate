@@ -26,6 +26,12 @@ header { height: 52px;
     
 }
 
+/* #categories {
+    position: absolute;
+    width: 100%;
+    background-color: aliceblue;
+} */
+
 #areaWhereTheTextIsGonnaBeShown {
     height: 85%;
     overflow-y: auto;

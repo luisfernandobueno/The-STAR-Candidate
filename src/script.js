@@ -15,7 +15,8 @@ const cancelChangesDoNotSumbit_btn = document.getElementById("cancelChangesDoNot
 const addNewData_btnHeader = document.getElementById("addNewData_btnHeader");
 const editOrDelete_div = document.getElementById("editOrDelete");
 
-const textAreasForEditableContent_array = document.querySelectorAll(".editable");
+
+const behaviourForTextAreasForEditableContent_array = document.querySelectorAll(".editable");
 const question = document.getElementById("question");
 const explanation = document.getElementById("explanation");
 const answer = document.getElementById("answer");
@@ -34,7 +35,6 @@ let randomQuestion;
 /* Finds the text areas where the info is gonna be displayed on the HTML
 and pastes there the corresponding data to finally be shown on screen*/
 function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
-
 
     question.innerText = randomQuestion.question;
     explanation.innerHTML = randomQuestion.explanation;
@@ -80,15 +80,15 @@ function displayTheNextTextOnScreen(data) {
 
 
 /* SWITCHING STATES FOR BUTTONS AND TEXT AREAS: 
-- THOSE BUTTONS THAT ARE INITIALLY HIDDEN WILL APPEAR ON SCREEN WHEN THE VISIBLES ARE CLICKED, AND THESE LAST ONES WILL HIDE ACCORDINGLY 
-- THE SAME WITH THE TEXT AREAS; THEY WILL SWTCH BETWEEN EDITABLE OR NOT DEPENDING IF YOURE ADDING NEW DATA OR EDITING EXISTING ONE*/
+- THOSE BUTTONS THAT ARE INITIALLY HIDDEN WILL APPEAR ON SCREEN WHEN THE VISIBLES ARE CLICKED, AND THESE LAST ONES WILL HIDE ACCORDINGLY */
 function switchVisibilityOrEditableState() {
 
     // Toggle: alternar entre estados.
     document.querySelectorAll(".switchVisibilityOrEditableState").forEach(btn => {
 
-
         btn.addEventListener("click", () => {
+
+
 
             // Toggle all buttons
             document.querySelectorAll("button").forEach(b => {
@@ -96,28 +96,34 @@ function switchVisibilityOrEditableState() {
             });
 
 
+
             // Toggle editable state
-            textAreasForEditableContent_array.forEach(c => {
-                c.contentEditable =
-                    c.contentEditable === "true"
-                        ? "false"
-                        : "true";
-                /* is basically shorthand for:
-                
-                if (c.contentEditable === "true") {
-                    c.contentEditable = "false";
-                } else {
-                    c.contentEditable = "true";
-                }
-                */
-            });
-
-
-            
+            behaviourForTextAreasForEditableContent();
         });
-
     });
 }
+
+
+
+/* TEXT AREAS WILL SWTCH BETWEEN EDITABLE OR NOT DEPENDING IF YOURE ADDING NEW DATA OR EDITING EXISTING ONE */
+function behaviourForTextAreasForEditableContent() {
+    behaviourForTextAreasForEditableContent_array.forEach(c => {
+        c.contentEditable =
+            c.contentEditable === "true"
+                ? "false"
+                : "true";
+
+        /* is basically shorthand for:
+        
+        if (c.contentEditable === "true") {
+            c.contentEditable = "false";
+        } else {
+            c.contentEditable = "true";
+        }
+        */
+    });
+}
+
 
 
 /* IT HANDLES ALERT AND ITS BUTTONS */
@@ -126,36 +132,50 @@ function visibilityOFAlertDeleteData() {
     // DELETE BUTTON BEHAVIOUR: IT TOGGLES ALERT VISIBILITY 
 
     toggleDeleteAlert_btn.addEventListener("click", () => {
-        
+
         disableSubmitAndCancelButtonsOnFooter()
+        behaviourForTextAreasForEditableContent()
         showHideDeleteAlert();
 
-    })
+    });
 
-    // CONFIRMATION FOR DELETING CURRENT DATA:
-    
+
+    // BEHAVIOUR FOR "DELETE" BUTTON INSIDE THE ALERT TO EFFECTIVELY DELETE DATA:
     deleteDataAccepted_btn.addEventListener("click", () => {
+
+
+        /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
+
 
         document.querySelectorAll("button").forEach(b => {
             b.hidden;
         });
-        showTextOnUserScreen(data);
+        behaviourForTextAreasForEditableContent();
         deleteData_alert.hidden = !deleteData_alert.hidden;
         submitSection.hidden = !submitSection.hidden
+        showTextOnUserScreen(data);
 
     });
 
-    // CANCELLING DELETE:
+
+    // BEHAVIOUR FOR "CANCEL" BUTTON INSIDE THE ALERT TO CANCEL THE DELETE:
     const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
     doNotDeleteData_btn.addEventListener("click", () => {
-        
+        behaviourForTextAreasForEditableContent();
         submitSection.hidden = !submitSection.hidden;
         showHideDeleteAlert();
-
     });
 
 }
 
+
+function behaviourForCancelButtonOnFooter() {
+    
+}
+
+
+
+/* HIDES AND SHOWS THE DELETE ALERT ON SCREEN */
 function showHideDeleteAlert() {
     deleteData_alert.hidden = !deleteData_alert.hidden;
     /* document.querySelector(".alertDeleteButtons").array.forEach(element => {
@@ -169,20 +189,16 @@ function showHideDeleteAlert() {
 function linkToScreenAddNew() {
 
     /* Textareas go empty on click the "Add New"" button */
-    
+
     addNewData_btnHeader.addEventListener("click", () => {
-        
-        //editOrDelete_div.hidden = !editOrDelete_div.hidden;
+
         submitSection.hidden;
 
-
-        textAreasForEditableContent_array.forEach(c => {
+        behaviourForTextAreasForEditableContent_array.forEach(c => {
             c.innerHTML = "";
             //console.log(c.id)
 
         });
-
-        
 
 
         // IN HERE: UPLOAD THE DATA ONLINE
@@ -193,12 +209,10 @@ function linkToScreenAddNew() {
 
 
     /* On click, the "Cancel" button turns the screen back to what it looked like */
-    
+
     cancelChangesDoNotSumbit_btn.addEventListener("click", () => {
-        //toggleDeleteAlert_btn.hidden = !toggleDeleteAlert_btn.hidden;
         deleteDataAccepted_btn.hidden;
         toggleDeleteAlert_btn.hidden
-        //editOrDelete_div.hidden = !editOrDelete_div.hidden;
         areaWhereTheTextIsGonnaBeShown(randomQuestion);
     });
 }
@@ -216,7 +230,7 @@ function submittingNewDataOnline() {
         //disableSubmitAndCancelButtonsOnFooter();
         submitSection.hidden;
         editOrDelete_div.hidden = !editOrDelete_div.hidden
-        
+
 
         let newDataToSubmitOnline = {
             question: question.innerHTML,
