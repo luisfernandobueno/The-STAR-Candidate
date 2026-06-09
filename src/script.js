@@ -4,7 +4,7 @@
 
 
 
-const url_interview_data = "https://github.com/luisfernandobueno/json/blob/700bd6dd500a961c42c04bff93aceddaed826641/api";
+const url_interview_data = "https://luisfernandobueno.github.io/json/jipapp.json";
 
 
 const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
@@ -35,6 +35,28 @@ let randomQuestion;
 /* Finds the text areas where the info is gonna be displayed on the HTML
 and pastes there the corresponding data to finally be shown on screen*/
 function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
+
+
+    console.log(randomQuestion.topic);
+
+    switch (randomQuestion.topic) {
+
+        case "Recruiter":
+            document.getElementById("cat_1").style.backgroundColor = "skyblue";
+            break;
+
+        case "Candidate":
+            document.getElementById("cat_2").style.backgroundColor = "green";
+            break;
+
+        case "Advice":
+            document.getElementById("cat_3").style.backgroundColor = "yellow";
+            break;
+
+        case "Encouragement":
+            document.getElementById("cat_4").style.backgroundColor = "orange";
+            break;
+    }
 
     question.innerText = randomQuestion.question;
     explanation.innerHTML = randomQuestion.explanation;
@@ -68,8 +90,17 @@ function showTextOnUserScreen(dataToBeDisplayed) {
 To show a random index data to the user screen. */
 function displayTheNextTextOnScreen(data) {
 
+
+
     document.querySelectorAll(".showNextAndPreviousData_btn").forEach(btn => {
         btn.addEventListener("click", () => {
+
+            /* Clean all the divs categories to white */
+            const deleteCategory = document.querySelectorAll(".category");
+            deleteCategory.forEach(e => {
+                e.style.backgroundColor = "white";
+                console.log(e)
+            })
 
             showTextOnUserScreen(data);
 
@@ -169,9 +200,9 @@ function visibilityOFAlertDeleteData() {
 }
 
 
-function behaviourForCancelButtonOnFooter() {
+/* function behaviourForCancelButtonOnFooter() {
     
-}
+} */
 
 
 
@@ -278,11 +309,11 @@ function disableSubmitAndCancelButtonsOnFooter() {
 document.addEventListener("DOMContentLoaded", function () {
     let dataSavedOnLocalStorage = localStorage.getItem("data_JSONBin");
 
-    fetch("data.json")
+    fetch(url_interview_data)
         .then((res) => res.json())
         .then((json) => {
             data = json.lines;
-            // console.log(data)
+            console.log(data)
 
             // SAVE DATA ON LOCALSTORAGE
             // localStorage.setItem("data_JSONBin", data);
