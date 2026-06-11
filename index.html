@@ -13,18 +13,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="m-auto mt-1 mb-1  border-solid rounded-lg">
+<body class="m-auto">
     <header id="header" class="p-2 mb-2 buttons flex text-xs">
         <div class="">
 
-            <button id="addNewData_btnHeader"
-                class="switchVisibilityOrEditableState toggleable border-solid px-4 py-2 rounded-full m-auto">
-                <span class="material-symbols-outlined">add</span>
-            </button>
-            <button onclick="window.location.href='showAllQuestions.html'"
-                class="toggleable border-solid px-4 py-2 rounded-full m-auto">
-                <span class="material-symbols-outlined"> search</span>
-            </button>
+            
         </div>
 
         <div class="m-auto"> </div>
@@ -32,11 +25,11 @@
         <div id="editOrDelete">
 
             <button id="toggleDeleteAlert_btn"
-                class="toggleable border-solid px-4 py-2 rounded-full text-orange-800 justify-end" hidden>
+                class=" rounded-full " hidden>
                 <span class="material-symbols-outlined">delete</span>
             </button>
             <button id="editCurrentData_btn"
-                class="switchVisibilityOrEditableState toggleable border-solid px-4 py-2 rounded-full text-orange-800 m-auto">
+                class="switchVisibilityOrEditableState toggleable   rounded-full  m-auto">
                 <span class="material-symbols-outlined">edit_square
 </span>
             </button>
@@ -53,7 +46,7 @@
      IT SHOULD BECOME VISIBLE EXCLUSIVELY AFTER PRESSING THE BUTTON "DELETE" WHICH IS INSIDE THE EDIT SECTION EXCLUSIVELY -->
 
 
-    <section id="deleteData_alert" class=" border-solid rounded-lg p-2 text-center" hidden>
+    <section id="deleteData_alert" class=" border-solid rounded-xl p-2 text-center" hidden>
 
         <h1 class="text-xl">Are you sure you want to delete?</h1>
         <p>This action can not be undone in the future</p>
@@ -98,15 +91,26 @@
 
 
 
-    <footer id="navBar" class="p-2 mb-1 buttons flex text-xs">
-        <div class="">
+    <footer id="navBar" class="p-2 mb-1 buttons  text-xs">
+        <div class="flex">
             <button id="showPreviousData_btn"
-                class="showNextAndPreviousData_btn border-solid  bg-sky-500 px-4 py-2 rounded-full text-orange-800">
+                class="showNextAndPreviousData_btn   py-2 rounded-full ">
                 <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <button onclick="window.location.href='showAllQuestions.html'" class="toggleable  px-4 py-2 rounded-full m-auto">
+                <span class="material-symbols-outlined"> search</span>
+            </button>
+            <button id="addNewData_btnHeader" class="switchVisibilityOrEditableState toggleable  px-4 py-2 rounded-full m-auto">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+            <button id="bookmark" class=" px-4 py-2 rounded-full"> <span class="material-symbols-outlined">bookmark</span></button>
+            <button id="displayTheNextTextOnScreen_btn"
+                class="showNextAndPreviousData_btn    py-2 rounded-full">
+                <span class="material-symbols-outlined">arrow_forward</span>
             </button>
         </div>
 
-        <div id="submitSection" class="m-auto switchVisibilityOrEditableState">
+        <div id="submitSection" class=" switchVisibilityOrEditableState">
            
             <button id="cancelChangesDoNotSumbit_btn"
                 class="submitChangesAndCancelChanges border-solid bg-sky-500 px-4 py-2 rounded-full" hidden>
@@ -120,10 +124,7 @@
         </div>
 
         <div class=" ">
-            <button id="displayTheNextTextOnScreen_btn"
-                class="showNextAndPreviousData_btn border-solid bg-sky-500 px-4 py-2 rounded-full">
-                <span class="material-symbols-outlined">arrow_forward</span>
-            </button>
+            
         </div>
     </footer>
 
