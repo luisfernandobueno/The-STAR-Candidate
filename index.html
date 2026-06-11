@@ -71,14 +71,14 @@
 
     <section id="areaWhereTheTextIsGonnaBeShown" class="m-2 mt-0 p-2 border-solid rounded-lg bg-fixed">
 
-        <section id="categories" class="flex pt-1 pb-2 rounded-lg">
-            <div id="cat_1" class="category border-solid rounded-full text-xs m-1 p-2 ml-auto">Recruiter</div>
-            <div id="cat_2"  class="category border-solid rounded-full text-xs  m-1 p-2">Candidate</div>
-            <div id="cat_3"  class="category border-solid rounded-full text-xs  m-1 p-2">Advice</div>
-            <div id="cat_4"  class="category border-solid rounded-full text-xs  m-1 p-2 mr-auto">Encouragement</div>
+        <section id="categories" class="flex ml-auto mr-auto rounded-lg">
+            <div id="cat_1" class="category border-solid rounded-full text-xs ml-auto ">Recruiter</div>
+            <div id="cat_2" class="category border-solid rounded-full text-xs mx-1 ">Candidate</div>
+            <div id="cat_3" class="category border-solid rounded-full text-xs mx-1">Advice</div>
+            <div id="cat_4" class="category border-solid rounded-full text-xs mr-auto ">Encouragement</div>
         </section>
 
-        <div id="question" class="pb-4 pt-4 text-xl editable border-b" contentEditable="false"></div>
+        <div id="question" class="py-4 px-8 text-xl editable border-b" contentEditable="false"></div>
         <div id="explanation" class="pb-4 pt-4 text-xs editable border-b" contentEditable="false"></div>
         <div id="answer" class="pb-4 pt-4 text-sm editable border-b" contentEditable="false"></div>
         <div id="example" class="pb-4 pt-4 text-xs editable" contentEditable="false"></div>
@@ -91,29 +91,29 @@
 
 
 
-    <footer id="navBar" class="p-2 mb-1 buttons  text-xs">
+    <footer id="navBar" class="pt-2 border-t buttons">
         <div class="flex">
             <button id="showPreviousData_btn"
-                class="showNextAndPreviousData_btn   py-2 rounded-full ">
+                class="showNextAndPreviousData_btn py-4 rounded-full ">
                 <span class="material-symbols-outlined">arrow_back</span>
             </button>
-            <button onclick="window.location.href='showAllQuestions.html'" class="toggleable  px-4 py-2 rounded-full m-auto">
+            <button onclick="window.location.href='showAllQuestions.html'" class="toggleable     py-4 px-8 rounded-full ">
                 <span class="material-symbols-outlined"> search</span>
             </button>
-            <button id="addNewData_btnHeader" class="switchVisibilityOrEditableState toggleable  px-4 py-2 rounded-full m-auto">
+            <button id="addNewData_btnHeader" class="switchVisibilityOrEditableState toggleable     py-4 px-8  rounded-full ">
                 <span class="material-symbols-outlined">add</span>
             </button>
-            <button id="bookmark" class=" px-4 py-2 rounded-full"> <span class="material-symbols-outlined">bookmark</span></button>
+            <button id="bookmark" class="    py-4 px-8 rounded-full"> <span class="material-symbols-outlined">bookmark</span></button>
             <button id="displayTheNextTextOnScreen_btn"
-                class="showNextAndPreviousData_btn    py-2 rounded-full">
+                class="showNextAndPreviousData_btn     py-4  rounded-full">
                 <span class="material-symbols-outlined">arrow_forward</span>
             </button>
         </div>
 
-        <div id="submitSection" class=" switchVisibilityOrEditableState">
+        <div id="submitSection" class="flex mx-2  switchVisibilityOrEditableState">
            
             <button id="cancelChangesDoNotSumbit_btn"
-                class="submitChangesAndCancelChanges border-solid bg-sky-500 px-4 py-2 rounded-full" hidden>
+                class="submitChangesAndCancelChanges border-solid px-4 py-2 rounded-full" hidden>
                 Cancel
             </button>
 

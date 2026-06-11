@@ -1,6 +1,7 @@
 
-* {
-    border: 0.5px red dotted;
+body * {
+    /* border: 0.5px red dotted; */
+    background-color: aliceblue;
 }
 
 .border-solid {
@@ -59,3 +60,7 @@ footer {
     width: 100%;
 }
 
+.submitChangesAndCancelChanges {
+    width: 100%;
+    
+}
