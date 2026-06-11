@@ -136,7 +136,7 @@ function switchVisibilityOrEditableState() {
 
 
 
-/* TEXT AREAS WILL SWTCH BETWEEN EDITABLE OR NOT DEPENDING IF YOURE ADDING NEW DATA OR EDITING EXISTING ONE */
+/* TEXT AREAS WILL SWITCH BETWEEN EDITABLE OR NOT DEPENDING IF YOU'RE ADDING NEW DATA OR EDITING EXISTING ONE */
 function behaviourForTextAreasForEditableContent() {
     behaviourForTextAreasForEditableContent_array.forEach(c => {
         c.contentEditable =
@@ -234,7 +234,6 @@ function linkToScreenAddNew() {
         behaviourForTextAreasForEditableContent_array.forEach(c => {
             c.innerHTML = "";
             //console.log(c.id)
-
         });
 
 
@@ -269,7 +268,7 @@ function submittingNewDataOnline() {
         editOrDelete_div.hidden = !editOrDelete_div.hidden
 
 
-        let newDataToSubmitOnline = {
+        /* let newDataToSubmitOnline = {
             question: question.innerHTML,
             explanation: explanation.innerHTML,
             answer: answer.innerHTML,
@@ -277,24 +276,28 @@ function submittingNewDataOnline() {
             // topic: topic.innerHTML ??????
             edition: false,
         };
-        console.log("SAVING CHANGES:", newDataToSubmitOnline);
+        console.log("SAVING CHANGES:", newDataToSubmitOnline); */
 
 
 
         // FROM HERE -> POST (FETCH) THE DATA TO BE SUBMITTED
 
-        fetch(`${url_interview_data}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                question: question.innerHTML,
-                explanation: explanation.innerHTML,
-                answer: answer.innerHTML,
-                example: example.innerHTML,
-            })
-        });;
+        fetch(url_interview_data, {
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        lines: [
+            {
+            question: question.innerHTML,
+            explanation: explanation.innerHTML,
+            answer: answer.innerHTML,
+            example: example.innerHTML,
+            }
+        ]
+    })
+});
 
 
         console.log("NEW DATA UPLOADED ONLINE: ", newDataToSubmitOnline)
