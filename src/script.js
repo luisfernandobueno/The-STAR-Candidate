@@ -3,8 +3,8 @@
 
 
 
-
-const url_interview_data = "https://luisfernandobueno.github.io/json/jipapp.json";
+// https://luisfernandobueno.github.io/json/jipapp.json
+const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/my-new-basket-name";
 
 
 const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
@@ -37,24 +37,24 @@ and pastes there the corresponding data to finally be shown on screen*/
 function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
 
 
-    console.log(randomQuestion.topic);
+    //console.log(randomQuestion.topic);
 
     switch (randomQuestion.topic) {
 
         case "Recruiter":
-            document.getElementById("cat_1").style.backgroundColor = "skyblue";
+            document.getElementById("cat_1").style.backgroundColor = "rgb(55, 187, 248)";
             break;
 
         case "Candidate":
-            document.getElementById("cat_2").style.backgroundColor = "green";
+            document.getElementById("cat_2").style.backgroundColor = "greenyellow";
             break;
 
         case "Advice":
-            document.getElementById("cat_3").style.backgroundColor = "yellow";
+            document.getElementById("cat_3").style.backgroundColor = "rgb(255, 255, 85)";
             break;
 
         case "Encouragement":
-            document.getElementById("cat_4").style.backgroundColor = "orange";
+            document.getElementById("cat_4").style.backgroundColor = "rgb(255, 164, 104)";
             break;
     }
 
@@ -66,7 +66,7 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
 
 
 
-/* Chooses a random index from the array and passes that one to the function that displayes
+/* Chooses a random index from the array and passes that one to the function that displays
 the text on screen, so it shows specifically the info in that particular index of the array */
 function showTextOnUserScreen(dataToBeDisplayed) {
 
@@ -171,11 +171,23 @@ function visibilityOFAlertDeleteData() {
     });
 
 
-    // BEHAVIOUR FOR "DELETE" BUTTON INSIDE THE ALERT TO EFFECTIVELY DELETE DATA:
+    behaviorForButtonsDeleteAndCancelInsideTheAlertDelete();
+}
+
+
+function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
+    // BEHAVIOR FOR "DELETE" BUTTON INSIDE THE ALERT TO EFFECTIVELY DELETE DATA:
     deleteDataAccepted_btn.addEventListener("click", () => {
 
 
+
         /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
+        /* 
+        fetch("https://api.example.com/users/1", {
+                method: "DELETE"
+            }); 
+        */
+
 
 
         document.querySelectorAll("button").forEach(b => {
@@ -189,20 +201,14 @@ function visibilityOFAlertDeleteData() {
     });
 
 
-    // BEHAVIOUR FOR "CANCEL" BUTTON INSIDE THE ALERT TO CANCEL THE DELETE:
+    // BEHAVIOR FOR "CANCEL" BUTTON INSIDE THE ALERT TO CANCEL THE DELETE:
     const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
     doNotDeleteData_btn.addEventListener("click", () => {
         behaviourForTextAreasForEditableContent();
         submitSection.hidden = !submitSection.hidden;
         showHideDeleteAlert();
     });
-
 }
-
-
-/* function behaviourForCancelButtonOnFooter() {
-    
-} */
 
 
 
@@ -268,14 +274,35 @@ function submittingNewDataOnline() {
             explanation: explanation.innerHTML,
             answer: answer.innerHTML,
             example: example.innerHTML,
-            // topic: topic.innerHTML,
+            // topic: topic.innerHTML ??????
             edition: false,
         };
         console.log("SAVING CHANGES:", newDataToSubmitOnline);
 
 
 
-        /* FROM HERE -> POST (FETCH) THE DATA TO BE SUBMITTED
+        // FROM HERE -> POST (FETCH) THE DATA TO BE SUBMITTED
+
+        fetch(`${url_interview_data}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                question: question.innerHTML,
+                explanation: explanation.innerHTML,
+                answer: answer.innerHTML,
+                example: example.innerHTML,
+            })
+        });;
+
+
+        console.log("NEW DATA UPLOADED ONLINE: ", newDataToSubmitOnline)
+
+
+
+
+        /*
 
         SECOND:
             You're gonna save that object into the array: 
@@ -285,6 +312,7 @@ function submittingNewDataOnline() {
             
         THIRD:
             POST the array using fetch to get it back online   
+
         */
 
 
@@ -304,7 +332,7 @@ function disableSubmitAndCancelButtonsOnFooter() {
 
 
 
-/* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOUR STARTS ------------------ */
+/* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
 document.addEventListener("DOMContentLoaded", function () {
     let dataSavedOnLocalStorage = localStorage.getItem("data_JSONBin");

@@ -11,16 +11,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="m-auto border-solid rounded-lg">
+<body class="m-auto mt-1 mb-1  border-solid rounded-lg">
     <header id="header" class="p-2  buttons flex text-xs">
         <div class="">
 
             <button id="addNewData_btnHeader"
-                class="switchVisibilityOrEditableState toggleable border-solid px-4 py-2 rounded-lg m-auto">
+                class="switchVisibilityOrEditableState toggleable border-solid px-4 py-2 rounded-full m-auto">
                 +New
             </button>
             <button onclick="window.location.href='showAllQuestions.html'"
-                class="toggleable border-solid px-4 py-2 rounded-lg m-auto">
+                class="toggleable border-solid px-4 py-2 rounded-full m-auto">
                 Srch
             </button>
         </div>
@@ -30,11 +30,11 @@
         <div id="editOrDelete">
 
             <button id="toggleDeleteAlert_btn"
-                class="toggleable border-solid px-4 py-2 rounded-lg text-orange-800 justify-end" hidden>
+                class="toggleable border-solid px-4 py-2 rounded-full text-orange-800 justify-end" hidden>
                 Del
             </button>
             <button id="editCurrentData_btn"
-                class="switchVisibilityOrEditableState toggleable border-solid px-4 py-2 rounded-lg text-orange-800 m-auto">
+                class="switchVisibilityOrEditableState toggleable border-solid px-4 py-2 rounded-full text-orange-800 m-auto">
                 Edit
             </button>
 
@@ -57,11 +57,11 @@
 
         <div id="" class="alertDeleteButtons flex  text-center">
             <button id="deleteDataAccepted_btn"
-                class="switchVisibilityOrEditableState flex-1 bg-sky-500 px-4 py-2 rounded-lg ml-auto text-red-800"
+                class="switchVisibilityOrEditableState flex-1 bg-sky-500 px-4 py-2 rounded-full ml-auto text-red-800"
                 hidden>
                 Delete
             </button>
-            <button id="doNotDeleteData_btn" class=" flex-1 bg-sky-500 px-4 py-2 rounded-lg mr-auto" hidden>
+            <button id="doNotDeleteData_btn" class=" flex-1 bg-sky-500 px-4 py-2 rounded-full mr-auto" hidden>
                 Cancel
             </button>
         </div>
@@ -75,10 +75,10 @@
     <section id="areaWhereTheTextIsGonnaBeShown" class="m-2 mt-0 p-2 border-solid rounded-lg bg-fixed">
 
         <section id="categories" class="flex pt-1 pb-2 rounded-lg">
-            <div id="cat_1" class="category border-solid rounded-lg text-xs m-1 p-1 ml-auto">Recruiter</div>
-            <div id="cat_2"  class="category border-solid rounded-lg text-xs  m-1 p-1">Candidate</div>
-            <div id="cat_3"  class="category border-solid rounded-lg text-xs  m-1 p-1">Advice</div>
-            <div id="cat_4"  class="category border-solid rounded-lg text-xs  m-1 p-1 mr-auto">Encouragement</div>
+            <div id="cat_1" class="category border-solid rounded-full text-xs m-1 p-2 ml-auto">Recruiter</div>
+            <div id="cat_2"  class="category border-solid rounded-full text-xs  m-1 p-2">Candidate</div>
+            <div id="cat_3"  class="category border-solid rounded-full text-xs  m-1 p-2">Advice</div>
+            <div id="cat_4"  class="category border-solid rounded-full text-xs  m-1 p-2 mr-auto">Encouragement</div>
         </section>
 
         <div id="question" class="pb-4 pt-4 text-xl editable border-b" contentEditable="false"></div>
@@ -97,25 +97,25 @@
     <footer id="navBar" class="p-2 mb-1 buttons flex text-xs">
         <div class="">
             <button id="showPreviousData_btn"
-                class="showNextAndPreviousData_btn border-solid  bg-sky-500 px-4 py-2 rounded-lg text-orange-800">
+                class="showNextAndPreviousData_btn border-solid  bg-sky-500 px-4 py-2 rounded-full text-orange-800">
                 Back
             </button>
         </div>
 
         <div id="submitSection" class="m-auto switchVisibilityOrEditableState">
             <button id="submitChanges_btn"
-                class="submitChangesAndCancelChanges border-solid bg-sky-500 px-4 py-2 rounded-lg " hidden>
+                class="submitChangesAndCancelChanges border-solid bg-sky-500 px-4 py-2 rounded-full" hidden>
                 Save
             </button>
             <button id="cancelChangesDoNotSumbit_btn"
-                class="submitChangesAndCancelChanges border-solid bg-sky-500 px-4 py-2 rounded-lg" hidden>
+                class="submitChangesAndCancelChanges border-solid bg-sky-500 px-4 py-2 rounded-full" hidden>
                 Cancel
             </button>
         </div>
 
         <div class=" ">
             <button id="displayTheNextTextOnScreen_btn"
-                class="showNextAndPreviousData_btn border-solid bg-sky-500 px-4 py-2 rounded-lg">
+                class="showNextAndPreviousData_btn border-solid bg-sky-500 px-4 py-2 rounded-full">
                 Next
             </button>
         </div>
