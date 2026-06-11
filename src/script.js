@@ -86,7 +86,7 @@ function showTextOnUserScreen(dataToBeDisplayed) {
 
 
 
-/* Takes both: Back & Next Buttons and applys the same behaviour for both of them:
+/* Takes both: Back & Next Buttons and applies the same behaviour for both of them:
 To show a random index data to the user screen. */
 function displayTheNextTextOnScreen(data) {
 
@@ -99,7 +99,7 @@ function displayTheNextTextOnScreen(data) {
             const deleteCategory = document.querySelectorAll(".category");
             deleteCategory.forEach(e => {
                 e.style.backgroundColor = "white";
-                console.log(e)
+                //console.log(e)
             })
 
             showTextOnUserScreen(data);
@@ -238,7 +238,7 @@ function linkToScreenAddNew() {
 
 
         // IN HERE: UPLOAD THE DATA ONLINE
-        submittingNewDataOnline()
+        
 
     });
 
@@ -268,7 +268,8 @@ function submittingNewDataOnline() {
         editOrDelete_div.hidden = !editOrDelete_div.hidden
 
 
-        /* let newDataToSubmitOnline = {
+        let newDataToSubmitOnline = {
+            // id: randomQuestion.id,
             question: question.innerHTML,
             explanation: explanation.innerHTML,
             answer: answer.innerHTML,
@@ -276,31 +277,31 @@ function submittingNewDataOnline() {
             // topic: topic.innerHTML ??????
             edition: false,
         };
-        console.log("SAVING CHANGES:", newDataToSubmitOnline); */
+        console.log("SAVING CHANGES:", newDataToSubmitOnline);
 
 
 
         // FROM HERE -> POST (FETCH) THE DATA TO BE SUBMITTED
 
         fetch(url_interview_data, {
-    method: "PUT",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        lines: [
-            {
-            question: question.innerHTML,
-            explanation: explanation.innerHTML,
-            answer: answer.innerHTML,
-            example: example.innerHTML,
-            }
-        ]
-    })
-});
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                lines: [
+                    {
+                        question: question.innerHTML,
+                        explanation: explanation.innerHTML,
+                        answer: answer.innerHTML,
+                        example: example.innerHTML,
+                    }
+                ]
+            })
+        });
 
 
-        console.log("NEW DATA UPLOADED ONLINE: ", newDataToSubmitOnline)
+        //console.log("NEW DATA UPLOADED ONLINE: ", newDataToSubmitOnline)
 
 
 
@@ -334,6 +335,16 @@ function disableSubmitAndCancelButtonsOnFooter() {
 }
 
 
+function displayAllQuestions(data) {
+    // document.getElementById("searchBar")
+
+    let displayAllQuestions = document.getElementById("displayAllQuestions");
+    data.forEach(e => {
+        displayAllQuestions.innerHTML = `<p>${e.question}</p>`
+        console.log(e.question)
+    })
+}
+
 
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
@@ -350,11 +361,22 @@ document.addEventListener("DOMContentLoaded", function () {
             // localStorage.setItem("data_JSONBin", data);
 
             // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
-            showTextOnUserScreen(data);
-            displayTheNextTextOnScreen(data);
-            switchVisibilityOrEditableState();
-            linkToScreenAddNew();
-            visibilityOFAlertDeleteData();
+
+
+
+           // if (window.location == "index.html") {
+                        showTextOnUserScreen(data);
+                        displayTheNextTextOnScreen(data);
+                        switchVisibilityOrEditableState();
+                        linkToScreenAddNew();
+                        visibilityOFAlertDeleteData();
+                        submittingNewDataOnline()
+           /*  } else {
+                displayAllQuestions(data);
+            } */
+
+
+
 
         });
 });

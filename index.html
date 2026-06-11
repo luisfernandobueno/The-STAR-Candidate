@@ -7,21 +7,23 @@
     <link rel="stylesheet" href="src/style.css">
     <title>JIP</title>
     <link rel="icon" href="src/bulb.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
 
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="m-auto mt-1 mb-1  border-solid rounded-lg">
-    <header id="header" class="p-2  buttons flex text-xs">
+    <header id="header" class="p-2 mb-2 buttons flex text-xs">
         <div class="">
 
             <button id="addNewData_btnHeader"
                 class="switchVisibilityOrEditableState toggleable border-solid px-4 py-2 rounded-full m-auto">
-                +New
+                <span class="material-symbols-outlined">add</span>
             </button>
             <button onclick="window.location.href='showAllQuestions.html'"
                 class="toggleable border-solid px-4 py-2 rounded-full m-auto">
-                Srch
+                <span class="material-symbols-outlined"> search</span>
             </button>
         </div>
 
@@ -31,11 +33,12 @@
 
             <button id="toggleDeleteAlert_btn"
                 class="toggleable border-solid px-4 py-2 rounded-full text-orange-800 justify-end" hidden>
-                Del
+                <span class="material-symbols-outlined">delete</span>
             </button>
             <button id="editCurrentData_btn"
                 class="switchVisibilityOrEditableState toggleable border-solid px-4 py-2 rounded-full text-orange-800 m-auto">
-                Edit
+                <span class="material-symbols-outlined">edit_square
+</span>
             </button>
 
         </div>
@@ -56,13 +59,14 @@
         <p>This action can not be undone in the future</p>
 
         <div id="" class="alertDeleteButtons flex  text-center">
+            
+            <button id="doNotDeleteData_btn" class=" flex-1 bg-sky-500 px-4 py-2 rounded-full mr-auto" hidden>
+                Cancel
+            </button>
             <button id="deleteDataAccepted_btn"
                 class="switchVisibilityOrEditableState flex-1 bg-sky-500 px-4 py-2 rounded-full ml-auto text-red-800"
                 hidden>
                 Delete
-            </button>
-            <button id="doNotDeleteData_btn" class=" flex-1 bg-sky-500 px-4 py-2 rounded-full mr-auto" hidden>
-                Cancel
             </button>
         </div>
     </section>
@@ -98,25 +102,27 @@
         <div class="">
             <button id="showPreviousData_btn"
                 class="showNextAndPreviousData_btn border-solid  bg-sky-500 px-4 py-2 rounded-full text-orange-800">
-                Back
+                <span class="material-symbols-outlined">arrow_back</span>
             </button>
         </div>
 
         <div id="submitSection" class="m-auto switchVisibilityOrEditableState">
-            <button id="submitChanges_btn"
-                class="submitChangesAndCancelChanges border-solid bg-sky-500 px-4 py-2 rounded-full" hidden>
-                Save
-            </button>
+           
             <button id="cancelChangesDoNotSumbit_btn"
                 class="submitChangesAndCancelChanges border-solid bg-sky-500 px-4 py-2 rounded-full" hidden>
                 Cancel
+            </button>
+
+             <button id="submitChanges_btn"
+                class="submitChangesAndCancelChanges border-solid bg-sky-500 px-4 py-2 rounded-full" hidden>
+                Save
             </button>
         </div>
 
         <div class=" ">
             <button id="displayTheNextTextOnScreen_btn"
                 class="showNextAndPreviousData_btn border-solid bg-sky-500 px-4 py-2 rounded-full">
-                Next
+                <span class="material-symbols-outlined">arrow_forward</span>
             </button>
         </div>
     </footer>
