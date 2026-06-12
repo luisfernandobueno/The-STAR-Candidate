@@ -1,11 +1,10 @@
 
-body * {
-    /* border: 0.5px red dotted; */
-    background-color: aliceblue;
-}
+/* body * {
+     border: 0.5px red dotted; 
+} */
 
 .border-solid {
-    border: 1px grey dashed;
+    border: 2px #333 dashed;
 }
 
 body {
@@ -47,10 +46,10 @@ footer {
   background-color: white;
 }
 
-.showNextAndPreviousData_btn {
+/* .showNextAndPreviousData_btn {
     width: 100%;
 }
-
+ */
 #searchBar {
     width: 100%;
 }

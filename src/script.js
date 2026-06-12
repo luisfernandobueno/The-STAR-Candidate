@@ -11,12 +11,11 @@ const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
 const deleteData_alert = document.getElementById("deleteData_alert");
 const submitSection = document.getElementById("submitSection");
 const deleteDataAccepted_btn = document.getElementById("deleteDataAccepted_btn");
-const cancelChangesDoNotSumbit_btn = document.getElementById("cancelChangesDoNotSumbit_btn");
+const cancelChangesDoNotSubmit_btn = document.getElementById("cancelChangesDoNotSubmit_btn");
 const addNewData_btnHeader = document.getElementById("addNewData_btnHeader");
-const editOrDelete_div = document.getElementById("editOrDelete");
 
 
-const behaviourForTextAreasForEditableContent_array = document.querySelectorAll(".editable");
+const behaviorForTextAreasForEditableContent_array = document.querySelectorAll(".editable");
 const question = document.getElementById("question");
 const explanation = document.getElementById("explanation");
 const answer = document.getElementById("answer");
@@ -122,14 +121,14 @@ function switchVisibilityOrEditableState() {
 
 
             // Toggle all buttons
-            document.querySelectorAll("button").forEach(b => {
+            document.querySelectorAll(".hiddenBehavior").forEach(b => {
                 b.hidden = !b.hidden;
             });
 
 
 
             // Toggle editable state
-            behaviourForTextAreasForEditableContent();
+            behaviorForTextAreasForEditableContent();
         });
     });
 }
@@ -137,8 +136,8 @@ function switchVisibilityOrEditableState() {
 
 
 /* TEXT AREAS WILL SWITCH BETWEEN EDITABLE OR NOT DEPENDING IF YOU'RE ADDING NEW DATA OR EDITING EXISTING ONE */
-function behaviourForTextAreasForEditableContent() {
-    behaviourForTextAreasForEditableContent_array.forEach(c => {
+function behaviorForTextAreasForEditableContent() {
+    behaviorForTextAreasForEditableContent_array.forEach(c => {
         c.contentEditable =
             c.contentEditable === "true"
                 ? "false"
@@ -160,13 +159,14 @@ function behaviourForTextAreasForEditableContent() {
 /* IT HANDLES ALERT AND ITS BUTTONS */
 function visibilityOFAlertDeleteData() {
 
-    // DELETE BUTTON BEHAVIOUR: IT TOGGLES ALERT VISIBILITY 
+    // DELETE BUTTON BEHAVIOR: IT TOGGLES ALERT VISIBILITY 
 
     toggleDeleteAlert_btn.addEventListener("click", () => {
 
-        disableSubmitAndCancelButtonsOnFooter()
-        behaviourForTextAreasForEditableContent()
         showHideDeleteAlert();
+        disableSubmitAndCancelButtonsOnFooter()
+        console.log("submitSectionHidden")
+        behaviorForTextAreasForEditableContent()
 
     });
 
@@ -178,24 +178,26 @@ function visibilityOFAlertDeleteData() {
 function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     // BEHAVIOR FOR "DELETE" BUTTON INSIDE THE ALERT TO EFFECTIVELY DELETE DATA:
     deleteDataAccepted_btn.addEventListener("click", () => {
-
+        let currentID = randomQuestion.id;
+        console.log(currentID);
+        console.log(randomQuestion.question)
 
 
         /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
-        /* 
-        fetch("https://api.example.com/users/1", {
+        
+        /* fetch(`${url_interview_data}`, {
                 method: "DELETE"
-            }); 
-        */
+            });  */
+       
 
 
 
         document.querySelectorAll("button").forEach(b => {
             b.hidden;
         });
-        behaviourForTextAreasForEditableContent();
+        behaviorForTextAreasForEditableContent();
         deleteData_alert.hidden = !deleteData_alert.hidden;
-        submitSection.hidden = !submitSection.hidden
+        //submitSection.hidden = !submitSection.hidden
         showTextOnUserScreen(data);
 
     });
@@ -204,8 +206,8 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     // BEHAVIOR FOR "CANCEL" BUTTON INSIDE THE ALERT TO CANCEL THE DELETE:
     const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
     doNotDeleteData_btn.addEventListener("click", () => {
-        behaviourForTextAreasForEditableContent();
-        submitSection.hidden = !submitSection.hidden;
+        behaviorForTextAreasForEditableContent();
+        
         showHideDeleteAlert();
     });
 }
@@ -215,9 +217,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 /* HIDES AND SHOWS THE DELETE ALERT ON SCREEN */
 function showHideDeleteAlert() {
     deleteData_alert.hidden = !deleteData_alert.hidden;
-    /* document.querySelector(".alertDeleteButtons").array.forEach(element => {
-        !element.hidden;
-    }); */
+    
 }
 
 
@@ -225,13 +225,12 @@ function showHideDeleteAlert() {
 /* GO TO "ADD NEW" SCREEN */
 function linkToScreenAddNew() {
 
-    /* Textareas go empty on click the "Add New"" button */
+    /* Text areas go empty on click the "Add New"" button */
 
     addNewData_btnHeader.addEventListener("click", () => {
 
-        submitSection.hidden;
-
-        behaviourForTextAreasForEditableContent_array.forEach(c => {
+        
+        behaviorForTextAreasForEditableContent_array.forEach(c => {
             c.innerHTML = "";
             //console.log(c.id)
         });
@@ -246,9 +245,9 @@ function linkToScreenAddNew() {
 
     /* On click, the "Cancel" button turns the screen back to what it looked like */
 
-    cancelChangesDoNotSumbit_btn.addEventListener("click", () => {
+    cancelChangesDoNotSubmit_btn.addEventListener("click", () => {
         deleteDataAccepted_btn.hidden;
-        toggleDeleteAlert_btn.hidden
+        
         areaWhereTheTextIsGonnaBeShown(randomQuestion);
     });
 }
@@ -263,9 +262,8 @@ function submittingNewDataOnline() {
     let submitChanges_btn = document.getElementById("submitChanges_btn");
     submitChanges_btn.addEventListener("click", () => {
         //!toggleDeleteAlert_btn.hidden;
-        //disableSubmitAndCancelButtonsOnFooter();
-        submitSection.hidden;
-        editOrDelete_div.hidden = !editOrDelete_div.hidden
+        disableSubmitAndCancelButtonsOnFooter();
+        submitSection.hidden = !submitSection.hidden;
 
 
         let newDataToSubmitOnline = {
@@ -322,7 +320,7 @@ function submittingNewDataOnline() {
 
 
         areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
-        // deleteData_alert.hidden = !deleteData_alert.hidden;
+         deleteData_alert.hidden = !deleteData_alert.hidden;
 
     }
     )
@@ -330,20 +328,18 @@ function submittingNewDataOnline() {
 
 
 
-function disableSubmitAndCancelButtonsOnFooter() {
-    submitSection.hidden = !submitSection.hidden;
-}
 
 
-function displayAllQuestions(data) {
+
+/* function displayAllQuestions(data) {
     // document.getElementById("searchBar")
 
     let displayAllQuestions = document.getElementById("displayAllQuestions");
     data.forEach(e => {
-        displayAllQuestions.innerHTML = `<p>${e.question}</p>`
+        displayAllQuestions.innerText = `<p>${e.question}</p>`
         console.log(e.question)
     })
-}
+} */
 
 
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
@@ -364,16 +360,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-           // if (window.location == "index.html") {
+            
                         showTextOnUserScreen(data);
                         displayTheNextTextOnScreen(data);
                         switchVisibilityOrEditableState();
                         linkToScreenAddNew();
                         visibilityOFAlertDeleteData();
                         submittingNewDataOnline()
-           /*  } else {
-                displayAllQuestions(data);
-            } */
+            
+                //displayAllQuestions(data);
+            
 
 
 

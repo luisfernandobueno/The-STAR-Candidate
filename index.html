@@ -1,42 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/style.css" />
     <title>JIP</title>
-    <link rel="icon" href="src/bulb.png" type="image/x-icon">
+    <link rel="icon" href="src/bulb.png" type="image/x-icon" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-
 
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="m-auto">
-    <header id="header" class="p-2 mb-2 buttons flex text-xs">
-        <div class="">
-
-            
-        </div>
-
-        <div class="m-auto"> </div>
-
-        <div id="editOrDelete">
-
-            <button id="toggleDeleteAlert_btn"
-                class=" rounded-full " hidden>
+    <header id="header" class="p-2 m-2 buttons flex text-xs">
+        <div class="align-center text-xl">Welcome</div>
+        <div class="ml-auto">
+            <button id="toggleDeleteAlert_btn" class="hiddenBehavior rounded-full" hidden>
                 <span class="material-symbols-outlined">delete</span>
             </button>
-            <button id="editCurrentData_btn"
-                class="switchVisibilityOrEditableState toggleable   rounded-full  m-auto">
-                <span class="material-symbols-outlined">edit_square
-</span>
+            <button id="editCurrentData_btn" class="switchVisibilityOrEditableState hiddenBehavior rounded-full m-auto">
+                <span class="material-symbols-outlined">edit_square </span>
             </button>
-
         </div>
     </header>
-
 
 
 
@@ -45,19 +32,16 @@
     <!-- ----------------------- DELETE ALERT:
      IT SHOULD BECOME VISIBLE EXCLUSIVELY AFTER PRESSING THE BUTTON "DELETE" WHICH IS INSIDE THE EDIT SECTION EXCLUSIVELY -->
 
-
-    <section id="deleteData_alert" class=" border-solid rounded-xl p-2 text-center" hidden>
-
+    <section id="deleteData_alert" class="border-solid shadow rounded-xl p-2 text-center" hidden>
         <h1 class="text-xl">Are you sure you want to delete?</h1>
         <p>This action can not be undone in the future</p>
 
-        <div id="" class="alertDeleteButtons flex  text-center">
-            
-            <button id="doNotDeleteData_btn" class=" flex-1 bg-sky-500 px-4 py-2 rounded-full mr-auto" hidden>
+        <div id="" class="alertDeleteButtons flex text-center">
+            <button id="doNotDeleteData_btn" class="hiddenBehavior flex-1 px-4 py-2 rounded-full mr-auto" hidden>
                 Cancel
             </button>
             <button id="deleteDataAccepted_btn"
-                class="switchVisibilityOrEditableState flex-1 bg-sky-500 px-4 py-2 rounded-full ml-auto text-red-800"
+                class="switchVisibilityOrEditableState hiddenBehavior flex-1 bg-red-500 px-4 py-2 rounded-full ml-auto text-red-800"
                 hidden>
                 Delete
             </button>
@@ -68,21 +52,26 @@
 
 
 
-
-    <section id="areaWhereTheTextIsGonnaBeShown" class="m-2 mt-0 p-2 border-solid rounded-lg bg-fixed">
-
-        <section id="categories" class="flex ml-auto mr-auto rounded-lg">
-            <div id="cat_1" class="category border-solid rounded-full text-xs ml-auto ">Recruiter</div>
-            <div id="cat_2" class="category border-solid rounded-full text-xs mx-1 ">Candidate</div>
-            <div id="cat_3" class="category border-solid rounded-full text-xs mx-1">Advice</div>
-            <div id="cat_4" class="category border-solid rounded-full text-xs mr-auto ">Encouragement</div>
+    <section id="areaWhereTheTextIsGonnaBeShown" class="m-2 p-2 border-solid rounded-xl bg-fixed">
+        <section id="categories" class="flex mt-4 mb-4">
+            <div id="cat_1" class="category px-2 py-1 border shadow rounded-full text-xs ml-auto">
+                Recruiter
+            </div>
+            <div id="cat_2" class="category px-2 py-1 border shadow rounded-full text-xs mx-1">
+                Candidate
+            </div>
+            <div id="cat_3" class="category px-2 py-1 border shadow rounded-full text-xs mx-1">
+                Advice
+            </div>
+            <div id="cat_4" class="category px-2 py-1 border shadow rounded-full text-xs mr-auto">
+                Encouragement
+            </div>
         </section>
 
-        <div id="question" class="py-4 px-8 text-xl editable border-b" contentEditable="false"></div>
-        <div id="explanation" class="pb-4 pt-4 text-xs editable border-b" contentEditable="false"></div>
-        <div id="answer" class="pb-4 pt-4 text-sm editable border-b" contentEditable="false"></div>
-        <div id="example" class="pb-4 pt-4 text-xs editable" contentEditable="false"></div>
-
+        <div id="question" class="py-4 text-xl editable border-b" contenteditable="false"></div>
+        <div id="explanation" class="pb-4 pt-4 text-xs editable border-b" contenteditable="false"></div>
+        <div id="answer" class="pb-4 pt-4 text-sm editable border-b" contenteditable="false"></div>
+        <div id="example" class="pb-4 pt-4 text-xs editable" contenteditable="false"></div>
     </section>
 
 
@@ -90,41 +79,38 @@
 
 
 
-
-    <footer id="navBar" class="pt-2 border-t buttons">
+    <footer id="navBar" class="border-t">
         <div class="flex">
-            <button id="showPreviousData_btn"
-                class="showNextAndPreviousData_btn py-4 rounded-full ">
+            <button id="showPreviousData_btn" class="showNextAndPreviousData_btn hiddenBehavior py-4 flex-1">
                 <span class="material-symbols-outlined">arrow_back</span>
             </button>
-            <button onclick="window.location.href='showAllQuestions.html'" class="toggleable     py-4 px-8 rounded-full ">
+            <button onclick="window.location.href = 'showAllQuestions.html'" class="hiddenBehavior py-4 flex-1">
                 <span class="material-symbols-outlined"> search</span>
             </button>
-            <button id="addNewData_btnHeader" class="switchVisibilityOrEditableState toggleable     py-4 px-8  rounded-full ">
-                <span class="material-symbols-outlined">add</span>
+            <button id="addNewData_btnHeader" class="switchVisibilityOrEditableState hiddenBehavior py-4 flex-1">
+                <span class="material-symbols-outlined border shadow p-2 bg-sky-500 rounded-full">add</span>
             </button>
-            <button id="bookmark" class="    py-4 px-8 rounded-full"> <span class="material-symbols-outlined">bookmark</span></button>
-            <button id="displayTheNextTextOnScreen_btn"
-                class="showNextAndPreviousData_btn     py-4  rounded-full">
+            <button id="bookmark" class="py-4 hiddenBehavior flex-1 ">
+                <span class="material-symbols-outlined">bookmark</span>
+            </button>
+            <button id="displayTheNextTextOnScreen_btn" class="showNextAndPreviousData_btn hiddenBehavior py-4 flex-1">
                 <span class="material-symbols-outlined">arrow_forward</span>
             </button>
         </div>
 
-        <div id="submitSection" class="flex mx-2  switchVisibilityOrEditableState">
-           
-            <button id="cancelChangesDoNotSumbit_btn"
-                class="submitChangesAndCancelChanges border-solid px-4 py-2 rounded-full" hidden>
+
+
+
+        <div id="submitSection" class="flex mx-2 switchVisibilityOrEditableState" hidden>
+            <button id="cancelChangesDoNotSubmit_btn"
+                class="submitChangesAndCancelChanges hiddenBehavior border px-4 py-2 rounded-full" hidden>
                 Cancel
             </button>
 
-             <button id="submitChanges_btn"
-                class="submitChangesAndCancelChanges border-solid bg-sky-500 px-4 py-2 rounded-full" hidden>
+            <button id="submitChanges_btn"
+                class="submitChangesAndCancelChanges hiddenBehavior border bg-sky-500 px-4 py-2 rounded-full" hidden>
                 Save
             </button>
-        </div>
-
-        <div class=" ">
-            
         </div>
     </footer>
 
