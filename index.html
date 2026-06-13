@@ -13,13 +13,13 @@
 </head>
 
 <body class="m-auto">
-    <header id="header" class="p-2  buttons flex text-xs">
+    <header id="header" class="p-2 mb-0 buttons flex text-xs">
         <div class="text-xl">Welcome</div>
         <div class="ml-auto">
-            <button id="toggleDeleteAlert_btn" class="hiddenBehavior rounded-full" hidden>
+            <button id="toggleDeleteAlert_btn" class="hiddenBehavior" >
                 <span class="material-symbols-outlined">delete</span>
             </button>
-            <button id="editCurrentData_btn" class="switchVisibilityOrEditableState hiddenBehavior rounded-full m-auto">
+            <button id="editCurrentData_btn" class="switchVisibilityOrEditableState hiddenBehavior ">
                 <span class="material-symbols-outlined">edit_square </span>
             </button>
         </div>
@@ -52,7 +52,7 @@
 
 
 
-    <section id="areaWhereTheTextIsGonnaBeShown" class="m-2 p-2 border-solid rounded-xl bg-fixed">
+    <section id="areaWhereTheTextIsGonnaBeShown" class="mx-1 p-2 border-solid rounded-xl bg-fixed">
         <section id="categories" class="flex mt-4 mb-4">
             <div id="cat_1" class="category px-2 py-1 border shadow rounded-full text-xs ml-auto">
                 Recruiter
@@ -79,7 +79,7 @@
 
 
 
-    <footer id="navBar" class="border-t">
+    <footer id="navBar">
         <div class="flex">
             <button id="showPreviousData_btn" class="showNextAndPreviousData_btn hiddenBehavior py-4 flex-1">
                 <span class="material-symbols-outlined">arrow_back</span>
@@ -101,14 +101,14 @@
 
 
 
-        <div id="submitSection" class="flex mx-2 switchVisibilityOrEditableState" hidden>
+        <div id="submitSection" class="flex switchVisibilityOrEditableState" hidden>
             <button id="cancelChangesDoNotSubmit_btn"
-                class="submitChangesAndCancelChanges hiddenBehavior border px-4 py-2 rounded-full" hidden>
+                class="submitChangesAndCancelChanges hiddenBehavior border m-2 mr-1 px-4 py-2 rounded-full" hidden>
                 Cancel
             </button>
 
             <button id="submitChanges_btn"
-                class="submitChangesAndCancelChanges hiddenBehavior border bg-sky-500 px-4 py-2 rounded-full" hidden>
+                class="submitChangesAndCancelChanges hiddenBehavior border bg-sky-500 m-2 ml-1 px-4 py-2 rounded-full" hidden>
                 Save
             </button>
         </div>

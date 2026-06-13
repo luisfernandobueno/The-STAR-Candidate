@@ -1,20 +1,20 @@
 
 /* body * {
      border: 0.5px red dotted; 
-} */
-
+}
+ */
 .border-solid {
     border: 2px #333 dashed;
 }
 
 body {
-    height: 100vh;
+    height: 100dvh;
 /*     width: 100dvw;
  */    max-width: 600px;
 }
 
-header { height: 52px;
-}
+/* header { height: 52px;
+} */
 
 #deleteData_alert {
     position: absolute;
@@ -26,25 +26,19 @@ header { height: 52px;
     
 }
 
-/* #categories {
-    position: absolute;
-    width: 100%;
-    background-color: aliceblue;
-} */
-
 #areaWhereTheTextIsGonnaBeShown {
-    height: 85%;
+    height: 100%;
     overflow-y: auto;
 }
 
-footer {
+/* footer {
   position: fixed;
   bottom: 0;
-  z-index: 0;
+  
   width: 100dvw;
   max-width: 600px;
   background-color: white;
-}
+} */
 
 /* .showNextAndPreviousData_btn {
     width: 100%;
@@ -56,10 +50,37 @@ footer {
 
 #displayAllQuestions {
     height: 100%;
-    width: 100%;
 }
 
 .submitChangesAndCancelChanges {
     width: 100%;
     
+}
+
+body {
+    height: 100dvh;
+    max-width: 600px;
+
+    display: flex;
+    flex-direction: column;
+
+    margin: 0;
+}
+
+header {
+    height: 52px;
+    flex-shrink: 0;
+}
+
+#areaWhereTheTextIsGonnaBeShown {
+    flex: 1;
+    overflow-y: auto;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+.submitSection div {
+    width: 100%;
 }
