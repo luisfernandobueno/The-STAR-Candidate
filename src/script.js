@@ -20,7 +20,8 @@ const question = document.getElementById("question");
 const explanation = document.getElementById("explanation");
 const answer = document.getElementById("answer");
 const example = document.getElementById("example");
-let randomQuestion;
+let randomIndex;
+let randomQuestion = {};
 
 
 
@@ -70,7 +71,7 @@ the text on screen, so it shows specifically the info in that particular index o
 function showTextOnUserScreen(dataToBeDisplayed) {
 
 
-    let randomIndex = Math.floor(Math.random() * data.length);
+    randomIndex = Math.floor(Math.random() * data.length);
 
     /* Why this works:
     Math.random() → gives something like 0.37482
@@ -79,7 +80,8 @@ function showTextOnUserScreen(dataToBeDisplayed) {
     */
 
     randomQuestion = data[randomIndex];
-    // console.log(randomQuestion)
+    currentID = data.randomIndex;
+    console.log("FUNCTION: SHOW TEST ON USER SCREEN: ", randomQuestion)
     areaWhereTheTextIsGonnaBeShown(randomQuestion);
 }
 
@@ -155,7 +157,6 @@ function behaviorForTextAreasForEditableContent() {
 }
 
 
-
 /* IT HANDLES ALERT AND ITS BUTTONS */
 function visibilityOFAlertDeleteData() {
 
@@ -164,10 +165,10 @@ function visibilityOFAlertDeleteData() {
     toggleDeleteAlert_btn.addEventListener("click", () => {
 
         showHideDeleteAlert();
-        disableSubmitAndCancelButtonsOnFooter()
+        
         console.log("submitSectionHidden")
         behaviorForTextAreasForEditableContent()
-
+        
     });
 
 
@@ -262,9 +263,10 @@ function submittingNewDataOnline() {
     let submitChanges_btn = document.getElementById("submitChanges_btn");
     submitChanges_btn.addEventListener("click", () => {
         //!toggleDeleteAlert_btn.hidden;
-        disableSubmitAndCancelButtonsOnFooter();
+        // disableSubmitAndCancelButtonsOnFooter();
         submitSection.hidden = !submitSection.hidden;
 
+        console.log("INDEX of element being currently edited: ", data.randomIndex)
 
         let newDataToSubmitOnline = {
             // id: randomQuestion.id,
@@ -308,8 +310,8 @@ function submittingNewDataOnline() {
 
         SECOND:
             You're gonna save that object into the array: 
-                - If you already have an index (because youre just editing), overwrite that data with the new one.
-                - If you don't have an index (because youre adding new data), push the info at the end of the array.
+                - If you already have an index (because you're just editing), overwrite that data with the new one.
+                - If you don't have an index (because you're adding new data), push the info at the end of the array.
             
             
         THIRD:
@@ -320,7 +322,7 @@ function submittingNewDataOnline() {
 
 
         areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
-         deleteData_alert.hidden = !deleteData_alert.hidden;
+         deleteData_alert.hidden;
 
     }
     )
