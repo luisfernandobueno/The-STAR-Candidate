@@ -9,12 +9,10 @@
 
 body {
     height: 100dvh;
-/*     width: 100dvw;
- */    max-width: 600px;
+    max-width: 600px;
 }
 
-/* header { height: 52px;
-} */
+
 
 #deleteData_alert {
     position: absolute;
@@ -31,19 +29,7 @@ body {
     overflow-y: auto;
 }
 
-/* footer {
-  position: fixed;
-  bottom: 0;
-  
-  width: 100dvw;
-  max-width: 600px;
-  background-color: white;
-} */
 
-/* .showNextAndPreviousData_btn {
-    width: 100%;
-}
- */
 #searchBar {
     width: 100%;
 }
