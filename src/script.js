@@ -11,17 +11,20 @@ const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
 const deleteData_alert = document.getElementById("deleteData_alert");
 const submitSection = document.getElementById("submitSection");
 const deleteDataAccepted_btn = document.getElementById("deleteDataAccepted_btn");
-const cancelChangesDoNotSubmit_btn = document.getElementById("cancelChangesDoNotSubmit_btn");
-const addNewData_btnHeader = document.getElementById("addNewData_btnHeader");
+
+const addNewData_btn = document.getElementById("addNewData_btn");
 
 
-const behaviorForTextAreasForEditableContent_array = document.querySelectorAll(".editable");
+const turningTheTextAreasEditable_array = document.querySelectorAll(".editable");
 const question = document.getElementById("question");
 const explanation = document.getElementById("explanation");
 const answer = document.getElementById("answer");
 const example = document.getElementById("example");
 let randomIndex;
 let randomQuestion = {};
+
+let editing = true;
+
 
 
 
@@ -36,6 +39,7 @@ let randomQuestion = {};
 and pastes there the corresponding data to finally be shown on screen*/
 function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
 
+    console.log("CURRENT INDEX OF THE ARRAY: ", randomIndex);
 
     //console.log(randomQuestion.topic);
 
@@ -72,7 +76,6 @@ function showTextOnUserScreen(dataToBeDisplayed) {
 
 
     randomIndex = Math.floor(Math.random() * data.length);
-
     /* Why this works:
     Math.random() → gives something like 0.37482
     Multiply by data.length → scales it to your array size
@@ -81,7 +84,7 @@ function showTextOnUserScreen(dataToBeDisplayed) {
 
     randomQuestion = data[randomIndex];
     currentID = data.randomIndex;
-    console.log("FUNCTION: SHOW TEST ON USER SCREEN: ", randomQuestion)
+    //console.log("FUNCTION: SHOW TEXT ON USER SCREEN: ", randomQuestion)
     areaWhereTheTextIsGonnaBeShown(randomQuestion);
 }
 
@@ -130,7 +133,7 @@ function switchVisibilityOrEditableState() {
 
 
             // Toggle editable state
-            behaviorForTextAreasForEditableContent();
+            turningTheTextAreasEditable();
         });
     });
 }
@@ -138,8 +141,8 @@ function switchVisibilityOrEditableState() {
 
 
 /* TEXT AREAS WILL SWITCH BETWEEN EDITABLE OR NOT DEPENDING IF YOU'RE ADDING NEW DATA OR EDITING EXISTING ONE */
-function behaviorForTextAreasForEditableContent() {
-    behaviorForTextAreasForEditableContent_array.forEach(c => {
+function turningTheTextAreasEditable() {
+    turningTheTextAreasEditable_array.forEach(c => {
         c.contentEditable =
             c.contentEditable === "true"
                 ? "false"
@@ -165,10 +168,10 @@ function visibilityOFAlertDeleteData() {
     toggleDeleteAlert_btn.addEventListener("click", () => {
 
         showHideDeleteAlert();
-        
+
         console.log("submitSectionHidden")
-        behaviorForTextAreasForEditableContent()
-        
+        turningTheTextAreasEditable()
+
     });
 
 
@@ -185,18 +188,18 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 
 
         /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
-        
+
         /* fetch(`${url_interview_data}`, {
                 method: "DELETE"
             });  */
-       
+
 
 
 
         document.querySelectorAll("button").forEach(b => {
             b.hidden;
         });
-        behaviorForTextAreasForEditableContent();
+        turningTheTextAreasEditable();
         deleteData_alert.hidden = !deleteData_alert.hidden;
         //submitSection.hidden = !submitSection.hidden
         showTextOnUserScreen(data);
@@ -207,67 +210,132 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     // BEHAVIOR FOR "CANCEL" BUTTON INSIDE THE ALERT TO CANCEL THE DELETE:
     const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
     doNotDeleteData_btn.addEventListener("click", () => {
-        behaviorForTextAreasForEditableContent();
-        
+        turningTheTextAreasEditable();
+
         showHideDeleteAlert();
     });
 }
 
 
-
 /* HIDES AND SHOWS THE DELETE ALERT ON SCREEN */
 function showHideDeleteAlert() {
     deleteData_alert.hidden = !deleteData_alert.hidden;
-    
-}
 
+}
 
 
 /* GO TO "ADD NEW" SCREEN */
-function linkToScreenAddNew() {
+function goToAddNewScreen() {
 
     /* Text areas go empty on click the "Add New"" button */
+    addNewData_btn.addEventListener("click", () => {
 
-    addNewData_btnHeader.addEventListener("click", () => {
-
-        
-        behaviorForTextAreasForEditableContent_array.forEach(c => {
+        turningTheTextAreasEditable_array.forEach(c => {
             c.innerHTML = "";
-            //console.log(c.id)
         });
 
+        editing = false;
+        console.log("EDITING DATA RIGHT NOW? ", editing)
 
-        // IN HERE: UPLOAD THE DATA ONLINE
-        
-
-    });
-
-
-
-    /* On click, the "Cancel" button turns the screen back to what it looked like */
-
-    cancelChangesDoNotSubmit_btn.addEventListener("click", () => {
-        deleteDataAccepted_btn.hidden;
-        
-        areaWhereTheTextIsGonnaBeShown(randomQuestion);
     });
 }
+
+
+
+/* THIS FUNCTION EVALUATES WHETHER ALL TEXT AREAS ARE EMPTY OR NOT */
+function areAllTextAreasEmpty() {
+    for (const div of turningTheTextAreasEditable_array) {
+        if (div.textContent.trim() !== "") {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+/* THIS FUNCTION EVALUATES WHETHER IF ITS EDITING OR NOT */
+function isItEditingDataRightNow() {
+    console.log("- !!! ENTERING THE isItEditingDataRightNow? FUNCTION RIGHT NOW !!! -")
+
+
+    if (editing) {
+        console.log("EDITING DATA RIGHT NOW? ", editing)
+
+        /* Add here block of code if it is editing:
+            - FIRST: 
+                    
+                    - If at least 1 text area is not empty, then save data
+
+
+
+
+
+
+
+
+        -------------------------------------------------------------------------------------
+            - FIRST: 
+                    Find the specific index in where the new data will be replaced 
+            - SECOND:
+                    Replace the data into the array
+            - THIRD:
+                    Call to the submittingNewDataOnline() function with the updated array       
+        */
+
+    } else {
+        console.log(`EDITING DATA RIGHT NOW? , ${editing} - CURRENTLY SUBMITTING NEW ONE`)
+        return
+    }
+}
+
+
+
 
 
 
 /* SAVES THE TEXTS INTO AN OBJECT. THEN, SUBMITS IT ONLINE */
 function submittingNewDataOnline() {
 
-    /* FIRST: Save the new data just created or just edited into an object */
+    const submitChanges_btn = document.getElementById("submitChanges_btn");
+    const cancelChangesDoNotSubmit_btn = document.getElementById("cancelChangesDoNotSubmit_btn");
 
-    let submitChanges_btn = document.getElementById("submitChanges_btn");
+    /* On click, the "Cancel" button turns the screen back to what it looked like */
+    cancelChangesDoNotSubmit_btn.addEventListener("click", () => {
+        areaWhereTheTextIsGonnaBeShown(randomQuestion);
+    });
+
+
+
+
+
+
+
+
+
+
+
+    /* ACTUALLY HITTING THE SUBMIT BUTTON */
     submitChanges_btn.addEventListener("click", () => {
-        //!toggleDeleteAlert_btn.hidden;
-        // disableSubmitAndCancelButtonsOnFooter();
-        submitSection.hidden = !submitSection.hidden;
 
-        console.log("INDEX of element being currently edited: ", data.randomIndex)
+        console.log("textAreasEmpty: ", areAllTextAreasEmpty());
 
+        /*  - For each text area === empty => is not editing => return.  */
+        if (areAllTextAreasEmpty()) {
+
+            areaWhereTheTextIsGonnaBeShown(randomQuestion);
+            alert("CANCELING SUBMITTING FOR ALL EMPTY TEXT AREAS");
+            console.log("CANCELING SUBMITTING FOR ALL EMPTY TEXT AREAS");
+            return
+
+        };
+
+        console.log("SUBMITTING FOR AT LEAST 1 TEXT AREA FILLED")
+        isItEditingDataRightNow();
+
+
+
+        /* FIRST: Save the new data just created or just edited into an object */
         let newDataToSubmitOnline = {
             // id: randomQuestion.id,
             question: question.innerHTML,
@@ -277,11 +345,92 @@ function submittingNewDataOnline() {
             // topic: topic.innerHTML ??????
             edition: false,
         };
-        console.log("SAVING CHANGES:", newDataToSubmitOnline);
 
 
 
-        // FROM HERE -> POST (FETCH) THE DATA TO BE SUBMITTED
+        if (editing) {
+
+
+            /*  FIRST: Find the specific index in where the new data will be replaced  */
+
+            console.log("CURRENT INDEX OF THE ARRAY: ", randomIndex)
+            console.log("DATA PREVIOUS BEING EDITED: ", randomQuestion)
+
+            /*              - SECOND:
+                        Replace the data into the array
+            */
+            let currentIndex = randomIndex;
+            console.log("currentIndex = ", currentIndex)
+            console.log(data);
+            console.log(data[currentIndex])
+            data[currentIndex] = newDataToSubmitOnline;
+            console.log(data[currentIndex])
+            /*      - THIRD:
+                         Call to the submittingNewDataOnline() function with the updated array       
+             */
+            // data.lines[currentIndex] = newDataToSubmitOnline;
+            console.log("ORIGINAL DATA: ", originalData)
+            console.log(originalData.lines[currentIndex])
+
+
+            fetch(url_interview_data, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(originalData)
+            })
+                .then(response => {
+                    console.log("Status:", response.status);
+                    return response.json();
+                })
+                .then(result => {
+                    console.log(result);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+
+
+            console.log("SUBMITTING EDITED DATA RIGHT NOW!!! ", editing)
+            console.log("NEW DATA UPLOADED ONLINE: ", newDataToSubmitOnline)
+
+            return
+
+
+
+        }
+        console.log(`SUBMITTING EDITED DATA RIGHT NOW? , ${editing} - CURRENTLY SUBMITTING NEW ONE`)
+
+
+
+
+
+
+
+
+        //console.log("EDITING CURRENT DATA: ", editing);
+        // console.log("INDEX of element being currently edited: ", data.randomIndex)
+
+
+
+
+        //console.log("SAVING CHANGES:", newDataToSubmitOnline);
+
+
+
+        /* SECOND:
+            You're gonna save that object into the array: 
+                - If you already have an index (because you're just editing), overwrite that data with the new one.
+                - If you don't have an index (because you're adding new data), push the info at the end of the array.
+          */
+
+
+
+
+        /*  FROM HERE -> POST (FETCH) THE DATA TO BE SUBMITTED  */
+        /*   THIRD: POST the array using fetch to get it back online  */
 
         fetch(url_interview_data, {
             method: "PUT",
@@ -301,29 +450,17 @@ function submittingNewDataOnline() {
         });
 
 
-        //console.log("NEW DATA UPLOADED ONLINE: ", newDataToSubmitOnline)
 
 
 
 
-        /*
-
-        SECOND:
-            You're gonna save that object into the array: 
-                - If you already have an index (because you're just editing), overwrite that data with the new one.
-                - If you don't have an index (because you're adding new data), push the info at the end of the array.
-            
-            
-        THIRD:
-            POST the array using fetch to get it back online   
-
-        */
+        console.log("NEW DATA UPLOADED ONLINE: ", newDataToSubmitOnline)
 
 
+        editing = true;
+        console.log("GETTING OUT OF THE submittingNewDataOnline FUNCTION RIGHT NOW!!! ", editing);
 
         areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
-         deleteData_alert.hidden;
-
     }
     )
 }
@@ -352,6 +489,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch(url_interview_data)
         .then((res) => res.json())
         .then((json) => {
+            originalData = json;
             data = json.lines;
             console.log(data)
 
@@ -362,16 +500,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-            
-                        showTextOnUserScreen(data);
-                        displayTheNextTextOnScreen(data);
-                        switchVisibilityOrEditableState();
-                        linkToScreenAddNew();
-                        visibilityOFAlertDeleteData();
-                        submittingNewDataOnline()
-            
-                //displayAllQuestions(data);
-            
+
+            showTextOnUserScreen(data);
+            displayTheNextTextOnScreen(data);
+            switchVisibilityOrEditableState();
+            goToAddNewScreen();
+            visibilityOFAlertDeleteData();
+            submittingNewDataOnline()
+
+
+            //displayAllQuestions(data);
+
 
 
 
