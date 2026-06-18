@@ -60,9 +60,9 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
         case "Encouragement":
             document.getElementById("cat_4").style.backgroundColor = "rgb(255, 164, 104)";
             break;
-    }
+    } 
 
-    question.innerText = randomQuestion.question;
+    question.innerHTML = randomQuestion.question;
     explanation.innerHTML = randomQuestion.explanation;
     answer.innerHTML = randomQuestion.answer;
     example.innerHTML = randomQuestion.example;
@@ -288,8 +288,6 @@ function isItEditingDataRightNow() {
         return
     }
 }
-
-
 
 
 
