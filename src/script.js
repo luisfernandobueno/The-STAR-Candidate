@@ -46,7 +46,7 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
     switch (randomQuestion.topic) {
 
         case "Recruiter":
-            document.getElementById("cat_1").style.backgroundColor = "rgb(55, 187, 248)";
+            document.getElementById("cat_1").style.backgroundColor = "rgb(68, 196, 255)";
             break;
 
         case "Candidate":
@@ -54,7 +54,7 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
             break;
 
         case "Advice":
-            document.getElementById("cat_3").style.backgroundColor = "rgb(255, 255, 85)";
+            document.getElementById("cat_3").style.backgroundColor = "rgb(255, 255, 124)";
             break;
 
         case "Encouragement":

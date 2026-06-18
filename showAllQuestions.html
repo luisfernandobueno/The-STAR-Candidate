@@ -7,7 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="src/style.css">
     <link rel="icon" href="src/bulb.png" type="image/x-icon">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -15,7 +15,8 @@
 </head>
 
 <body class="m-auto">
-    <header id="header" class="  buttons flex text-xs">
+    <nav id="header" class="px-3 pt-3 text-xs">
+        <div class=" text-xl">Search</div>
         <!-- <div class="">
             <button id="showPreviousData_btn" class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800">Back</button>
         </div>
@@ -48,25 +49,26 @@
                     Next
                 </button>
         </div> -->
-    </header>
-    
-
-    <section id="" class=" p-1 rounded-lg text-xl">
-        <input type="search" name="searchBar" id="searchBar" placeholder="What's your question?" class="text-xl p-2 mr-1 rounded-lg border-solid ">
-    </section>
-
-    <display id="displayAllQuestions" class="mx-1 p-1 border-solid rounded-xl">
-
-    </display>
-
-    <footer id="navBar" class="p-2 border buttons flex text-xs">
-        <button class="bg-sky-500 p-2 rounded-full m-auto border" onclick="window.location.href='index.html'">
-            <span class="material-symbols-outlined">home</span>
-        </button>
-    </footer>
+    </nav>
 
 
-    <script src="src/script.js"></script>
+        <section id="" class=" p-3 rounded-lg text-xl">
+            <input type="search" name="searchBar" id="searchBar" placeholder="What's your question?"
+                class="text-xl p-2 mr-1 rounded-lg border-solid ">
+        </section>
+
+        <display id="displayAllQuestions" class="mx-1 p-1 rounded-xl">
+
+        </display>
+
+        <footer id="navBar" class="py-2 border-t flex text-xs">
+            <button class="bg-sky-500 rounded-full mx-auto border" onclick="window.location.href='index.html'">
+                <span class="material-symbols-outlined width:24px p-2 ">home</span>
+            </button>
+        </footer>
+
+
+        <script src="src/script.js"></script>
 </body>
 
 </html>
