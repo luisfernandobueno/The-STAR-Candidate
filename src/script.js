@@ -14,7 +14,7 @@ const deleteDataAccepted_btn = document.getElementById("deleteDataAccepted_btn")
 
 const addNewData_btn = document.getElementById("addNewData_btn");
 
-
+const currentScreenLocation = document.getElementById("currentScreenLocation");
 const turningTheTextAreasEditable_array = document.querySelectorAll(".editable");
 const question = document.getElementById("question");
 const explanation = document.getElementById("explanation");
@@ -226,9 +226,12 @@ function showHideDeleteAlert() {
 
 /* GO TO "ADD NEW" SCREEN */
 function goToAddNewScreen() {
+    const delete_btn = document.getElementById("delete");
 
     /* Text areas go empty on click the "Add New"" button */
     addNewData_btn.addEventListener("click", () => {
+        delete_btn.hidden;
+        currentScreenLocation.innerHTML = "Add New";
 
         turningTheTextAreasEditable_array.forEach(c => {
             c.innerHTML = "";
@@ -300,6 +303,7 @@ function submittingNewDataOnline() {
 
     /* On click, the "Cancel" button turns the screen back to what it looked like */
     cancelChangesDoNotSubmit_btn.addEventListener("click", () => {
+        currentScreenLocation.innerHTML = "Home";
         areaWhereTheTextIsGonnaBeShown(randomQuestion);
     });
 
@@ -315,7 +319,7 @@ function submittingNewDataOnline() {
 
     /* ACTUALLY HITTING THE SUBMIT BUTTON */
     submitChanges_btn.addEventListener("click", () => {
-
+        currentScreenLocation.innerHTML = "Home";
         console.log("textAreasEmpty: ", areAllTextAreasEmpty());
 
         /*  - For each text area === empty => is not editing => return.  */
@@ -457,6 +461,7 @@ function submittingNewDataOnline() {
 
         editing = true;
         console.log("GETTING OUT OF THE submittingNewDataOnline FUNCTION RIGHT NOW!!! ", editing);
+                
 
         areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
     }
@@ -468,15 +473,6 @@ function submittingNewDataOnline() {
 
 
 
-/* function displayAllQuestions(data) {
-    // document.getElementById("searchBar")
-
-    let displayAllQuestions = document.getElementById("displayAllQuestions");
-    data.forEach(e => {
-        displayAllQuestions.innerText = `<p>${e.question}</p>`
-        console.log(e.question)
-    })
-} */
 
 
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */

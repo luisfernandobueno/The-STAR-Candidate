@@ -14,10 +14,10 @@
 
 <body class="m-auto">
     <nav id="header" class="px-3 pt-3 flex text-xs">
-        <div class=" text-xl">Home</div>
+        <div id="currentScreenLocation" class=" text-xl">Home</div>
         <div class="ml-auto">
             <button id="toggleDeleteAlert_btn" class="hiddenBehavior" hidden>
-                <span class="material-symbols-outlined">delete</span>
+                <span id="delete" class="material-symbols-outlined">delete</span>
             </button>
             <button class="switchVisibilityOrEditableState hiddenBehavior">
                 <span class="material-symbols-outlined">edit_square </span>
@@ -57,7 +57,7 @@
             <div id="cat_1" class="category mt-1 px-2 py-1 border-solid shadow  rounded-full text-xs ml-auto">
                 Recruiter
             </div>
-            <div id="cat_2" class="category mt-1 px-2 py-1 border-solid shadow rounded-full text-xs mx-1">
+            <div id="cat_2" class="category mt-1 px-2 py-1 border-solid shadow rounded-full text-xs ml-1">
                 Candidate
             </div>
             <div id="cat_3" class="category mt-1 px-2 py-1 border-solid shadow rounded-full text-xs mx-1">
@@ -75,7 +75,7 @@
     </section>
 
 
-    <footer id="navBar" class="border-t">
+    <footer id="navBar" class="border-t ">
         <div class="flex">
             <button id="showPreviousData_btn" class="showNextAndPreviousData_btn hiddenBehavior my-3 flex-1">
                 <span class="material-symbols-outlined">arrow_back</span>
@@ -84,9 +84,9 @@
                 <span class="material-symbols-outlined"> search</span>
             </button>
             <button id="addNewData_btn" class="switchVisibilityOrEditableState hiddenBehavior  flex-1">
-                <span class="material-symbols-outlined border shadow p-2 bg-sky-500 rounded-full">add</span>
+                <span class="material-symbols-outlined border shadow p-2 bg-sky-500 rounded-full height: 26px">add</span>
             </button>
-            <button id="bookmark" class=" hiddenBehavior flex-1 py-4">
+            <button id="bookmark"  onclick="window.location.href = 'showAllQuestions.html'" class=" hiddenBehavior flex-1 py-4">
                 <span class="material-symbols-outlined">bookmark</span>
             </button>
             <button id="displayTheNextTextOnScreen_btn" class="showNextAndPreviousData_btn hiddenBehavior py-4 flex-1">
