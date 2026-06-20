@@ -2,7 +2,6 @@
 /* ------------------------- GLOBAL VARIABLES ------------------------- */
 
 
-
 // https://luisfernandobueno.github.io/json/jipapp.json
 const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/my-new-basket-name";
 
@@ -523,8 +522,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-            // SAVE DATA ON LOCALSTORAGE
-            // localStorage.setItem("data_JSONBin", data);
+            /* SAVE DATA ON LOCALSTORAGE:
+            For the purpose of always having it up to date in case the api is not working right*/ 
+            
 
 
 
