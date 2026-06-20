@@ -15,6 +15,7 @@ const deleteDataAccepted_btn = document.getElementById("deleteDataAccepted_btn")
 const addNewData_btn = document.getElementById("addNewData_btn");
 
 const currentScreenLocation = document.getElementById("currentScreenLocation");
+const categoriesSection = document.querySelectorAll(".category");
 const turningTheTextAreasEditable_array = document.querySelectorAll(".editable");
 const question = document.getElementById("question");
 const explanation = document.getElementById("explanation");
@@ -24,14 +25,61 @@ let randomIndex;
 let randomQuestion = {};
 
 let editing = true;
-
-
+let topic;
 
 
 
 
 /* ------------------------- FUNCTIONS ------------------------- */
 
+/* IF THE SCREEN WIDTH IS LESS THAN 210PX, ONLY THE CURRENT CATEGORY WILL BE SHOWN ON SCREEN */
+function updateCategories(topic) {
+    if (window.innerWidth < 210) {
+        console.log("SCREEN SIZE < 210");
+
+        categoriesSection.forEach((category) => {
+            console.log(category.id);
+            console.log(topic)
+
+            if (category.id !== topic) {
+                category.hidden = true;
+            } else {
+                category.hidden = false;
+            }
+        });
+
+    } else {
+        categoriesSection.forEach((category) => {
+            category.hidden = false;
+        });
+    }
+}
+
+
+
+function sectionCategoriesBehavior() {
+    updateCategories(topic);
+
+    
+
+    switch (topic) {
+        case "Recruiter":
+            document.getElementById("Recruiter").style.backgroundColor = "rgb(68, 196, 255)";
+            break;
+
+        case "Candidate":
+            document.getElementById("Candidate").style.backgroundColor = "greenyellow";
+            break;
+
+        case "Advice":
+            document.getElementById("Advice").style.backgroundColor = "rgb(255, 255, 124)";
+            break;
+
+        case "Encouragement":
+            document.getElementById("Encouragement").style.backgroundColor = "rgb(255, 164, 104)";
+            break;
+    }
+}
 
 
 
@@ -43,24 +91,8 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
 
     //console.log(randomQuestion.topic);
 
-    switch (randomQuestion.topic) {
-
-        case "Recruiter":
-            document.getElementById("cat_1").style.backgroundColor = "rgb(68, 196, 255)";
-            break;
-
-        case "Candidate":
-            document.getElementById("cat_2").style.backgroundColor = "greenyellow";
-            break;
-
-        case "Advice":
-            document.getElementById("cat_3").style.backgroundColor = "rgb(255, 255, 124)";
-            break;
-
-        case "Encouragement":
-            document.getElementById("cat_4").style.backgroundColor = "rgb(255, 164, 104)";
-            break;
-    } 
+    topic = randomQuestion.topic;
+    sectionCategoriesBehavior();
 
     question.innerHTML = randomQuestion.question;
     explanation.innerHTML = randomQuestion.explanation;
@@ -160,6 +192,7 @@ function turningTheTextAreasEditable() {
 }
 
 
+
 /* IT HANDLES ALERT AND ITS BUTTONS */
 function visibilityOFAlertDeleteData() {
 
@@ -177,6 +210,7 @@ function visibilityOFAlertDeleteData() {
 
     behaviorForButtonsDeleteAndCancelInsideTheAlertDelete();
 }
+
 
 
 function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
@@ -217,11 +251,13 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 }
 
 
+
 /* HIDES AND SHOWS THE DELETE ALERT ON SCREEN */
 function showHideDeleteAlert() {
     deleteData_alert.hidden = !deleteData_alert.hidden;
 
 }
+
 
 
 /* GO TO "ADD NEW" SCREEN */
@@ -242,7 +278,6 @@ function goToAddNewScreen() {
 
     });
 }
-
 
 
 /* THIS FUNCTION EVALUATES WHETHER ALL TEXT AREAS ARE EMPTY OR NOT */
@@ -291,7 +326,6 @@ function isItEditingDataRightNow() {
         return
     }
 }
-
 
 
 
@@ -461,7 +495,7 @@ function submittingNewDataOnline() {
 
         editing = true;
         console.log("GETTING OUT OF THE submittingNewDataOnline FUNCTION RIGHT NOW!!! ", editing);
-                
+
 
         areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
     }
@@ -478,7 +512,7 @@ function submittingNewDataOnline() {
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
 document.addEventListener("DOMContentLoaded", function () {
-    let dataSavedOnLocalStorage = localStorage.getItem("data_JSONBin");
+    
 
     fetch(url_interview_data)
         .then((res) => res.json())
@@ -487,26 +521,21 @@ document.addEventListener("DOMContentLoaded", function () {
             data = json.lines;
             console.log(data)
 
+
+
             // SAVE DATA ON LOCALSTORAGE
             // localStorage.setItem("data_JSONBin", data);
 
+
+
             // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
-
-
-
-
             showTextOnUserScreen(data);
+
             displayTheNextTextOnScreen(data);
             switchVisibilityOrEditableState();
             goToAddNewScreen();
             visibilityOFAlertDeleteData();
             submittingNewDataOnline()
-
-
-            //displayAllQuestions(data);
-
-
-
 
 
         });
