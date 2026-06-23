@@ -77,8 +77,13 @@ header {
 
 footer {
     flex-shrink: 0;
+    margin: 8px;
 }
 
 .submitSection div {
     width: 100%;
+}
+
+.searchQuestion {
+    display: block;
 }

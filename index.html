@@ -1,4 +1,4 @@
-<!DOCTYPE html
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,14 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="src/style.css" />
     <title>JIP</title>
-    <link rel="icon" href="https://images.vexels.com/media/users/3/136286/isolated/preview/619aebd588e40eb596c3fa768e9dff5e-lightning-bolt-icon.png" type="image/x-icon" />
+    <link rel="icon"
+        href="https://images.vexels.com/media/users/3/136286/isolated/preview/619aebd588e40eb596c3fa768e9dff5e-lightning-bolt-icon.png"
+        type="image/x-icon" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="m-auto">
-    <nav id="header" class="px-3 pt-3 flex  text-xs">
+    <nav id="header" class="mb-2 px-3 pt-3 flex  text-xs">
         <div id="currentScreenLocation" class=" text-xl">Home</div>
         <div class="ml-auto">
             <button id="toggleDeleteAlert_btn" class="hiddenBehavior" hidden>
@@ -51,8 +53,8 @@
 
 
 
-    <section id="areaWhereTheTextIsGonnaBeShown" class="mx-1 p-2 shadow-full rounded-xl bg-fixed">
-        <section id="categoriesSection" class="flex">
+    <section id="areaWhereTheTextIsGonnaBeShown" class="mx-2 mt-0 border rounded-lg p-2               mx-1 shadow-full rounded-xl bg-fixed">
+        <section id="categoriesSection" class="flex flex-wrap">
             <div id="Recruiter" class="category mt-1 px-2 py-1 flex-1 text-center    rounded-lg text-xs ml-auto">
                 Recruiter
             </div>
@@ -67,28 +69,39 @@
             </div>
         </section>
 
-        <div id="question" class="py-4 font-bold editable border-b text-sky-500 text-xl" contenteditable="false">        </div>
+        <div id="question" class="py-4 font-bold editable border-b text-sky-500 text-xl" contenteditable="false"> </div>
         <div id="explanation" class="pb-4 pt-4 text-sm  editable border-b" contenteditable="false"></div>
         <div id="answer" class="pb-4 pt-4  font-medium editable border-b" contenteditable="false"></div>
         <div id="example" class="pb-4 pt-4 text-s editable" contenteditable="false"></div>
     </section>
 
 
-    <footer id="navBar" class="border-t ">
+    <footer id="navBar" class="border rounded-xl">
         <div class="flex">
-            <button id="showPreviousData_btn" class="showNextAndPreviousData_btn hiddenBehavior my-3 flex-1">
+            <button id="showPreviousData_btn"
+                class="showNextAndPreviousData_btn hiddenBehavior my-3 flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">arrow_back</span>
             </button>
-            <button onclick="window.location.href = 'showAllQuestions.html'" class="hiddenBehavior py-4 flex-1">
-                <span class="material-symbols-outlined"> search</span>
+
+            <button onclick="window.location.href = 'showAllQuestions.html'"
+                class="hiddenBehavior py-4 flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined">search</span>
             </button>
-            <button id="addNewData_btn" class="switchVisibilityOrEditableState hiddenBehavior  flex-1">
-                <span class="material-symbols-outlined border shadow p-2 bg-sky-500 rounded-full height: 26px">add</span>
+
+            <button id="addNewData_btn"
+                class="switchVisibilityOrEditableState hiddenBehavior flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined border shadow p-2 bg-sky-500 rounded-full">
+                    add
+                </span>
             </button>
-            <button id="bookmark"  onclick="window.location.href = 'showAllQuestions.html'" class=" hiddenBehavior flex-1 py-4">
+
+            <button id="bookmark" onclick="window.location.href = 'showAllQuestions.html'"
+                class="hiddenBehavior flex-1 py-4 flex items-center justify-center">
                 <span class="material-symbols-outlined">bookmark</span>
             </button>
-            <button id="displayTheNextTextOnScreen_btn" class="showNextAndPreviousData_btn hiddenBehavior py-4 flex-1">
+
+            <button id="displayTheNextTextOnScreen_btn"
+                class="showNextAndPreviousData_btn hiddenBehavior py-4 flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">arrow_forward</span>
             </button>
         </div>
@@ -103,7 +116,8 @@
             </button>
 
             <button id="submitChanges_btn"
-                class="submitChangesAndCancelChanges hiddenBehavior border bg-sky-500 m-2 ml-1 px-4 py-2 rounded-full" hidden>
+                class="submitChangesAndCancelChanges hiddenBehavior border bg-sky-500 m-2 ml-1 px-4 py-2 rounded-full"
+                hidden>
                 Save
             </button>
         </div>

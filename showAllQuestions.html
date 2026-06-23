@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="src/style.css">
-    <link rel="icon" href="https://images.vexels.com/media/users/3/136286/isolated/preview/619aebd588e40eb596c3fa768e9dff5e-lightning-bolt-icon.png" type="image/x-icon">
+    <link rel="icon"
+        href="https://images.vexels.com/media/users/3/136286/isolated/preview/619aebd588e40eb596c3fa768e9dff5e-lightning-bolt-icon.png"
+        type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -52,22 +54,64 @@
     </nav>
 
 
-        <section id="" class=" p-3 rounded-lg text-xl">
-            <input type="search" name="searchBar" id="searchBar" placeholder="What's your question?"
-                class="text-xl p-2 mr-1 rounded-lg border-solid ">
+    <section id="" class=" pt-3 p-2 rounded-lg text-xl">
+        <input id="searchBar" type="search" name="searchBar" placeholder="What's your question?"
+            class="text-xl p-2 mr-1 rounded-xl border-solid ">
+
+            
+        <section id="categoriesSection" class="mt-2 flex flex-wrap">
+            <div id="Recruiter" class="category  px-2 py-1 flex-1 text-center    rounded-lg text-xs ml-auto">
+                Recruiter
+            </div>
+            <div id="Candidate" class="category  px-2 py-1  flex-1 text-center   rounded-lg text-xs ml-1">
+                Candidate
+            </div>
+            <div id="Advice" class="category  px-2 py-1  flex-1 text-center   rounded-lg text-xs mx-1">
+                Advice
+            </div>
+            <div id="Encouragement" class="category  px-2 py-1  flex-1 text-center  rounded-lg text-xs mr-auto">
+                Encouragement
+            </div>
         </section>
+    </section>
 
-        <display id="displayAllQuestions" class="mx-1 p-2">
-        </display>
 
-        <footer id="navBar" class="py-2 border-t flex text-xs">
-            <button class="bg-sky-500 rounded-full mx-auto border" onclick="window.location.href='index.html'">
-                <span class="material-symbols-outlined width:24px p-2 ">home</span>
+
+    <display id="displayAllQuestions" class="mx-2 mt-0 border rounded-lg p-2">
+    </display>
+
+    <footer id="navBar" class="border rounded-xl  text-xs">
+
+        <div class="flex">
+            <button id="showPreviousData_btn"
+                class="showNextAndPreviousData_btn hiddenBehavior my-3 flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined">arrow_back</span>
             </button>
-        </footer>
+
+            <button onclick="window.location.href = 'showAllQuestions.html'"
+                class="hiddenBehavior py-4 flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+
+            <button onclick="window.location.href='index.html'" class=" flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined border shadow p-2 bg-sky-500 rounded-full">home</span>
+            </button>
 
 
-        <script src="src/search.js"></script>
+            <button id="bookmark" onclick="window.location.href = 'showAllQuestions.html'"
+                class="hiddenBehavior flex-1 py-4 flex items-center justify-center">
+                <span class="material-symbols-outlined">bookmark</span>
+            </button>
+
+            <button id="displayTheNextTextOnScreen_btn"
+                class="showNextAndPreviousData_btn hiddenBehavior py-4 flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+        </div>
+    </footer>
+
+
+    <script src="src/search.js"></script>
 </body>
 
 </html>
