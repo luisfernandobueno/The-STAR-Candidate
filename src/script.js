@@ -206,6 +206,7 @@ function visibilityOFAlertDeleteData() {
     // DELETE BUTTON BEHAVIOR: IT TOGGLES ALERT VISIBILITY 
 
     toggleDeleteAlert_btn.addEventListener("click", () => {
+        currentScreenLocation.innerHTML = "Delete"
         delete_btn.classList.add("hidden");
         submitSection.classList.add("hidden");
         showHideDeleteAlert();
@@ -226,7 +227,9 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     deleteDataAccepted_btn.addEventListener("click", () => {
         submitSection.classList.remove("hidden");
         navBar.classList.remove("hidden");
+
         delete_btn.classList.remove("hidden");
+        currentScreenLocation.innerHTML = "Home"
 
         let currentID = randomQuestion.id;
         console.log(currentID);
@@ -258,6 +261,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     doNotDeleteData_btn.addEventListener("click", () => {
         submitSection.classList.remove("hidden");
         delete_btn.classList.remove("hidden");
+        currentScreenLocation.innerHTML = "Edit"
         turningTheTextAreasEditable();
 
         showHideDeleteAlert();
@@ -279,7 +283,8 @@ function goToAddNewScreen() {
     
     edit_btn.addEventListener("click", () => {
         navBar.classList.add("hidden");
-    })
+        currentScreenLocation.innerText = "Edit"
+    });
 
 
     /* Text areas go empty on click the "Add New"" button */
