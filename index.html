@@ -15,6 +15,8 @@
 </head>
 
 <body class="m-auto">
+
+    <!-- ----------------------- HEADER NAV BAR: ------------------------>
     <nav id="header" class="mb-3 px-3 pt-3 flex  text-xs">
         <div id="currentScreenLocation" class=" text-xl">Home</div>
         <div class="ml-auto">
@@ -27,10 +29,7 @@
         </div>
     </nav>
 
-
-    <!-- ----------------------- DELETE ALERT:
-     IT SHOULD BECOME VISIBLE EXCLUSIVELY AFTER PRESSING THE BUTTON "DELETE" WHICH IS INSIDE THE EDIT SECTION EXCLUSIVELY -->
-
+    <!-- ----------------------- DELETE ALERT: ------------------------>
     <section id="deleteData_alert" class="border shadow rounded-xl  p-2 text-center" hidden>
         <div class="m-4">
 
@@ -50,8 +49,7 @@
         </div>
     </section>
 
-
-
+    <!-- ----------------------- CATEGORIES SECTION: ------------------------>
     <section id="categoriesSection" class="mx-2 mb-1 flex flex-wrap">
         <div id="Recruiter" class="category mb-1  px-2 py-1 flex-1 text-center    rounded-lg text-xs ml-auto">
             Recruiter
@@ -67,7 +65,9 @@
         </div>
     </section>
 
-    <section id="areaWhereTheTextIsGonnaBeShown" class="mx-2 border rounded-lg p-2               mx-1 shadow-full rounded-xl bg-fixed">
+    <!-- ----------------------- EDITABLE TEXT AREAS: ------------------------>
+    <section id="areaWhereTheTextIsGonnaBeShown"
+        class="mx-2 border rounded-lg p-2               mx-1 shadow-full rounded-xl bg-fixed">
 
         <div id="question" class="py-4 pt-3 font-bold editable  text-sky-500 text-xl" contenteditable="false"> </div>
         <div id="explanation" class="pb-4 text-xs editable border-b" contenteditable="false"></div>
@@ -75,7 +75,7 @@
         <div id="example" class=" text-xs editable" contenteditable="false"></div>
     </section>
 
-
+    <!-- ----------------------- FOOTER NAV BAR ------------------------>
     <footer class="border rounded-xl">
         <div id="navBar" class="flex">
             <button id="showPreviousData_btn"

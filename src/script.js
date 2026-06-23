@@ -2,27 +2,37 @@
 /* ------------------------- GLOBAL VARIABLES ------------------------- */
 
 
+
 const url_interview_data = "https://luisfernandobueno.github.io/json/jipapp.json"
 //const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/my-new-basket-name";
 
 
+
+/* HEADER SECTION */
+const currentScreenLocation = document.getElementById("currentScreenLocation");
+const edit_btn = document.getElementById("edit_btn");
+const delete_btn = document.getElementById("delete");
+
+/* DELETE ALERT */
 const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
 const deleteData_alert = document.getElementById("deleteData_alert");
-const submitSection = document.getElementById("submitSection");
 const deleteDataAccepted_btn = document.getElementById("deleteDataAccepted_btn");
 
-const addNewData_btn = document.getElementById("addNewData_btn");
-const delete_btn = document.getElementById("delete");
-const edit_btn = document.getElementById("edit_btn");
-const navBar = document.getElementById("navBar");
-
-const currentScreenLocation = document.getElementById("currentScreenLocation");
+/* CATEGORIES AND TEXT AREAS */
 const categoriesSection = document.querySelectorAll(".category");
 const turningTheTextAreasEditable_array = document.querySelectorAll(".editable");
 const question = document.getElementById("question");
 const explanation = document.getElementById("explanation");
 const answer = document.getElementById("answer");
 const example = document.getElementById("example");
+
+/* FOOTER SECTION */
+const navBar = document.getElementById("navBar");
+const addNewData_btn = document.getElementById("addNewData_btn");
+const submitSection = document.getElementById("submitSection");
+
+
+
 let randomIndex;
 let randomQuestion = {};
 
@@ -104,6 +114,10 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
     explanation.innerHTML = randomQuestion.explanation;
     answer.innerHTML = randomQuestion.answer;
     example.innerHTML = randomQuestion.example;
+
+
+    localStorage.removeItem("searchedQuestion");
+    console.log("removing Item searchedQuestion: ", localStorage.getItem("searchedQuestion"))
 }
 
 
@@ -277,13 +291,16 @@ function showHideDeleteAlert() {
 }
 
 
-
 /* GO TO "ADD NEW" SCREEN */
 function goToAddNewScreen() {
-    
+
     edit_btn.addEventListener("click", () => {
         navBar.classList.add("hidden");
         currentScreenLocation.innerText = "Edit"
+
+        turningTheTextAreasEditable_array.forEach(c => {
+            c.classList.add("px-2");
+        });
     });
 
 
@@ -295,6 +312,7 @@ function goToAddNewScreen() {
 
         turningTheTextAreasEditable_array.forEach(c => {
             c.innerHTML = "";
+            c.classList.add("px-2");
         });
 
         editing = false;
@@ -323,6 +341,8 @@ function isItEditingDataRightNow() {
 
     if (editing) {
         console.log("EDITING DATA RIGHT NOW? ", editing)
+
+
 
         /* Add here block of code if it is editing:
             - FIRST: 
@@ -363,7 +383,12 @@ function submittingNewDataOnline() {
     cancelChangesDoNotSubmit_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Home";
         delete_btn.classList.remove("hidden");
-                 navBar.classList.remove("hidden");
+        navBar.classList.remove("hidden");
+
+        turningTheTextAreasEditable_array.forEach(c => {
+            c.innerHTML = "";
+            c.classList.remove("px-2");
+        });
 
 
         areaWhereTheTextIsGonnaBeShown(randomQuestion);
@@ -384,6 +409,11 @@ function submittingNewDataOnline() {
         currentScreenLocation.innerHTML = "Home";
         delete_btn.classList.remove("hidden");
         navBar.classList.remove("hidden");
+
+        turningTheTextAreasEditable_array.forEach(c => {
+            c.innerHTML = "";
+            c.classList.remove("px-2");
+        });
 
 
         console.log("textAreasEmpty: ", areAllTextAreasEmpty());
@@ -534,7 +564,15 @@ function submittingNewDataOnline() {
 }
 
 
-
+function lastSearchedQuestion(searchedQuestion) {
+    data.forEach(e  => {
+        
+        if (e.question === searchedQuestion) {
+            console.log("SEARCHING FOR SEARCHED QUESTION: ", e.question)
+            areaWhereTheTextIsGonnaBeShown(e);
+        }
+    })
+}
 
 
 
@@ -559,15 +597,15 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(searchedQuestion);
 
 
+
             // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
             showTextOnUserScreen(data);
-
+            lastSearchedQuestion(searchedQuestion);
             displayTheNextTextOnScreen(data);
             switchVisibilityOrEditableState();
             goToAddNewScreen();
             visibilityOFAlertDeleteData();
             submittingNewDataOnline()
-
 
         });
 });
