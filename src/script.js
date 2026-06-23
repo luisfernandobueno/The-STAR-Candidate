@@ -206,6 +206,7 @@ function visibilityOFAlertDeleteData() {
     // DELETE BUTTON BEHAVIOR: IT TOGGLES ALERT VISIBILITY 
 
     toggleDeleteAlert_btn.addEventListener("click", () => {
+        delete_btn.classList.add("hidden");
         submitSection.classList.add("hidden");
         showHideDeleteAlert();
 
@@ -225,6 +226,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     deleteDataAccepted_btn.addEventListener("click", () => {
         submitSection.classList.remove("hidden");
         navBar.classList.remove("hidden");
+        delete_btn.classList.remove("hidden");
 
         let currentID = randomQuestion.id;
         console.log(currentID);
@@ -255,6 +257,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
     doNotDeleteData_btn.addEventListener("click", () => {
         submitSection.classList.remove("hidden");
+        delete_btn.classList.remove("hidden");
         turningTheTextAreasEditable();
 
         showHideDeleteAlert();
