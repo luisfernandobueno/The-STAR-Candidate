@@ -2,7 +2,7 @@
 /* ------------------------- GLOBAL VARIABLES ------------------------- */
 
 
- const url_interview_data = "https://luisfernandobueno.github.io/json/jipapp.json"
+const url_interview_data = "https://luisfernandobueno.github.io/json/jipapp.json"
 //const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/my-new-basket-name";
 
 
@@ -12,6 +12,9 @@ const submitSection = document.getElementById("submitSection");
 const deleteDataAccepted_btn = document.getElementById("deleteDataAccepted_btn");
 
 const addNewData_btn = document.getElementById("addNewData_btn");
+const delete_btn = document.getElementById("delete");
+const edit_btn = document.getElementById("edit_btn");
+const navBar = document.getElementById("navBar");
 
 const currentScreenLocation = document.getElementById("currentScreenLocation");
 const categoriesSection = document.querySelectorAll(".category");
@@ -59,7 +62,7 @@ function updateCategories(topic) {
 function sectionCategoriesBehavior() {
     updateCategories(topic);
 
-    
+
 
     switch (topic) {
         case "Recruiter":
@@ -203,7 +206,7 @@ function visibilityOFAlertDeleteData() {
     // DELETE BUTTON BEHAVIOR: IT TOGGLES ALERT VISIBILITY 
 
     toggleDeleteAlert_btn.addEventListener("click", () => {
-
+        submitSection.classList.add("hidden");
         showHideDeleteAlert();
 
         console.log("submitSectionHidden")
@@ -220,6 +223,9 @@ function visibilityOFAlertDeleteData() {
 function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     // BEHAVIOR FOR "DELETE" BUTTON INSIDE THE ALERT TO EFFECTIVELY DELETE DATA:
     deleteDataAccepted_btn.addEventListener("click", () => {
+        submitSection.classList.remove("hidden");
+        navBar.classList.remove("hidden");
+
         let currentID = randomQuestion.id;
         console.log(currentID);
         console.log(randomQuestion.question)
@@ -248,6 +254,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     // BEHAVIOR FOR "CANCEL" BUTTON INSIDE THE ALERT TO CANCEL THE DELETE:
     const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
     doNotDeleteData_btn.addEventListener("click", () => {
+        submitSection.classList.remove("hidden");
         turningTheTextAreasEditable();
 
         showHideDeleteAlert();
@@ -266,11 +273,16 @@ function showHideDeleteAlert() {
 
 /* GO TO "ADD NEW" SCREEN */
 function goToAddNewScreen() {
-    const delete_btn = document.getElementById("delete");
+    
+    edit_btn.addEventListener("click", () => {
+        navBar.classList.add("hidden");
+    })
+
 
     /* Text areas go empty on click the "Add New"" button */
     addNewData_btn.addEventListener("click", () => {
-        delete_btn.hidden;
+        delete_btn.classList.add("hidden");
+        navBar.classList.add("hidden");
         currentScreenLocation.innerHTML = "Add New";
 
         turningTheTextAreasEditable_array.forEach(c => {
@@ -342,6 +354,10 @@ function submittingNewDataOnline() {
     /* On click, the "Cancel" button turns the screen back to what it looked like */
     cancelChangesDoNotSubmit_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Home";
+        delete_btn.classList.remove("hidden");
+                 navBar.classList.remove("hidden");
+
+
         areaWhereTheTextIsGonnaBeShown(randomQuestion);
     });
 
@@ -358,6 +374,10 @@ function submittingNewDataOnline() {
     /* ACTUALLY HITTING THE SUBMIT BUTTON */
     submitChanges_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Home";
+        delete_btn.classList.remove("hidden");
+        navBar.classList.remove("hidden");
+
+
         console.log("textAreasEmpty: ", areAllTextAreasEmpty());
 
         /*  - For each text area === empty => is not editing => return.  */
@@ -496,7 +516,6 @@ function submittingNewDataOnline() {
 
         console.log("NEW DATA UPLOADED ONLINE: ", newDataToSubmitOnline)
 
-
         editing = true;
         console.log("GETTING OUT OF THE submittingNewDataOnline FUNCTION RIGHT NOW!!! ", editing);
 
@@ -516,7 +535,7 @@ function submittingNewDataOnline() {
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
 document.addEventListener("DOMContentLoaded", function () {
-    
+
 
     fetch(url_interview_data)
         .then((res) => res.json())
@@ -526,12 +545,10 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(data)
 
 
-
             /* SAVE DATA ON LOCALSTORAGE:
-            For the purpose of always having it up to date in case the api is not working right*/ 
+            For the purpose of always having it up to date in case the api is not working right*/
             const searchedQuestion = localStorage.getItem("searchedQuestion");
             console.log(searchedQuestion);
-
 
 
             // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
