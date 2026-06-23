@@ -27,7 +27,7 @@ header {
 
 #deleteData_alert {
     position: absolute;
-    background-color: rgb(244, 255, 251);
+    background-color: rgb(243, 243, 243);
     bottom: 50%;
     
     width: 100%;

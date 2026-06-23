@@ -31,9 +31,12 @@
     <!-- ----------------------- DELETE ALERT:
      IT SHOULD BECOME VISIBLE EXCLUSIVELY AFTER PRESSING THE BUTTON "DELETE" WHICH IS INSIDE THE EDIT SECTION EXCLUSIVELY -->
 
-    <section id="deleteData_alert" class="border-solid shadow rounded-xl p-2 text-center" hidden>
-        <h1 class="text-xl ">Are you sure you want to delete?</h1>
-        <p>This action can not be undone in the future</p>
+    <section id="deleteData_alert" class="border shadow rounded-xl  p-2 text-center" hidden>
+        <div class="m-4">
+
+            <h1 class="text-lg ">Are you sure you want to delete?</h1>
+            <p class="text-xs">This action can not be undone in the future</p>
+        </div>
 
         <div id="" class="alertDeleteButtons flex text-center">
             <button id="doNotDeleteData_btn" class="hiddenBehavior flex-1 px-4 py-2 rounded-full mr-auto" hidden>
@@ -108,7 +111,7 @@
 
         <div id="submitSection" class="flex switchVisibilityOrEditableState" hidden>
             <button id="cancelChangesDoNotSubmit_btn"
-                class="submitChangesAndCancelChanges hiddenBehavior border m-2 mr-1 px-4 py-2 rounded-full" hidden>
+                class="submitChangesAndCancelChanges hiddenBehavior m-2 mr-1 px-4 py-2 " hidden>
                 Cancel
             </button>
 
