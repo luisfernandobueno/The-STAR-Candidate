@@ -15,14 +15,6 @@ function displayAll(data) {
 
 
 
-
-
-
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
     let dataSavedOnLocalStorage = localStorage.getItem("data_JSONBin");
 

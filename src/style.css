@@ -3,6 +3,7 @@
      border: 0.5px red dotted; 
 }
  */
+
 .border-solid {
     border: 2px #333 dashed;
 }
@@ -12,9 +13,14 @@ body {
     max-width: 600px;
 }
 
+header {
+    align-items: center;
+    justify-content: center;
+}
 
-.categories {
+.category {
     /* make the categories remain at the top when you overflow */
+    background-color: rgb(243, 243, 243);
 }
 
 

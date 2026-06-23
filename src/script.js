@@ -64,18 +64,22 @@ function sectionCategoriesBehavior() {
     switch (topic) {
         case "Recruiter":
             document.getElementById("Recruiter").style.backgroundColor = "rgb(68, 196, 255)";
+            document.getElementById("Recruiter").classList.add("shadow");
             break;
 
         case "Candidate":
             document.getElementById("Candidate").style.backgroundColor = "greenyellow";
+            document.getElementById("Candidate").classList.add("shadow");
             break;
 
         case "Advice":
             document.getElementById("Advice").style.backgroundColor = "rgb(255, 255, 124)";
+            document.getElementById("Advice").classList.add("shadow");
             break;
 
         case "Encouragement":
             document.getElementById("Encouragement").style.backgroundColor = "rgb(255, 164, 104)";
+            document.getElementById("Encouragement").classList.add("shadow");
             break;
     }
 }
@@ -121,7 +125,7 @@ function showTextOnUserScreen(dataToBeDisplayed) {
 
 
 
-/* Takes both: Back & Next Buttons and applies the same behaviour for both of them:
+/* Takes both: Back & Next Buttons and applies the same behavior for both of them:
 To show a random index data to the user screen. */
 function displayTheNextTextOnScreen(data) {
 
@@ -133,7 +137,8 @@ function displayTheNextTextOnScreen(data) {
             /* Clean all the divs categories to white */
             const deleteCategory = document.querySelectorAll(".category");
             deleteCategory.forEach(e => {
-                e.style.backgroundColor = "white";
+                e.style.backgroundColor = "rgb(243, 243, 243)";
+                e.classList.remove("shadow")
                 //console.log(e)
             })
 
