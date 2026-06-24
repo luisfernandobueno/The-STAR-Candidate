@@ -117,7 +117,7 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
 
 
     localStorage.removeItem("searchedQuestion");
-    console.log("removing Item searchedQuestion: ", localStorage.getItem("searchedQuestion"))
+    //console.log("removing Item searchedQuestion: ", localStorage.getItem("searchedQuestion"))
 }
 
 
