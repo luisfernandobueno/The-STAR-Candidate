@@ -75,22 +75,18 @@ function sectionCategoriesBehavior() {
     switch (topic) {
         case "Recruiter":
             document.getElementById("Recruiter").style.backgroundColor = "#BDE3FF";
-            document.getElementById("Recruiter").classList.add("shadow");
             break;
 
         case "Candidate":
             document.getElementById("Candidate").style.backgroundColor = "#CFFFB5";
-            document.getElementById("Candidate").classList.add("shadow");
             break;
 
         case "Advice":
             document.getElementById("Advice").style.backgroundColor = "#FBF291";
-            document.getElementById("Advice").classList.add("shadow");
             break;
 
         case "Encouragement":
             document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
-            document.getElementById("Encouragement").classList.add("shadow");
             break;
     }
 }
