@@ -258,7 +258,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         });
         turningTheTextAreasEditable();
         deleteData_alert.hidden = !deleteData_alert.hidden;
-        //submitSection.hidden = !submitSection.hidden
+        
         showTextOnUserScreen(data);
 
     });
@@ -373,7 +373,7 @@ function submittingNewDataOnline() {
     const submitChanges_btn = document.getElementById("submitChanges_btn");
     const cancelChangesDoNotSubmit_btn = document.getElementById("cancelChangesDoNotSubmit_btn");
 
-    /* On click, the "Cancel" button turns the screen back to what it looked like */
+    /* On click, the "CANCEL" BUTTON turns the screen back to what it looked like */
     cancelChangesDoNotSubmit_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Home";
         delete_btn.classList.remove("hidden");
@@ -387,14 +387,6 @@ function submittingNewDataOnline() {
 
         areaWhereTheTextIsGonnaBeShown(randomQuestion);
     });
-
-
-
-
-
-
-
-
 
 
 
