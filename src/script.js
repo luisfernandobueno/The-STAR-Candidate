@@ -1,10 +1,13 @@
 
 /* ------------------------- GLOBAL VARIABLES ------------------------- */
 
-const url_interview_data = "https://placeholders.cc/hooks/TkuflB";
+//const url_interview_data = "https://placeholders.cc/hooks/TkuflB";
 //const url_interview_data = "https://placeholders.cc/files/vVUAoS/JIP APP";
 //const url_interview_data = "https://luisfernandobueno.github.io/json/jipapp.json"
-//const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/my-new-basket-name";
+
+
+const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/my-new-basket-name";
+localStorage.setItem("url_interview_data", url_interview_data);
 
 
 /* HEADER SECTION */
@@ -34,6 +37,7 @@ const submitSection = document.getElementById("submitSection");
 let randomIndex;
 let randomQuestion = {};
 
+let editDeleteOrAddNew;
 let editing = true;
 let topic;
 
@@ -97,7 +101,7 @@ function sectionCategoriesBehavior() {
 and pastes there the corresponding data to finally be shown on screen*/
 function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
 
-    console.log("CURRENT INDEX OF THE ARRAY: ", randomIndex);
+    //console.log("CURRENT INDEX OF THE ARRAY: ", randomIndex);
 
     //console.log(randomQuestion.topic);
 
@@ -141,9 +145,9 @@ To show a random index data to the user screen. */
 function displayTheNextTextOnScreen(data) {
 
 
-
     document.querySelectorAll(".showNextAndPreviousData_btn").forEach(btn => {
         btn.addEventListener("click", () => {
+            console.log("CURRENT INDEX OF THE ARRAY: ", randomIndex);
 
             /* Clean all the divs categories to white */
             const deleteCategory = document.querySelectorAll(".category");
@@ -215,6 +219,8 @@ function visibilityOFAlertDeleteData() {
 
     toggleDeleteAlert_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Delete"
+        editDeleteOrAddNew = "delete";
+        console.log(editDeleteOrAddNew)
         delete_btn.classList.add("hidden");
         submitSection.classList.add("hidden");
         showHideDeleteAlert();
@@ -239,7 +245,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         delete_btn.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home"
 
-        let currentIndex = randomQuestion.id;
+        let currentIndex = randomQuestion[randomIndex];
         console.log(currentIndex);
         console.log(randomQuestion.question)
 
@@ -248,18 +254,24 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         console.log(originalData)
         console.log(`DATA ABOUT TO BE PERMANENTLY DELETED IN INDEX ${randomIndex}: `, originalData.lines[randomIndex])
         originalData.lines.splice(randomIndex, 1);
-        console.log(`PREVIOUS DATA DELETED. NEW DATA ON INDEX ${randomIndex}: `, originalData.lines[randomIndex])
+        data = originalData.lines;
+        console.log(`DATA PERMANENTLY DELETED IN INDEX ${randomIndex}: `, originalData.lines[randomIndex])
         console.log(originalData)
+        alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
+        fetchPut(originalData);
+        showTextOnUserScreen(data);
+        /* console.log(`PREVIOUS DATA DELETED. NEW DATA ON INDEX ${randomIndex}: `, originalData.lines[randomIndex])
+        console.log(originalData) */
 
         //console.log(JSON.stringify(originalData, null, 2));
         //originalData.splice(currentIndex, 1);
-        fetch(url_interview_data, {
+        /* fetch(url_interview_data, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(originalData)
-        });
+        }); */
 
 
 
@@ -295,16 +307,21 @@ function showHideDeleteAlert() {
 }
 
 
-
+/* GO TO "EDIT DATA" SCREEN */
 function editDataScreen() {
     edit_btn.addEventListener("click", () => {
         navBar.classList.add("hidden");
         currentScreenLocation.innerText = "Edit"
+        editDeleteOrAddNew = "edit";
+        //console.log(editDeleteOrAddNew)
         editing = true;
-        console.log("EDITING DATA RIGHT NOW? ", editing)
+        //console.log("EDITING DATA RIGHT NOW? ", editing)
         turningTheTextAreasEditable_array.forEach(c => {
             c.classList.add("px-2");
         });
+
+        /* 
+        submittingNewDataOnline(); */
     });
 
 }
@@ -319,6 +336,8 @@ function goToAddNewScreen() {
         delete_btn.classList.add("hidden");
         navBar.classList.add("hidden");
         currentScreenLocation.innerHTML = "Add New";
+        editDeleteOrAddNew = "addNew";
+        //console.log(editDeleteOrAddNew)
 
         turningTheTextAreasEditable_array.forEach(c => {
             c.innerHTML = "";
@@ -326,8 +345,9 @@ function goToAddNewScreen() {
         });
 
         editing = false;
-        console.log("EDITING DATA RIGHT NOW? ", editing)
-
+        //console.log("EDITING DATA RIGHT NOW? ", editing)
+        /* 
+        submittingNewDataOnline(); */
     });
 }
 
@@ -336,113 +356,133 @@ function goToAddNewScreen() {
 /* THIS FUNCTION EVALUATES WHETHER IF ITS EDITING OR NOT */
 function isItEditingDataRightNow() {
 
+    console.log(" IS-IT-EDITING-DATA-RIGHT-NOW()   FUNCTION")
 
     /* If editing, replace in the array and update online. Otherwise, push the new data at the end of the array and update online */
-    if (editing) {
-
-        console.log("- !!! I AM THE isItEditingDataRightNow? FUNCTION SPEAKING !!! - IS IT EDITING DATA RIGHT NOW? ", editing);
-
-
-        /* Save the new data into an object */
-        let newDataToSubmitOnline = {
-
-            question: question.innerHTML,
-            explanation: explanation.innerHTML,
-            answer: answer.innerHTML,
-            example: example.innerHTML,
-            // topic: topic.innerHTML ??????
-            edition: false,
-        };
 
 
 
-        /*  FIRST: 
-        Find the specific index in where the new data will be replaced  */
-        let currentIndex = randomIndex;
+    /* Save the new data into an object */
+    let newDataToSubmitOnline = {
 
-
-        /*              - SECOND:
-                    Replace the data into the array        */
-
-        console.log("FULL DATA PREVIOUSLY EDITING: ", data);
-        console.log("CURRENT INDEX OF THE ARRAY: ", currentIndex)
-        console.log("DATA previously EDITING: ", data[currentIndex])
-
-
-        data[currentIndex] = newDataToSubmitOnline;
-
-
-        console.log("DATA AFTER EDITING: ", data[currentIndex])
-        console.log("FULL DATA AFTER EDITING: ", data);
-        console.log(data[currentIndex])
+        question: question.innerHTML,
+        explanation: explanation.innerHTML,
+        answer: answer.innerHTML,
+        example: example.innerHTML,
+        // topic: topic.innerHTML ??????
+        edition: false,
+    };
 
 
 
-        /*      - THIRD:
-                     Call to the fetchPut(originalData); function with the updated array       
-         */
-
-        originalData.lines[currentIndex] = newDataToSubmitOnline;
-        console.log("ORIGINAL DATA: ", originalData)
+    /*  FIRST: 
+    Find the specific index in where the new data will be replaced  */
+    let currentIndex = randomIndex;
 
 
-        console.log("SUBMITTING EDITED DATA RIGHT NOW!!! ")
-        fetchPut(originalData);
+    /*              - SECOND:
+                Replace the data into the array        */
+
+    console.log("CURRENT INDEX: ", currentIndex)
+
+    console.log("DATA PREVIOUS EDITING: ", data[currentIndex].question)
 
 
-    }
+    data[currentIndex] = newDataToSubmitOnline;
+
+
+    console.log("DATA AFTER EDITING: ", data[currentIndex].question)
+    console.log("FULL ARRAY AFTER EDITING: ", data);
+    //console.log(data[currentIndex].question)
+    originalData.lines[currentIndex] = newDataToSubmitOnline;
+    console.log("ORIGINAL DATA: ", originalData)
+
+
+    /*      - THIRD:
+                 Call to the fetchPut(originalData); function with the updated array       
+     */
+
+
+
+    console.log("SUBMITTING EDITED DATA RIGHT NOW!!! ")
+    console.log("Exiting the editing data function right now")
+
+    fetchPut(originalData);
+    areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
+
+
+
 }
+
+
 
 function isItCreatingNewDataRightNow() {
 
+    /* Save the new data into an object */
+    let newDataToSubmitOnline = {
 
-    /* Evaluate if all text areas are empty or not. If they are, cancel the submitting and show an alert.  */
+        question: question.innerHTML,
+        explanation: explanation.innerHTML,
+        answer: answer.innerHTML,
+        example: example.innerHTML,
+        // topic: topic.innerHTML ??????
+        edition: false,
+    };
 
+
+    /* Push the new data into the array */
+    originalData.lines.push(newDataToSubmitOnline);
+
+
+    console.log("DATA AFTER CREATING NEW DATA: ", originalData.lines[originalData.lines.length - 1])
+    console.log("ORIGINAL DATA: ", originalData);
+    console.log("SUBMITTING NEW DATA RIGHT NOW!!! ");
+
+
+    navBar.classList.remove("hidden");
+    fetchPut(originalData);
+    areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
+
+}
+
+
+
+function areTheTextAreasEmpty() {
     let emptyTextAreas = true;
+    console.log("Are all text areas are empty? ", emptyTextAreas);
+
+
+    /* Evaluate if all text areas are empty */
     turningTheTextAreasEditable_array.forEach(c => {
         if (c.innerHTML.trim() !== "") {
             emptyTextAreas = false;
         }
     });
+    console.log("Are all text areas are empty? ", emptyTextAreas);
 
-    console.log("textAreasEmpty: ", emptyTextAreas);
+
+    /* If all text areas are empty, cancel the submitting and show an alert. Otherwise, proceed with the submission. */
     if (emptyTextAreas) {
+
         alert("CANCELING SUBMITTING FOR ALL EMPTY TEXT AREAS");
         navBar.classList.remove("hidden");
-        console.log(randomQuestion)
-        areaWhereTheTextIsGonnaBeShown(randomQuestion);
+        areaWhereTheTextIsGonnaBeShown(data[randomIndex]);
+        console.log("CANCELING SUBMITTING CHANGES RIGHT NOW!!! ")
 
+    } else {
+        isItCreatingNewDataRightNow();
     }
-
-    
-    /* If tex areas are not empty, submit the data online. */
-    /* Save the new data into an object */
-        let newDataToSubmitOnline = {
-
-            question: question.innerHTML,
-            explanation: explanation.innerHTML,
-            answer: answer.innerHTML,
-            example: example.innerHTML,
-            // topic: topic.innerHTML ??????
-            edition: false,
-        };
-
-
-
-    console.log("CREATING NEW DATA RIGHT NOW? ", !editing);
-    /* Push the new data into the array */
-    originalData.lines.push(newDataToSubmitOnline);
-    console.log("DATA AFTER CREATING NEW DATA: ", originalData.lines[originalData.lines.length - 1])
-    console.log("ORIGINAL DATA: ", originalData);
-    console.log("SUBMITTING NEW DATA RIGHT NOW!!! ");
-    fetchPut(originalData);
-    //areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
 
 }
 
 
+
+
 /* SAVES THE TEXTS INTO AN OBJECT. THEN, SUBMITS IT ONLINE */
 function submittingNewDataOnline() {
+
+    console.log("FULL ARRAY PREVIOUSLY EDITING OR ADDING NEW: ", data);
+    console.log("CURRENT INDEX OF THE ARRAY: ", randomIndex);
 
     const submitChanges_btn = document.getElementById("submitChanges_btn");
     const cancelChangesDoNotSubmit_btn = document.getElementById("cancelChangesDoNotSubmit_btn");
@@ -455,7 +495,7 @@ function submittingNewDataOnline() {
         delete_btn.classList.remove("hidden");
         navBar.classList.remove("hidden");
         editing = true;
-        console.log("CANCELING SUBMITTING CHANGES RIGHT NOW!!! ", editing)
+        //console.log("CANCELING SUBMITTING CHANGES RIGHT NOW!!! ", editing)
 
         turningTheTextAreasEditable_array.forEach(c => {
             c.innerHTML = "";
@@ -470,13 +510,58 @@ function submittingNewDataOnline() {
 
     /* ACTUALLY HITTING THE SUBMIT BUTTON */
     submitChanges_btn.addEventListener("click", () => {
-        let newDataToSubmitOnline;
-        
-        
-        /* Evaluate if we are editing existing data or submitting new data */
-        isItCreatingNewDataRightNow();
-        isItEditingDataRightNow();
-        
+
+
+        navBar.classList.remove("hidden");
+        currentScreenLocation.innerHTML = "Home";
+        delete_btn.classList.remove("hidden");
+
+
+
+
+        switch (editDeleteOrAddNew) {
+            case "addNew":
+
+                /* Evaluate if all text areas are empty or not. If they are, cancel the submitting and show an alert.  */
+                areTheTextAreasEmpty();
+
+                break;
+
+            case "edit":
+                /* console.log("SUBMITTING-NEW-DATA FUNCTION")
+                console.log("Currently inside the switch case edit right now")
+                console.log(editDeleteOrAddNew) */
+
+                isItEditingDataRightNow();
+                break;
+
+            case "delete":
+                /* console.log("SUBMITTING-NEW-DATA FUNCTION")
+                console.log("Currently inside the switch case delete right now")
+
+                console.log(editDeleteOrAddNew) */
+
+
+
+
+
+                break
+
+            /*  console.log("CREATING NEW DATA RIGHT NOW? ", !editing)
+             isItCreatingNewDataRightNow();
+             break; */
+
+            case "delete":
+        }
+
+
+
+        return
+
+
+
+
+
 
         turningTheTextAreasEditable_array.forEach(c => {
             c.innerHTML = "";
@@ -484,25 +569,21 @@ function submittingNewDataOnline() {
         });
 
 
-        currentScreenLocation.innerHTML = "Home";
-        delete_btn.classList.remove("hidden");
-        navBar.classList.remove("hidden");
-
-
         editing = true;
         console.log("GETTING OUT OF THE submittingNewDataOnline FUNCTION RIGHT NOW!!! ", editing);
 
-
-        //areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
     }
     )
 }
 
 
-function fetchPut(dataToUpload, newDataToSubmitOnline) {
+function fetchPut(dataToUpload) {
+
+    console.log("Currently inside the fetchPut function right now")
+
 
     fetch(url_interview_data, {
-        method: "PUT",
+        method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
@@ -519,13 +600,15 @@ function fetchPut(dataToUpload, newDataToSubmitOnline) {
             console.error(error);
         });
 
-        navBar.classList.remove("hidden");
-        areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
-    //fetchGet();
+    //navBar.classList.remove("hidden");
+
+    console.log("Exiting the fetchPut  function right now")
+    
+    
 }
 
 
-function fetchGet() {
+/* function fetchGet() {
 
     fetch(url_interview_data)
         .then((res) => res.json())
@@ -536,7 +619,7 @@ function fetchGet() {
             //console.log(data)
             displayTheNextTextOnScreen(data);
         });
-}
+} */
 
 
 function lastSearchedQuestion(searchedQuestion) {
@@ -557,20 +640,19 @@ function lastSearchedQuestion(searchedQuestion) {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-
     fetch(url_interview_data)
         .then((res) => res.json())
         .then((json) => {
             originalData = json;
-            console.log("Recieved Data: ", originalData)
+            //console.log("Recieved Data: ", originalData)
             data = json.lines;
-            console.log(data)
+            //console.log(data)
 
 
             /* SAVE DATA ON LOCALSTORAGE:
             For the purpose of always having it up to date in case the api is not working right*/
             const searchedQuestion = localStorage.getItem("searchedQuestion");
-            console.log(searchedQuestion);
+            //console.log(`localStorage.getItem("searchedQuestion"):   `, searchedQuestion);
 
 
 
