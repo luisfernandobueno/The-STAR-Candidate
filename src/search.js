@@ -1,8 +1,8 @@
 
 /* ------------------------- GLOBAL VARIABLES ------------------------- */
 
-
-const url_interview_data = "https://luisfernandobueno.github.io/json/jipapp.json";
+const url_interview_data = "https://placeholders.cc/hooks/TkuflB";
+//const url_interview_data = "https://luisfernandobueno.github.io/json/jipapp.json";
 // const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/my-new-basket-name";
 const inputSearch = document.getElementById("inputSearch");
 const displayAllQuestions = document.getElementById("displayAllQuestions");
@@ -75,9 +75,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((json) => {
             originalData = json;
             data = json.lines;
-            //console.log(data)
+            console.log(data)
+            console.log("ORIGINAL DATA: ", originalData);
 
-            displayAll(data);
+            displayAll(originalData.lines);
             searchingQuestion();
 
         });
