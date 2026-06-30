@@ -304,7 +304,7 @@ function editDataScreen() {
         editing = true;
         //console.log("EDITING DATA RIGHT NOW? ", editing)
         turningTheTextAreasEditable_array.forEach(c => {
-            c.classList.add("px-2");
+            c.classList.add("px-3");
             c.classList.add('rounded-lg')
         });
 
@@ -329,7 +329,7 @@ function goToAddNewScreen() {
 
         turningTheTextAreasEditable_array.forEach(c => {
             c.innerHTML = "";
-            c.classList.add("px-2");
+            c.classList.add("px-3");
             c.classList.add('rounded-lg')
         });
 
@@ -469,7 +469,7 @@ function areTheTextAreasEmpty() {
 function removeEditableState() {
     turningTheTextAreasEditable_array.forEach(c => {
             c.innerHTML = "";
-            c.classList.remove("px-2");
+            c.classList.remove("px-3");
             c.classList.remove('rounded-lg')
         });
 }
