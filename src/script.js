@@ -1,9 +1,6 @@
 
 /* ------------------------- GLOBAL VARIABLES ------------------------- */
 
-//const url_interview_data = "https://placeholders.cc/hooks/TkuflB";
-//const url_interview_data = "https://placeholders.cc/files/vVUAoS/JIP APP";
-//const url_interview_data = "https://luisfernandobueno.github.io/json/jipapp.json"
 
 
 const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/JobInterviewApp";
@@ -308,6 +305,7 @@ function editDataScreen() {
         //console.log("EDITING DATA RIGHT NOW? ", editing)
         turningTheTextAreasEditable_array.forEach(c => {
             c.classList.add("px-2");
+            c.classList.add('rounded-lg')
         });
 
         /* 
@@ -332,6 +330,7 @@ function goToAddNewScreen() {
         turningTheTextAreasEditable_array.forEach(c => {
             c.innerHTML = "";
             c.classList.add("px-2");
+            c.classList.add('rounded-lg')
         });
 
         editing = false;
@@ -373,19 +372,19 @@ function isItEditingDataRightNow() {
     /*              - SECOND:
                 Replace the data into the array        */
 
-    console.log("CURRENT INDEX: ", currentIndex)
+    /* console.log("CURRENT INDEX: ", currentIndex)
 
-    console.log("DATA PREVIOUS EDITING: ", data[currentIndex].question)
+    console.log("DATA PREVIOUS EDITING: ", data[currentIndex].question) */
 
 
     data[currentIndex] = newDataToSubmitOnline;
 
 
-    console.log("DATA AFTER EDITING: ", data[currentIndex].question)
-    console.log("FULL ARRAY AFTER EDITING: ", data);
+    /* console.log("DATA AFTER EDITING: ", data[currentIndex].question)
+    console.log("FULL ARRAY AFTER EDITING: ", data); */
     //console.log(data[currentIndex].question)
     originalData.lines[currentIndex] = newDataToSubmitOnline;
-    console.log("ORIGINAL DATA: ", originalData)
+    //console.log("ORIGINAL DATA: ", originalData)
 
 
     /*      - THIRD:
@@ -466,6 +465,15 @@ function areTheTextAreasEmpty() {
 }
 
 
+/* TURN THE TEXT AREAS BACK TO NON EDITABLE SECTIONS */
+function removeEditableState() {
+    turningTheTextAreasEditable_array.forEach(c => {
+            c.innerHTML = "";
+            c.classList.remove("px-2");
+            c.classList.remove('rounded-lg')
+        });
+}
+
 
 /* SAVES THE TEXTS INTO AN OBJECT. THEN, SUBMITS IT ONLINE */
 function submittingNewDataOnline() {
@@ -485,13 +493,8 @@ function submittingNewDataOnline() {
         navBar.classList.remove("hidden");
         editing = true;
         //console.log("CANCELING SUBMITTING CHANGES RIGHT NOW!!! ", editing)
-
-        turningTheTextAreasEditable_array.forEach(c => {
-            c.innerHTML = "";
-            c.classList.remove("px-2");
-        });
-
-
+        
+        removeEditableState();
         areaWhereTheTextIsGonnaBeShown(randomQuestion);
     });
 
@@ -506,32 +509,22 @@ function submittingNewDataOnline() {
         delete_btn.classList.remove("hidden");
 
 
-
-
         switch (editDeleteOrAddNew) {
             case "addNew":
-
                 /* Evaluate if all text areas are empty or not. If they are, cancel the submitting and show an alert.  */
+                
                 areTheTextAreasEmpty();
-
                 break;
 
             case "edit":
-                /* console.log("SUBMITTING-NEW-DATA FUNCTION")
-                console.log("Currently inside the switch case edit right now")
-                console.log(editDeleteOrAddNew) */
-
+                
                 isItEditingDataRightNow();
                 break;
         }
 
 
-        turningTheTextAreasEditable_array.forEach(c => {
-            c.innerHTML = "";
-            c.classList.remove("px-2");
-        });
-
-        areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline)
+        removeEditableState();
+        areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
         editing = true;
         console.log("GETTING OUT OF THE submittingNewDataOnline FUNCTION RIGHT NOW!!! ", editing);
 
@@ -570,21 +563,6 @@ function fetchPut(dataToUpload, newDataToSubmitOnline) {
     areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline)
     
 }
-
-
-
-/* function fetchGet() {
-
-    fetch(url_interview_data)
-        .then((res) => res.json())
-        .then((json) => {
-            originalData = json;
-            data = json.lines;
-            //console.log("NEW DATA AFTER DELETING")
-            //console.log(data)
-            displayTheNextTextOnScreen(data);
-        });
-} */
 
 
         
