@@ -20,9 +20,11 @@
     <nav id="header" class="mb-3 px-3 pt-3 flex  text-xs">
         <div id="currentScreenLocation" class=" text-xl">Home</div>
         <div class="ml-auto">
-            <button id="toggleDeleteAlert_btn" class="hiddenBehavior" hidden>
-                <span id="delete" class="material-symbols-outlined">delete</span>
-            </button>
+
+
+
+            <button id="toggleDeleteAlert_btn"  class="open-btn hiddenBehavior" hidden commandFor="modal-box" command="show-modal"><span id="delete" class="material-symbols-outlined">delete</span></button>
+            
             <button id="edit_btn" class="switchVisibilityOrEditableState hiddenBehavior">
                 <span class="material-symbols-outlined">edit_square </span>
             </button>
@@ -30,7 +32,12 @@
     </nav>
 
     <!-- ----------------------- DELETE ALERT: ------------------------>
-    <section id="deleteData_alert" class="border shadow rounded-xl  p-2 text-center" hidden>
+    
+        
+        
+
+    <dialog id="modal-box" class="modal border shadow rounded-xl  p-2 text-center">
+        <!-- <button class="close-btn" commandFor="modal-box" command="close">&times;</button> -->
         <div class="m-4">
 
             <h1 class="text-lg ">Are you sure you want to delete?</h1>
@@ -38,16 +45,19 @@
         </div>
 
         <div id="" class="alertDeleteButtons flex text-center">
-            <button id="doNotDeleteData_btn" class="hiddenBehavior flex-1 px-4 py-2 rounded-full mr-auto" hidden>
+            <button id="doNotDeleteData_btn" class="hiddenBehavior flex-1 px-4 py-2 rounded-full mr-auto close-btn" commandFor="modal-box" command="close" hidden>
                 Cancel
             </button>
             <button id="deleteDataAccepted_btn"
-                class="switchVisibilityOrEditableState hiddenBehavior flex-1 bg-red-500 px-4 py-2 rounded-full ml-auto text-red-800"
+                class="switchVisibilityOrEditableState hiddenBehavior flex-1 bg-red-500 px-4 py-2 rounded-full ml-auto text-red-800  close-btn" commandFor="modal-box" command="close" 
                 hidden>
                 Delete
             </button>
         </div>
-    </section>
+    </dialog>
+
+        
+    
 
     <!-- ----------------------- CATEGORIES SECTION: ------------------------>
     <section id="categoriesSection" class="mx-2 mb-1 flex flex-wrap">

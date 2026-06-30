@@ -71,8 +71,21 @@ function updateCategories(topic) {
 
 
 
-function sectionCategoriesBehavior() {
+function removePreviousCategory() {
+    const deleteCategory = document.querySelectorAll(".category");
+            deleteCategory.forEach(e => {
+                e.style.backgroundColor = "rgb(243, 243, 243)";
+                e.classList.remove("shadow")
+                //console.log(e)
+            })
+}
+
+
+
+function sectionCategoriesBehavior(topic) {
     updateCategories(topic);
+    removePreviousCategory();
+
 
 
 
@@ -92,6 +105,7 @@ function sectionCategoriesBehavior() {
         case "Encouragement":
             document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
             break;
+        
     }
 }
 
@@ -106,7 +120,7 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
     //console.log(randomQuestion.topic);
 
     topic = randomQuestion.topic;
-    sectionCategoriesBehavior();
+    sectionCategoriesBehavior(topic)
 
     question.innerHTML = randomQuestion.question;
     explanation.innerHTML = randomQuestion.explanation;
@@ -150,12 +164,7 @@ function displayTheNextTextOnScreen(data) {
             console.log("CURRENT INDEX OF THE ARRAY: ", randomIndex);
 
             /* Clean all the divs categories to white */
-            const deleteCategory = document.querySelectorAll(".category");
-            deleteCategory.forEach(e => {
-                e.style.backgroundColor = "rgb(243, 243, 243)";
-                e.classList.remove("shadow")
-                //console.log(e)
-            })
+            
 
             showTextOnUserScreen(data);
 
@@ -223,10 +232,10 @@ function visibilityOFAlertDeleteData() {
         console.log(editDeleteOrAddNew)
         delete_btn.classList.add("hidden");
         submitSection.classList.add("hidden");
-        showHideDeleteAlert();
+        
 
         console.log("submitSectionHidden")
-        turningTheTextAreasEditable()
+        //turningTheTextAreasEditable()
 
     });
 
@@ -246,39 +255,27 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         currentScreenLocation.innerHTML = "Home"
 
         let currentIndex = randomQuestion[randomIndex];
-        console.log(currentIndex);
-        console.log(randomQuestion.question)
+        /* console.log(currentIndex);
+        console.log(randomQuestion.question) */
 
 
         /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
-        console.log(originalData)
-        console.log(`DATA ABOUT TO BE PERMANENTLY DELETED IN INDEX ${randomIndex}: `, originalData.lines[randomIndex])
+        //console.log(originalData)
+        //console.log(`DATA ABOUT TO BE PERMANENTLY DELETED IN INDEX ${randomIndex}: `, originalData.lines[randomIndex])
         originalData.lines.splice(randomIndex, 1);
         data = originalData.lines;
-        console.log(`DATA PERMANENTLY DELETED IN INDEX ${randomIndex}: `, originalData.lines[randomIndex])
-        console.log(originalData)
+        /* console.log(`DATA PERMANENTLY DELETED IN INDEX ${randomIndex}: `, originalData.lines[randomIndex])
+        console.log(originalData) */
         alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
         fetchPut(originalData);
+        
         showTextOnUserScreen(data);
-        /* console.log(`PREVIOUS DATA DELETED. NEW DATA ON INDEX ${randomIndex}: `, originalData.lines[randomIndex])
-        console.log(originalData) */
-
-        //console.log(JSON.stringify(originalData, null, 2));
-        //originalData.splice(currentIndex, 1);
-        /* fetch(url_interview_data, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(originalData)
-        }); */
-
-
+        
 
         document.querySelectorAll("button").forEach(b => {
             b.hidden;
         });
-        turningTheTextAreasEditable();
+        
         deleteData_alert.hidden = !deleteData_alert.hidden;
 
         showTextOnUserScreen(data);
@@ -292,18 +289,9 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         submitSection.classList.remove("hidden");
         delete_btn.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Edit"
-        turningTheTextAreasEditable();
-
-        showHideDeleteAlert();
+        
+        
     });
-}
-
-
-
-/* HIDES AND SHOWS THE DELETE ALERT ON SCREEN */
-function showHideDeleteAlert() {
-    deleteData_alert.hidden = !deleteData_alert.hidden;
-
 }
 
 
