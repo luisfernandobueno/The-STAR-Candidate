@@ -37,6 +37,7 @@ const submitSection = document.getElementById("submitSection");
 let randomIndex;
 let randomQuestion = {};
 
+let newDataToSubmitOnline = {}
 let editDeleteOrAddNew;
 let editing = true;
 let topic;
@@ -352,7 +353,7 @@ function isItEditingDataRightNow() {
 
 
     /* Save the new data into an object */
-    let newDataToSubmitOnline = {
+    newDataToSubmitOnline = {
 
         question: question.innerHTML,
         explanation: explanation.innerHTML,
@@ -396,8 +397,8 @@ function isItEditingDataRightNow() {
     console.log("SUBMITTING EDITED DATA RIGHT NOW!!! ")
     console.log("Exiting the editing data function right now")
 
-    fetchPut(originalData);
     areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
+    fetchPut(originalData, newDataToSubmitOnline);
 
 
 
@@ -408,7 +409,7 @@ function isItEditingDataRightNow() {
 function isItCreatingNewDataRightNow() {
 
     /* Save the new data into an object */
-    let newDataToSubmitOnline = {
+    newDataToSubmitOnline = {
 
         question: question.innerHTML,
         explanation: explanation.innerHTML,
@@ -429,7 +430,7 @@ function isItCreatingNewDataRightNow() {
 
 
     navBar.classList.remove("hidden");
-    fetchPut(originalData);
+    fetchPut(originalData, newDataToSubmitOnline);
     areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
 
 }
@@ -522,33 +523,7 @@ function submittingNewDataOnline() {
 
                 isItEditingDataRightNow();
                 break;
-
-            case "delete":
-                /* console.log("SUBMITTING-NEW-DATA FUNCTION")
-                console.log("Currently inside the switch case delete right now")
-
-                console.log(editDeleteOrAddNew) */
-
-
-
-
-
-                break
-
-            /*  console.log("CREATING NEW DATA RIGHT NOW? ", !editing)
-             isItCreatingNewDataRightNow();
-             break; */
-
-            case "delete":
         }
-
-
-
-        return
-
-
-
-
 
 
         turningTheTextAreasEditable_array.forEach(c => {
@@ -556,7 +531,7 @@ function submittingNewDataOnline() {
             c.classList.remove("px-2");
         });
 
-
+        areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline)
         editing = true;
         console.log("GETTING OUT OF THE submittingNewDataOnline FUNCTION RIGHT NOW!!! ", editing);
 
@@ -566,7 +541,7 @@ function submittingNewDataOnline() {
 
 
 
-function fetchPut(dataToUpload) {
+function fetchPut(dataToUpload, newDataToSubmitOnline) {
 
     console.log("Currently inside the fetchPut function right now")
 
@@ -592,7 +567,7 @@ function fetchPut(dataToUpload) {
     //navBar.classList.remove("hidden");
 
     console.log("Exiting the fetchPut  function right now")
-    
+    areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline)
     
 }
 
