@@ -1,9 +1,11 @@
 
 /* ------------------------- GLOBAL VARIABLES ------------------------- */
 
+/* URL FOR ACTUAL LEARNING */
+const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/STAR Candidate App";
 
-
-const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/JobInterviewApp";
+/* URL FOR DEVELOPING */
+//const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/my-new-basket-name";
 localStorage.setItem("url_interview_data", url_interview_data);
 
 
@@ -24,6 +26,7 @@ const question = document.getElementById("question");
 const explanation = document.getElementById("explanation");
 const answer = document.getElementById("answer");
 const example = document.getElementById("example");
+const stylingButtonsSection = document.getElementById("stylingButtonsSection");
 
 /* FOOTER SECTION */
 const navBar = document.getElementById("navBar");
@@ -31,7 +34,7 @@ const addNewData_btn = document.getElementById("addNewData_btn");
 const submitSection = document.getElementById("submitSection");
 
 
-let randomIndex;
+let currentIndex;
 let randomQuestion = {};
 
 let newDataToSubmitOnline = {}
@@ -71,11 +74,11 @@ function updateCategories(topic) {
 
 function removePreviousCategory() {
     const deleteCategory = document.querySelectorAll(".category");
-            deleteCategory.forEach(e => {
-                e.style.backgroundColor = "rgb(243, 243, 243)";
-                e.classList.remove("shadow")
-                //console.log(e)
-            })
+    deleteCategory.forEach(e => {
+        e.style.backgroundColor = "rgb(243, 243, 243)";
+        e.classList.remove("shadow")
+        //console.log(e)
+    })
 }
 
 
@@ -103,7 +106,7 @@ function sectionCategoriesBehavior(topic) {
         case "Encouragement":
             document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
             break;
-        
+
     }
 }
 
@@ -113,21 +116,15 @@ function sectionCategoriesBehavior(topic) {
 and pastes there the corresponding data to finally be shown on screen*/
 function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
 
-    //console.log("CURRENT INDEX OF THE ARRAY: ", randomIndex);
-
-    //console.log(randomQuestion.topic);
-
-    topic = randomQuestion.topic;
-    sectionCategoriesBehavior(topic)
+    sectionCategoriesBehavior(randomQuestion.topic)
 
     question.innerHTML = randomQuestion.question;
     explanation.innerHTML = randomQuestion.explanation;
     answer.innerHTML = randomQuestion.answer;
     example.innerHTML = randomQuestion.example;
 
-    //fetchGet();
     localStorage.removeItem("searchedQuestion");
-    //console.log("removing Item searchedQuestion: ", localStorage.getItem("searchedQuestion"))
+    console.log("FINAL INDEX BEING SHOWN ON  SCREEN: ", currentIndex)
 }
 
 
@@ -137,16 +134,13 @@ the text on screen, so it shows specifically the info in that particular index o
 function showTextOnUserScreen(dataToBeDisplayed) {
 
 
-    randomIndex = Math.floor(Math.random() * data.length);
-    /* Why this works:
-    Math.random() → gives something like 0.37482
-    Multiply by data.length → scales it to your array size
-    Math.floor() → converts it into a valid integer index (0 to length-1)
-    */
+    currentIndex = Math.floor(Math.random() * data.length);
 
-    randomQuestion = data[randomIndex];
-    currentIndex = data.randomIndex;
-    //console.log("FUNCTION: SHOW TEXT ON USER SCREEN: ", randomQuestion)
+
+    randomQuestion = data[currentIndex];
+    //currentIndex = data.currentIndex;
+    console.log("FUNCTION: SHOW TEXT ON USER SCREEN: ", randomQuestion)
+    console.log("FIRST INDEX WHEN JUST ENTERING THE WEBSITE: ", currentIndex)
     areaWhereTheTextIsGonnaBeShown(randomQuestion);
 }
 
@@ -159,10 +153,10 @@ function displayTheNextTextOnScreen(data) {
 
     document.querySelectorAll(".showNextAndPreviousData_btn").forEach(btn => {
         btn.addEventListener("click", () => {
-            console.log("CURRENT INDEX OF THE ARRAY: ", randomIndex);
+            console.log("CURRENT INDEX OF THE ARRAY: ", currentIndex);
 
             /* Clean all the divs categories to white */
-            
+
 
             showTextOnUserScreen(data);
 
@@ -228,9 +222,10 @@ function visibilityOFAlertDeleteData() {
         currentScreenLocation.innerHTML = "Delete"
         editDeleteOrAddNew = "delete";
         console.log(editDeleteOrAddNew)
+        console.log("INDEX TO BE DELETED: ", currentIndex)
         delete_btn.classList.add("hidden");
         submitSection.classList.add("hidden");
-        
+
 
         console.log("submitSectionHidden")
         //turningTheTextAreasEditable()
@@ -248,34 +243,35 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     deleteDataAccepted_btn.addEventListener("click", () => {
         submitSection.classList.remove("hidden");
         navBar.classList.remove("hidden");
-
         delete_btn.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home"
 
-        let currentIndex = randomQuestion[randomIndex];
-        /* console.log(currentIndex);
-        console.log(randomQuestion.question) */
 
+        console.log("INDEX BEING FINALY DELETED: ", currentIndex)
 
         /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
-        //console.log(originalData)
-        //console.log(`DATA ABOUT TO BE PERMANENTLY DELETED IN INDEX ${randomIndex}: `, originalData.lines[randomIndex])
-        originalData.lines.splice(randomIndex, 1);
+        originalData.lines.splice(currentIndex, 1);
         data = originalData.lines;
-        /* console.log(`DATA PERMANENTLY DELETED IN INDEX ${randomIndex}: `, originalData.lines[randomIndex])
-        console.log(originalData) */
         alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
+
+
+
+
+
+
         fetchPut(originalData);
-        
-        showTextOnUserScreen(data);
-        
+
+
+
+
+
+
 
         document.querySelectorAll("button").forEach(b => {
             b.hidden;
         });
-        
-        deleteData_alert.hidden = !deleteData_alert.hidden;
 
+        removeEditableState();
         showTextOnUserScreen(data);
 
     });
@@ -287,8 +283,8 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         submitSection.classList.remove("hidden");
         delete_btn.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Edit"
-        
-        
+
+
     });
 }
 
@@ -297,19 +293,21 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 /* GO TO "EDIT DATA" SCREEN */
 function editDataScreen() {
     edit_btn.addEventListener("click", () => {
+        stylingButtonsSection.classList.remove("hidden");
         navBar.classList.add("hidden");
         currentScreenLocation.innerText = "Edit"
         editDeleteOrAddNew = "edit";
         //console.log(editDeleteOrAddNew)
         editing = true;
         //console.log("EDITING DATA RIGHT NOW? ", editing)
+        console.log("INDEX BEING EDITED: ", currentIndex);
         turningTheTextAreasEditable_array.forEach(c => {
-            c.classList.add("px-3");
+            //c.classList.add("px-3");
             c.classList.add('rounded-lg')
         });
 
-        /* 
-        submittingNewDataOnline(); */
+
+        submittingNewDataOnline();
     });
 
 }
@@ -321,6 +319,8 @@ function goToAddNewScreen() {
 
     /* Text areas go empty on click the "Add New"" button */
     addNewData_btn.addEventListener("click", () => {
+        stylingButtonsSection.classList.remove("hidden");
+
         delete_btn.classList.add("hidden");
         navBar.classList.add("hidden");
         currentScreenLocation.innerHTML = "Add New";
@@ -335,8 +335,8 @@ function goToAddNewScreen() {
 
         editing = false;
         //console.log("EDITING DATA RIGHT NOW? ", editing)
-        /* 
-        submittingNewDataOnline(); */
+
+        submittingNewDataOnline();
     });
 }
 
@@ -366,7 +366,7 @@ function isItEditingDataRightNow() {
 
     /*  FIRST: 
     Find the specific index in where the new data will be replaced  */
-    let currentIndex = randomIndex;
+    //let currentIndex = currentIndex;
 
 
     /*              - SECOND:
@@ -388,7 +388,7 @@ function isItEditingDataRightNow() {
 
 
     /*      - THIRD:
-                 Call to the fetchPut(originalData); function with the updated array       
+                 Call to the fetch Put(originalData); function with the updated array       
      */
 
 
@@ -396,16 +396,13 @@ function isItEditingDataRightNow() {
     console.log("SUBMITTING EDITED DATA RIGHT NOW!!! ")
     console.log("Exiting the editing data function right now")
 
+    fetchPut(originalData);
     areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
-    fetchPut(originalData, newDataToSubmitOnline);
-
-
-
 }
 
 
 
-function isItCreatingNewDataRightNow() {
+function creatingNewData() {
 
     /* Save the new data into an object */
     newDataToSubmitOnline = {
@@ -429,13 +426,13 @@ function isItCreatingNewDataRightNow() {
 
 
     navBar.classList.remove("hidden");
-    fetchPut(originalData, newDataToSubmitOnline);
+    fetchPut(originalData);
     areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
 
 }
 
 
-
+/* EVALUATES WETHER THE TEXT AREAS ARE EMPTY OR NOT AND ACTS ACCORDINGLY */
 function areTheTextAreasEmpty() {
     let emptyTextAreas = true;
     console.log("Are all text areas are empty? ", emptyTextAreas);
@@ -455,11 +452,11 @@ function areTheTextAreasEmpty() {
 
         alert("CANCELING SUBMITTING FOR ALL EMPTY TEXT AREAS");
         navBar.classList.remove("hidden");
-        areaWhereTheTextIsGonnaBeShown(data[randomIndex]);
+        areaWhereTheTextIsGonnaBeShown(data[currentIndex]);
         console.log("CANCELING SUBMITTING CHANGES RIGHT NOW!!! ")
 
     } else {
-        isItCreatingNewDataRightNow();
+        creatingNewData();
     }
 
 }
@@ -468,10 +465,10 @@ function areTheTextAreasEmpty() {
 /* TURN THE TEXT AREAS BACK TO NON EDITABLE SECTIONS */
 function removeEditableState() {
     turningTheTextAreasEditable_array.forEach(c => {
-            c.innerHTML = "";
-            c.classList.remove("px-3");
-            c.classList.remove('rounded-lg')
-        });
+        c.innerHTML = "";
+        c.classList.remove("px-3");
+        c.classList.remove('rounded-lg')
+    });
 }
 
 
@@ -479,7 +476,7 @@ function removeEditableState() {
 function submittingNewDataOnline() {
 
     console.log("FULL ARRAY PREVIOUSLY EDITING OR ADDING NEW: ", data);
-    console.log("CURRENT INDEX OF THE ARRAY: ", randomIndex);
+
 
     const submitChanges_btn = document.getElementById("submitChanges_btn");
     const cancelChangesDoNotSubmit_btn = document.getElementById("cancelChangesDoNotSubmit_btn");
@@ -488,12 +485,14 @@ function submittingNewDataOnline() {
 
     /* On click, the "CANCEL" BUTTON turns the screen back to what it looked like */
     cancelChangesDoNotSubmit_btn.addEventListener("click", () => {
+                stylingButtonsSection.classList.add("hidden");
+
         currentScreenLocation.innerHTML = "Home";
         delete_btn.classList.remove("hidden");
         navBar.classList.remove("hidden");
         editing = true;
         //console.log("CANCELING SUBMITTING CHANGES RIGHT NOW!!! ", editing)
-        
+
         removeEditableState();
         areaWhereTheTextIsGonnaBeShown(randomQuestion);
     });
@@ -502,22 +501,23 @@ function submittingNewDataOnline() {
 
     /* ACTUALLY HITTING THE SUBMIT BUTTON */
     submitChanges_btn.addEventListener("click", () => {
-
+        stylingButtonsSection.classList.add("hidden");
 
         navBar.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home";
         delete_btn.classList.remove("hidden");
 
-
+        console.log("WHAT ARE YOU CURRENTLY SUBMITING? - ", editDeleteOrAddNew);
+        console.log("INDEX OF THE ARRAY WHEN SUBMITTIN: ", currentIndex);
         switch (editDeleteOrAddNew) {
             case "addNew":
                 /* Evaluate if all text areas are empty or not. If they are, cancel the submitting and show an alert.  */
-                
+
                 areTheTextAreasEmpty();
                 break;
 
             case "edit":
-                
+
                 isItEditingDataRightNow();
                 break;
         }
@@ -533,10 +533,10 @@ function submittingNewDataOnline() {
 }
 
 
+/* SENDS THE DATA TO UPLOAD IT ONLINE */
+function fetchPut(originalData) {
 
-function fetchPut(dataToUpload, newDataToSubmitOnline) {
-
-    console.log("Currently inside the fetchPut function right now")
+    console.log("Currently inside the FETCH PUT function right now")
 
 
     fetch(url_interview_data, {
@@ -544,7 +544,7 @@ function fetchPut(dataToUpload, newDataToSubmitOnline) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(dataToUpload)
+        body: JSON.stringify(originalData)
     })
         .then(response => {
             console.log("Status:", response.status);
@@ -557,25 +557,24 @@ function fetchPut(dataToUpload, newDataToSubmitOnline) {
             console.error(error);
         });
 
-    //navBar.classList.remove("hidden");
 
-    console.log("Exiting the fetchPut  function right now")
-    areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline)
-    
+    console.log("Exiting the FETCH PUT  function right now")
 }
 
 
-        
+/* SHOW THE SEARCH SECTION INTO THE SCREEN */
 function lastSearchedQuestion(searchedQuestion) {
-    data.forEach(e => {
+    const question = data.find(e => e.question === searchedQuestion);
 
-        if (e.question === searchedQuestion) {
-            console.log("SEARCHING FOR SEARCHED QUESTION: ", e.question)
-            areaWhereTheTextIsGonnaBeShown(e);
-        }
-    })
+    if (question) {
+        currentIndex = data.indexOf(question);
+
+        console.log("SEARCHING FOR SEARCHED QUESTION:", question.question);
+        console.log("INDEX OF SEARCHED QUESTION:", currentIndex);
+
+        areaWhereTheTextIsGonnaBeShown(question);
+    }
 }
-
 
 
 
@@ -602,13 +601,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
             showTextOnUserScreen(data);
-            lastSearchedQuestion(searchedQuestion);
             displayTheNextTextOnScreen(data);
             switchVisibilityOrEditableState();
             editDataScreen();
             goToAddNewScreen();
             visibilityOFAlertDeleteData();
-            submittingNewDataOnline()
+            lastSearchedQuestion(searchedQuestion);
+
 
         });
 });

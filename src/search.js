@@ -15,8 +15,10 @@ function displayAll(data) {
     data.forEach(e => {
 
         displayAllQuestions.innerHTML += `
-            <a href="index.html" class="searchQuestion">${e.question}</a>`;
-
+                <a href="index.html" class="searchQuestion">
+                    ${e.question.replace(/<[^>]*>/g, "")}
+                </a>
+            `;
     });
 
     saveSelectedQuestionOnLocalStorage();

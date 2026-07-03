@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>STAR Candidate</title>
     <link rel="stylesheet" href="src/style.css">
     <link rel="icon"
         href="https://images.vexels.com/media/users/3/136286/isolated/preview/619aebd588e40eb596c3fa768e9dff5e-lightning-bolt-icon.png"
@@ -12,51 +12,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
     <script src="https://cdn.tailwindcss.com"></script>
-
-
 </head>
 
 <body class="m-auto">
+
+    <!-- HEADER NAVBAR -->
     <nav id="header" class="px-3 pt-3 text-xs">
         <div class=" text-xl">Search</div>
-        <!-- <div class="">
-            <button id="showPreviousData_btn" class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800">Back</button>
-        </div>
-
-        <div class="m-auto switchVisibilityOrEditableState">
-            <button id="editCurrentInformation_btn"
-                class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800 m-auto">
-                Edit
-            </button>
-            <button id="submitChanges_btn" class="bg-sky-500 px-4 py-2 rounded-lg submitChangesAndCancelChanges" hidden>
-                Save
-            </button>
-            <button id="cancelChangesDoNotSubmit_btn" class="bg-sky-500 px-4 py-2 rounded-lg" hidden>
-                Cancel
-            </button>
-            <button id="addNewData_btn" class="bg-sky-500 px-4 py-2 rounded-lg m-auto">
-                Add New
-            </button>
-            <button id="deleteCurrentInformation_btn" class="bg-sky-500 px-4 py-2 rounded-lg text-orange-800 justify-end" hidden>
-                Delete
-            </button>
-            <button onclick="window.location.href='showAllQuestions.html'"
-                class="bg-sky-500 px-4 py-2 rounded-lg m-auto">
-                Search
-            </button>
-        </div>
-
-        <div class=" ">
-                <button id="displayTheNextTextOnScreen_btn" class="bg-sky-500 px-4 py-2 rounded-lg">
-                    Next
-                </button>
-        </div> -->
     </nav>
 
 
-    <section id="" class=" pt-3 p-2 rounded-lg text-xl">
-        <input id="inputSearch" type="search" name="inputSearch" placeholder="What's your question?"
-            class="p-2 rounded-xl border">
+    <!-- INPUT SEACH AND CATEGORIES -->
+    <section id="" class="p-3 pb-2 rounded-lg text-xl">
+        
+        <input id="inputSearch" type="search" name="inputSearch" placeholder="What's your question?" class=" p-2 rounded-xl border">
 
             
         <section id="categoriesSection" class="mt-2 flex flex-wrap ">
@@ -76,36 +45,41 @@
     </section>
 
 
-    <display id="displayAllQuestions" class="mx-2 mt-0 border shadow rounded-xl p-2">
+    <!-- TEXT AREAS TO DISPLAY ALL THE LINKS -->
+    <display id="displayAllQuestions" class="mx-3 mt-0 border shadow rounded-xl p-2">
     </display>
 
-    <footer id="navBar" class=" rounded-xl text-xs">
 
-        <div class="flex">
+    <!-- FOOTER NAVBAR -->
+    <footer id="navBar" class=" rounded-xl  text-xs">
+
+        <div class="flex ">
             <button id="showPreviousData_btn"
                 class="showNextAndPreviousData_btn hiddenBehavior flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">arrow_back</span>
             </button>
 
             <button onclick="window.location.href = 'showAllQuestions.html'"
-                class="hiddenBehavior flex-1 flex items-center justify-center">
-                <span class="material-symbols-outlined">search</span>
-            </button>
-
-            <button onclick="window.location.href='index.html'" class="flex-1 flex items-center justify-center">
-                <span class="material-symbols-outlined p-2 shadow bg-sky-500 rounded-full">home</span>
-            </button>
-
+            class="hiddenBehavior flex-1 flex items-center justify-center">
+            <span class="material-symbols-outlined">search</span>
+        </button>
+        
+        <button onclick="window.location.href='index.html'" class=" flex-1 flex items-center justify-center">
+            <span class="material-symbols-outlined  p-2 shadow bg-sky-500 rounded-full">home</span>
+        </button>
+        
+        <button id="addNewData_btn"
+            class="switchVisibilityOrEditableState hiddenBehavior  flex-1 flex items-center justify-center">
+            <span class="material-symbols-outlined ">
+                add
+            </span>
+        </button>
 
             <button id="bookmark" onclick="window.location.href = 'showAllQuestions.html'"
                 class="hiddenBehavior flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">bookmark</span>
             </button>
 
-            <button id="displayTheNextTextOnScreen_btn"
-                class="showNextAndPreviousData_btn hiddenBehavior flex-1 flex items-center justify-center">
-                <span class="material-symbols-outlined">arrow_forward</span>
-            </button>
         </div>
     </footer>
 
