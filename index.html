@@ -19,23 +19,22 @@
 
 <body class="m-auto">
 
+    <div id="grid-left"></div>
     <!-- ----------------------- HEADER NAV BAR: ------------------------>
     <nav id="header" class="mb-3 px-3 pt-3 flex  text-xs">
 
-        <div id="currentScreenLocation" class=" text-xl">Home</div>
+        <div id="currentScreenLocation" class="mr-auto text-xl">Home</div>
 
         <div class="ml-auto">
-            <button id="toggleDeleteAlert_btn" class="open-btn hiddenBehavior" hidden commandFor="modal-box"
-                command="show-modal"><span id="delete" class="material-symbols-outlined">delete</span></button>
-
             <button id="edit_btn" class="switchVisibilityOrEditableState hiddenBehavior">
                 <span class="material-symbols-outlined">edit_square </span>
             </button>
+            <button id="toggleDeleteAlert_btn" class="open-btn hiddenBehavior" hidden commandFor="modal-box"
+                command="show-modal"><span id="delete" class="material-symbols-outlined">delete</span>
+            </button>
+
         </div>
     </nav>
-
-
-
 
     <!-- BUTTONS FOR STYING -->
     <section id="stylingButtonsSection" class="m-auto   section-1 hidden">
@@ -100,8 +99,6 @@
 
     </section>
 
-
-
     <!-- ----------------------- DELETE ALERT: ------------------------>
 
     <dialog id="modal-box" class="modal border shadow rounded-xl  p-2 text-center">
@@ -125,11 +122,7 @@
         </div>
     </dialog>
 
-
-
     <!-- ADD OTHER ALERTS LIKE THIS FOR WHEN DATA GET SUCCESFULLY UPDATED -->
-
-
 
 
     <!-- ----------------------- CATEGORIES SECTION: ------------------------>
@@ -149,7 +142,7 @@
     </section>
 
     <!-- ----------------------- EDITABLE TEXT AREAS: ------------------------>
-    <section id="areaWhereTheTextIsGonnaBeShown" class="mx-3 border shadow rounded-xl p-1  rounded-xl bg-fixed">
+    <section id="areaWhereTheTextIsGonnaBeShown" class="content mx-3 border shadow rounded-xl p-1  rounded-xl bg-fixed">
 
         <div id="question" class=" px-1 py-3 pt-2 font-bold editable  text-sky-500 text-xl" contenteditable="false">
             Question</div>
@@ -162,7 +155,7 @@
     <footer class=" rounded-xl">
 
         <div id="navBar" class="flex">
-            <button id="showPreviousData_btn"
+            <button id="arrowBack_btn"
                 class="showNextAndPreviousData_btn hiddenBehavior flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">arrow_back</span>
             </button>
@@ -184,7 +177,7 @@
                 <span class="material-symbols-outlined">bookmark</span>
             </button>
 
-            <button id="displayTheNextTextOnScreen_btn"
+            <button id="arrowForward_btn"
                 class="showNextAndPreviousData_btn hiddenBehavior  flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">arrow_forward</span>
             </button>

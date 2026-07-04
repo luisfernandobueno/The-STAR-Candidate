@@ -34,42 +34,18 @@ const addNewData_btn = document.getElementById("addNewData_btn");
 const submitSection = document.getElementById("submitSection");
 
 
-let currentIndex;
+let currentIndex_jsonData;
 let randomQuestion = {};
-
 let newDataToSubmitOnline = {}
 let editDeleteOrAddNew;
 let editing = true;
 let topic;
-
+let history_array = [];
+let currentIndex_historyArray = 0;
 
 
 
 /* ------------------------- FUNCTIONS ------------------------- */
-
-/* IF THE SCREEN WIDTH IS LESS THAN 210PX, ONLY THE CURRENT CATEGORY WILL BE SHOWN ON SCREEN */
-function updateCategories(topic) {
-    if (window.innerWidth < 210) {
-        console.log("SCREEN SIZE < 210");
-
-        categoriesSection.forEach((category) => {
-            console.log(category.id);
-            console.log(topic)
-
-            if (category.id !== topic) {
-                category.hidden = true;
-            } else {
-                category.hidden = false;
-            }
-        });
-
-    } else {
-        categoriesSection.forEach((category) => {
-            category.hidden = false;
-        });
-    }
-}
-
 
 
 function removePreviousCategory() {
@@ -84,10 +60,8 @@ function removePreviousCategory() {
 
 
 function sectionCategoriesBehavior(topic) {
-    updateCategories(topic);
+
     removePreviousCategory();
-
-
 
 
     switch (topic) {
@@ -124,7 +98,8 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
     example.innerHTML = randomQuestion.example;
 
     localStorage.removeItem("searchedQuestion");
-    console.log("FINAL INDEX BEING SHOWN ON  SCREEN: ", currentIndex)
+    //console.log("FINAL INDEX BEING SHOWN ON  SCREEN: ", currentIndex_jsonData);
+
 }
 
 
@@ -134,33 +109,70 @@ the text on screen, so it shows specifically the info in that particular index o
 function showTextOnUserScreen(dataToBeDisplayed) {
 
 
-    currentIndex = Math.floor(Math.random() * data.length);
+    currentIndex_jsonData = Math.floor(Math.random() * data.length);
 
 
-    randomQuestion = data[currentIndex];
-    //currentIndex = data.currentIndex;
-    console.log("FUNCTION: SHOW TEXT ON USER SCREEN: ", randomQuestion)
-    console.log("FIRST INDEX WHEN JUST ENTERING THE WEBSITE: ", currentIndex)
+    randomQuestion = data[currentIndex_jsonData];
+    //currentIndex_jsonData = data.currentIndex_jsonData;
+    //console.log("FUNCTION: SHOW TEXT ON USER SCREEN: ", randomQuestion)
+    //console.log("FIRST INDEX WHEN JUST ENTERING THE WEBSITE: ", currentIndex_jsonData)
     areaWhereTheTextIsGonnaBeShown(randomQuestion);
+
+    history_array.push(randomQuestion);
+    currentIndex_historyArray = history_array.length - 1;
+
+
 }
 
 
 
 /* Takes both: Back & Next Buttons and applies the same behavior for both of them:
 To show a random index data to the user screen. */
-function displayTheNextTextOnScreen(data) {
+function arrowForwardBtn(data) {
+
+    const arrowForward_btn = document.getElementById("arrowForward_btn");
+
+    //document.querySelectorAll(".showNextAndPreviousData_btn").forEach(btn => {
+    arrowForward_btn.addEventListener("click", () => {
+        //console.log("CURRENT INDEX OF THE ARRAY: ", currentIndex_jsonData);
+
+        /* Clean all the divs categories to white */
 
 
-    document.querySelectorAll(".showNextAndPreviousData_btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            console.log("CURRENT INDEX OF THE ARRAY: ", currentIndex);
-
-            /* Clean all the divs categories to white */
 
 
+        if (currentIndex_historyArray === history_array.length - 1) {
+            // We're on the latest question.
+            // Right arrow should generate a new one.
             showTextOnUserScreen(data);
+            console.log("history_array: ", history_array);
+        } else {
+            currentIndex_historyArray++;
+            areaWhereTheTextIsGonnaBeShown(history_array[currentIndex_historyArray]);
+            console.log(currentIndex_historyArray)
+            console.log("history_array: ", history_array);
+        }
 
-        })
+    })
+    //})
+
+
+}
+
+
+function backArrowBtn() {
+    const arrowBack_btn = document.getElementById("arrowBack_btn");
+
+    arrowBack_btn.addEventListener("click", () => {
+        //console.log("arrow Back Clickedd")
+
+        // This line makes the counter go backwards every time you click.
+        currentIndex_historyArray = (currentIndex_historyArray - 1 + history_array.length) % history_array.length;
+
+        console.log(currentIndex_historyArray)
+        console.log(history_array[currentIndex_historyArray].question);
+        areaWhereTheTextIsGonnaBeShown(history_array[currentIndex_historyArray])
+        arrowBack_btn.disabled = currentIndex_historyArray === 0;
     })
 }
 
@@ -222,7 +234,7 @@ function visibilityOFAlertDeleteData() {
         currentScreenLocation.innerHTML = "Delete"
         editDeleteOrAddNew = "delete";
         console.log(editDeleteOrAddNew)
-        console.log("INDEX TO BE DELETED: ", currentIndex)
+        console.log("INDEX TO BE DELETED: ", currentIndex_jsonData)
         delete_btn.classList.add("hidden");
         submitSection.classList.add("hidden");
 
@@ -247,10 +259,11 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         currentScreenLocation.innerHTML = "Home"
 
 
-        console.log("INDEX BEING FINALY DELETED: ", currentIndex)
+        console.log("INDEX BEING FINALY DELETED: ", currentIndex_jsonData)
 
         /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
-        originalData.lines.splice(currentIndex, 1);
+        originalData.lines.splice(currentIndex_jsonData, 1);
+        history_array.splice(currentIndex_jsonData, 1);
         data = originalData.lines;
         alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
 
@@ -300,7 +313,7 @@ function editDataScreen() {
         //console.log(editDeleteOrAddNew)
         editing = true;
         //console.log("EDITING DATA RIGHT NOW? ", editing)
-        console.log("INDEX BEING EDITED: ", currentIndex);
+        console.log("INDEX BEING EDITED: ", currentIndex_jsonData);
         turningTheTextAreasEditable_array.forEach(c => {
             //c.classList.add("px-3");
             c.classList.add('rounded-lg')
@@ -366,24 +379,26 @@ function isItEditingDataRightNow() {
 
     /*  FIRST: 
     Find the specific index in where the new data will be replaced  */
-    //let currentIndex = currentIndex;
+    //let currentIndex_jsonData = currentIndex_jsonData;
 
 
     /*              - SECOND:
                 Replace the data into the array        */
 
-    /* console.log("CURRENT INDEX: ", currentIndex)
+    /* console.log("CURRENT INDEX: ", currentIndex_jsonData)
 
-    console.log("DATA PREVIOUS EDITING: ", data[currentIndex].question) */
-
-
-    data[currentIndex] = newDataToSubmitOnline;
+    console.log("DATA PREVIOUS EDITING: ", data[currentIndex_jsonData].question) */
 
 
-    /* console.log("DATA AFTER EDITING: ", data[currentIndex].question)
+    data[currentIndex_jsonData] = newDataToSubmitOnline;
+
+
+    /* console.log("DATA AFTER EDITING: ", data[currentIndex_jsonData].question)
     console.log("FULL ARRAY AFTER EDITING: ", data); */
-    //console.log(data[currentIndex].question)
-    originalData.lines[currentIndex] = newDataToSubmitOnline;
+    //console.log(data[currentIndex_jsonData].question)
+    originalData.lines[currentIndex_jsonData] = newDataToSubmitOnline;
+    history_array[currentIndex_historyArray] = newDataToSubmitOnline;
+
     //console.log("ORIGINAL DATA: ", originalData)
 
 
@@ -418,6 +433,7 @@ function creatingNewData() {
 
     /* Push the new data into the array */
     originalData.lines.push(newDataToSubmitOnline);
+    history_array.push(newDataToSubmitOnline);
 
 
     console.log("DATA AFTER CREATING NEW DATA: ", originalData.lines[originalData.lines.length - 1])
@@ -452,7 +468,7 @@ function areTheTextAreasEmpty() {
 
         alert("CANCELING SUBMITTING FOR ALL EMPTY TEXT AREAS");
         navBar.classList.remove("hidden");
-        areaWhereTheTextIsGonnaBeShown(data[currentIndex]);
+        areaWhereTheTextIsGonnaBeShown(data[currentIndex_jsonData]);
         console.log("CANCELING SUBMITTING CHANGES RIGHT NOW!!! ")
 
     } else {
@@ -485,7 +501,7 @@ function submittingNewDataOnline() {
 
     /* On click, the "CANCEL" BUTTON turns the screen back to what it looked like */
     cancelChangesDoNotSubmit_btn.addEventListener("click", () => {
-                stylingButtonsSection.classList.add("hidden");
+        stylingButtonsSection.classList.add("hidden");
 
         currentScreenLocation.innerHTML = "Home";
         delete_btn.classList.remove("hidden");
@@ -508,7 +524,7 @@ function submittingNewDataOnline() {
         delete_btn.classList.remove("hidden");
 
         console.log("WHAT ARE YOU CURRENTLY SUBMITING? - ", editDeleteOrAddNew);
-        console.log("INDEX OF THE ARRAY WHEN SUBMITTIN: ", currentIndex);
+        console.log("INDEX OF THE ARRAY WHEN SUBMITTIN: ", currentIndex_jsonData);
         switch (editDeleteOrAddNew) {
             case "addNew":
                 /* Evaluate if all text areas are empty or not. If they are, cancel the submitting and show an alert.  */
@@ -567,10 +583,10 @@ function lastSearchedQuestion(searchedQuestion) {
     const question = data.find(e => e.question === searchedQuestion);
 
     if (question) {
-        currentIndex = data.indexOf(question);
+        currentIndex_jsonData = data.indexOf(question);
 
         console.log("SEARCHING FOR SEARCHED QUESTION:", question.question);
-        console.log("INDEX OF SEARCHED QUESTION:", currentIndex);
+        console.log("INDEX OF SEARCHED QUESTION:", currentIndex_jsonData);
 
         areaWhereTheTextIsGonnaBeShown(question);
     }
@@ -601,7 +617,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
             showTextOnUserScreen(data);
-            displayTheNextTextOnScreen(data);
+            arrowForwardBtn(data);
+            backArrowBtn();
             switchVisibilityOrEditableState();
             editDataScreen();
             goToAddNewScreen();

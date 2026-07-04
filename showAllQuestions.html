@@ -16,6 +16,9 @@
 
 <body class="m-auto">
 
+    <div id="grid-left"></div>
+
+
     <!-- HEADER NAVBAR -->
     <nav id="header" class="px-3 pt-3 text-xs">
         <div class=" text-xl">Search</div>
@@ -24,10 +27,11 @@
 
     <!-- INPUT SEACH AND CATEGORIES -->
     <section id="" class="p-3 pb-2 rounded-lg text-xl">
-        
-        <input id="inputSearch" type="search" name="inputSearch" placeholder="What's your question?" class=" p-2 rounded-xl border">
 
-            
+        <input id="inputSearch" type="search" name="inputSearch" placeholder="What's your question?"
+            class=" p-2 rounded-xl border">
+
+
         <section id="categoriesSection" class="mt-2 flex flex-wrap ">
             <div id="Recruiter" class="category  px-2 py-1 flex-1 text-center    rounded-lg text-xs ml-auto">
                 Recruiter
@@ -46,34 +50,34 @@
 
 
     <!-- TEXT AREAS TO DISPLAY ALL THE LINKS -->
-    <display id="displayAllQuestions" class="mx-3 mt-0 border shadow rounded-xl p-2">
+    <display id="displayAllQuestions" class="content mx-3 mt-0 border shadow rounded-xl p-2">
     </display>
 
 
     <!-- FOOTER NAVBAR -->
-    <footer id="navBar" class=" rounded-xl  text-xs">
+    <footer class=" rounded-xl  text-xs">
 
-        <div class="flex ">
-            <button id="showPreviousData_btn"
+        <div id="navBar" class="flex ">
+            <button id="arrowBack_btn"
                 class="showNextAndPreviousData_btn hiddenBehavior flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">arrow_back</span>
             </button>
 
             <button onclick="window.location.href = 'showAllQuestions.html'"
-            class="hiddenBehavior flex-1 flex items-center justify-center">
-            <span class="material-symbols-outlined">search</span>
-        </button>
-        
-        <button onclick="window.location.href='index.html'" class=" flex-1 flex items-center justify-center">
-            <span class="material-symbols-outlined  p-2 shadow bg-sky-500 rounded-full">home</span>
-        </button>
-        
-        <button id="addNewData_btn"
-            class="switchVisibilityOrEditableState hiddenBehavior  flex-1 flex items-center justify-center">
-            <span class="material-symbols-outlined ">
-                add
-            </span>
-        </button>
+                class="hiddenBehavior flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+
+            <button onclick="window.location.href='index.html'" class=" flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined  p-2 shadow bg-sky-500 rounded-full">home</span>
+            </button>
+
+            <button id="addNewData_btn"
+                class="switchVisibilityOrEditableState hiddenBehavior  flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined ">
+                    add
+                </span>
+            </button>
 
             <button id="bookmark" onclick="window.location.href = 'showAllQuestions.html'"
                 class="hiddenBehavior flex-1 flex items-center justify-center">
