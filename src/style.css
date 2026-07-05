@@ -1,3 +1,5 @@
+
+
 /* body * {
     border: 0.5px red dotted;
 }
@@ -56,7 +58,29 @@ footer {
 
 #areaWhereTheTextIsGonnaBeShown {
     flex: 1;
+    position: relative;
 }
+
+#favorite_btn {
+    position: fixed;
+    bottom: 65px;
+    right: 20px;
+    z-index: 10;
+}
+
+.filled {
+    display: none;
+}
+
+#favorite_btn.active .outlineHeart {
+    display: none;
+}
+
+#favorite_btn.active .filled {
+    display: block;
+}
+
+
 
 #inputSearch,
 .submitChangesAndCancelChanges,
@@ -66,6 +90,10 @@ footer {
 
 .searchQuestion {
     display: block;
+}
+
+#arrowForward_btn {
+    transform: rotate(180deg);
 }
 
 

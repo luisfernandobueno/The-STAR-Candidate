@@ -27,6 +27,7 @@ const explanation = document.getElementById("explanation");
 const answer = document.getElementById("answer");
 const example = document.getElementById("example");
 const stylingButtonsSection = document.getElementById("stylingButtonsSection");
+const favorite_btn = document.getElementById("favorite_btn");
 
 /* FOOTER SECTION */
 const navBar = document.getElementById("navBar");
@@ -45,6 +46,7 @@ let editing = true;
 let topic;
 let history_arr = [];
 let currentIndex_historyArray;
+let originalData = { lines: {} };
 
 
 
@@ -92,11 +94,11 @@ function sectionCategoriesBehavior(topic) {
 /* Finds the text areas where the info is gonna be displayed on the HTML
 and pastes there the corresponding data to finally be shown on screen*/
 function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
-
+    //console.log(data[currentIndex_jsonData])
     document.getElementById("areaWhereTheTextIsGonnaBeShown").scrollTo({
         top: 0,
         behavior: "smooth"
-        
+
     });
 
     sectionCategoriesBehavior(randomQuestion.topic)
@@ -105,6 +107,13 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
     explanation.innerHTML = randomQuestion.explanation;
     answer.innerHTML = randomQuestion.answer;
     example.innerHTML = randomQuestion.example;
+
+
+    favorite_btn.classList.toggle(
+        "active",
+        randomQuestion.favorite === true
+    );
+
 
     localStorage.removeItem("searchedQuestion");
     //console.log("FINAL INDEX BEING SHOWN ON  SCREEN: ", currentIndex_jsonData);
@@ -134,6 +143,16 @@ function showTextOnUserScreen(dataToBeDisplayed) {
 }
 
 
+function favoriteState() {
+    favorite_btn.classList.toggle("active");
+
+    data[currentIndex_jsonData].favorite =
+        favorite_btn.classList.contains("active");
+
+    console.log(data[currentIndex_jsonData]);
+
+    fetchPut(data);
+}
 
 
 function arrowForwardBtn(data) {
@@ -147,18 +166,18 @@ function arrowForwardBtn(data) {
         /* Clean all the divs categories to white */
 
 
-        console.log(currentIndex_historyArray)
+        //console.log(currentIndex_historyArray)
 
         if (currentIndex_historyArray === history_arr.length - 1) {
             // We're on the latest question.
             // Right arrow should generate a new one.
             showTextOnUserScreen(data);
-            console.log("history_arr: ", history_arr);
+            //console.log("history_arr: ", history_arr);
         } else {
             currentIndex_historyArray++;
             areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
 
-            console.log("history_arr: ", history_arr);
+            //console.log("history_arr: ", history_arr);
         }
 
         enableArrowBack()
@@ -268,15 +287,17 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         delete_btn.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home"
         stylingButtonsSection.classList.add("hidden");
+        favorite_btn.classList.remove("hidden");
+
 
 
 
         console.log("INDEX BEING FINALY DELETED: ", currentIndex_jsonData)
 
         /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
-        originalData.lines.splice(currentIndex_jsonData, 1);
+        data.splice(currentIndex_jsonData, 1);
         history_arr.splice(currentIndex_jsonData, 1);
-        data = originalData.lines;
+        data = data;
         alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
 
 
@@ -284,7 +305,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 
 
 
-        fetchPut(originalData);
+        fetchPut(data);
 
 
 
@@ -319,6 +340,8 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 function editDataScreen() {
     edit_btn.addEventListener("click", () => {
         stylingButtonsSection.classList.remove("hidden");
+        favorite_btn.classList.add("hidden");
+
         navBar.classList.add("hidden");
         currentScreenLocation.innerText = "Edit"
         editDeleteOrAddNew = "edit";
@@ -345,6 +368,8 @@ function goToAddNewScreen() {
     /* Text areas go empty on click the "Add New"" button */
     addNewData_btn.addEventListener("click", () => {
         stylingButtonsSection.classList.remove("hidden");
+        favorite_btn.classList.add("hidden");
+
 
         delete_btn.classList.add("hidden");
         navBar.classList.add("hidden");
@@ -408,14 +433,14 @@ function isItEditingDataRightNow() {
     /* console.log("DATA AFTER EDITING: ", data[currentIndex_jsonData].question)
     console.log("FULL ARRAY AFTER EDITING: ", data); */
     //console.log(data[currentIndex_jsonData].question)
-    originalData.lines[currentIndex_jsonData] = newDataToSubmitOnline;
+    data[currentIndex_jsonData] = newDataToSubmitOnline;
     history_arr[currentIndex_historyArray] = newDataToSubmitOnline;
 
-    //console.log("ORIGINAL DATA: ", originalData)
+    //console.log("ORIGINAL DATA: ", data)
 
 
     /*      - THIRD:
-                 Call to the fetch Put(originalData); function with the updated array       
+                 Call to the fetch Put(data); function with the updated array       
      */
 
 
@@ -423,7 +448,7 @@ function isItEditingDataRightNow() {
     console.log("SUBMITTING EDITED DATA RIGHT NOW!!! ")
     console.log("Exiting the editing data function right now")
 
-    fetchPut(originalData);
+    fetchPut(data);
     areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
 }
 
@@ -444,17 +469,17 @@ function creatingNewData() {
 
 
     /* Push the new data into the array */
-    originalData.lines.push(newDataToSubmitOnline);
+    data.push(newDataToSubmitOnline);
     history_arr.push(newDataToSubmitOnline);
 
 
-    console.log("DATA AFTER CREATING NEW DATA: ", originalData.lines[originalData.lines.length - 1])
-    console.log("ORIGINAL DATA: ", originalData);
+    console.log("DATA AFTER CREATING NEW DATA: ", data[data.length - 1])
+    console.log("ORIGINAL DATA: ", data);
     console.log("SUBMITTING NEW DATA RIGHT NOW!!! ");
 
 
     navBar.classList.remove("hidden");
-    fetchPut(originalData);
+    fetchPut(data);
     areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
 
 }
@@ -514,6 +539,8 @@ function submittingNewDataOnline() {
     /* On click, the "CANCEL" BUTTON turns the screen back to what it looked like */
     cancelChangesDoNotSubmit_btn.addEventListener("click", () => {
         stylingButtonsSection.classList.add("hidden");
+        favorite_btn.classList.remove("hidden");
+
 
         currentScreenLocation.innerHTML = "Home";
         delete_btn.classList.remove("hidden");
@@ -530,6 +557,7 @@ function submittingNewDataOnline() {
     /* ACTUALLY HITTING THE SUBMIT BUTTON */
     submitChanges_btn.addEventListener("click", () => {
         stylingButtonsSection.classList.add("hidden");
+        favorite_btn.classList.remove("hidden");
 
         navBar.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home";
@@ -562,13 +590,12 @@ function submittingNewDataOnline() {
 
 
 /* SENDS THE DATA TO UPLOAD IT ONLINE */
-function fetchPut(originalData) {
+function fetchPut(data) {
 
-    console.log("Currently inside the FETCH PUT function right now")
-
+    originalData.lines = data;
 
     fetch(url_interview_data, {
-        method: "POST",
+        method: "POST", // ALWAYS USE POST!!!, DO NOT FUCKING CHANGE IT!!! if you use put, you end up duplicating the whole json
         headers: {
             "Content-Type": "application/json"
         },
@@ -578,21 +605,17 @@ function fetchPut(originalData) {
             console.log("Status:", response.status);
             return response.json();
         })
-        .then(result => {
-            console.log(result);
-        })
-        .catch(error => {
-            console.error(error);
-        });
+        .then(result => console.log(result))
+        .catch(error => console.error(error));
 
-
-    console.log("Exiting the FETCH PUT  function right now")
+        console.log("FINAL DATA AFTER FETCH")
+        console.log(originalData)
 }
 
 
 /* SHOW THE SEARCH SECTION INTO THE SCREEN */
 function lastSearchedQuestion(searchedQuestion) {
-    console.log(searchedQuestion);
+    //console.log(searchedQuestion);
 
     // Takes a string and standardizes it so it can be compared reliably.
     const normalize = str =>
@@ -618,14 +641,14 @@ function lastSearchedQuestion(searchedQuestion) {
     );
 
 
-    console.log(result)
+    //console.log(result)
     if (result) {
         currentIndex_jsonData = data.indexOf(result);
 
-        console.log("SEARCHING FOR SEARCHED QUESTION:", result.question);
-        console.log("INDEX OF SEARCHED QUESTION:", currentIndex_jsonData);
+        //console.log("SEARCHING FOR SEARCHED QUESTION:", result.question);
+        //console.log("INDEX OF SEARCHED QUESTION:", currentIndex_jsonData);
         history_arr[0] = result;
-        console.log("history_arr: ", history_arr);
+        //console.log("history_arr: ", history_arr);
         areaWhereTheTextIsGonnaBeShown(result);
     }
 }
@@ -650,10 +673,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((json) => {
 
             //Evaluate first to not have andy indexes duplicated
-            originalData = [
+            data = [
                 ...new Map(json.lines.map(item => [item.question, item])).values()
             ];
-            data = originalData;
+            data = data;
 
 
             /* SAVE DATA ON LOCALSTORAGE:

@@ -27,6 +27,8 @@ function displayAll(data) {
             `;
     });
 
+
+    searchingQuestion(data);
     saveSelectedQuestionOnLocalStorage();
 
 }
@@ -83,30 +85,42 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((json) => {
 
             //Evaluate first to not have andy indexes duplicated
-            originalData = [
+            data = [
                 ...new Map(json.lines.map(item => [item.question, item])).values()
             ];
-            data = originalData;
+            data = data;
 
-            
+
             console.log(data)
-            console.log("ORIGINAL DATA: ", originalData);
+            console.log("ORIGINAL DATA: ", data);
 
             switch (displayScreen) {
                 case "history":
                     screenType.innerText = "History";
                     console.log(history_arr);
                     displayAll(history_arr)
+                    break;
 
-                    break   
                 case "simpleSearch":
                     displayAll(data);
-                    break
+                    break;
+
+                case "My Favorites":
+                    console.log(data.filter(item => item.favorite))
+                    screenType.innerText = displayScreen;
+                    displayAll(
+                        
+                        data.filter(item => item.favorite)
+                        /* This creates a new array containing only objects 
+                        where:
+                        item.favorite === true */
+                        
+                    );
             }
-            
+
+
 
             
-            searchingQuestion();
             saveSelectedQuestionOnLocalStorage();
 
         });
