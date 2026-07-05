@@ -664,6 +664,11 @@ function goToDisplayAllScreen(goTo) {
 }
 
 
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle('show')
+}
+
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
 document.addEventListener("DOMContentLoaded", function () {

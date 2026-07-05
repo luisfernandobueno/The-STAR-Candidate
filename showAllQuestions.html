@@ -11,7 +11,7 @@
         type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
-    
+
 
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,21 +19,51 @@
 
 <body class="m-auto">
 
-    <aside id="grid-left"></aside>
+
 
 
     <!-- HEADER NAVBAR -->
-    <nav id="header" class="px-3 pt-3 flex text-xs">
-        <div id="screenType" class="mr-auto text-xl">Search</div>
-        <div>
-            <button>
+    <nav id="header" class="px-3 pt-3 flex items-center text-xs">
+
+        <div class="flex-1 ">
+            <button id="menu" onclick="toggleSidebar()">
                 <span class="material-symbols-outlined">
-                    history_2
+                    dehaze
                 </span>
             </button>
         </div>
+
+        <div id="screenType" class="mr-auto flex-1 text-center text-xl"></div>
+
+        <div class="flex-1"></div>
     </nav>
 
+    <aside id="sidebar" class=" p-3 border shadow">
+        <div class="top mb-1">
+            <button onclick="toggleSidebar()">
+                <span class="material-symbols-outlined">
+                    dehaze
+                </span>
+            </button>
+        </div>
+        <div class="bottom">
+            <div>
+                Profile
+            </div>
+            <div>
+                Login 
+            </div>
+            <div>
+                Register
+            </div>
+            <div>
+                Settings
+            </div>
+            <div>
+                About
+            </div>
+        </div>
+    </aside>
 
     <!-- INPUT SEACH AND CATEGORIES -->
     <section id="" class="p-3 pb-2 rounded-lg text-xl">
@@ -68,50 +98,24 @@
     <footer class=" rounded-xl  text-xs">
 
         <div id="navBar" class="flex ">
-            <button id="arrowBack_btn
-                class="showNextAndPreviousData_btn hiddenBehavior  flex-1 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
-                    <g id="arrow-dash-left">
-                        <path id="Union" fill="#000000"
-                            d="M8.54297 5.54333c0.39054 -0.39029 1.02361 -0.39044 1.41406 0 0.39037 0.39046 0.39027 1.02356 0 1.41407l-4.04297 4.043H12c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1H5.91406l4.04297 4.0429c0.39037 0.3905 0.39027 1.0236 0 1.4141 -0.39049 0.3905 -1.02353 0.3904 -1.41406 0l-5.75 -5.75c-0.39053 -0.3905 -0.39053 -1.0235 0 -1.4141zM17 11.0004c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1h-1c-0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1zm4 0c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1 -0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1"
-                            stroke-width="1"></path>
-                    </g>
-                </svg>
-            </button>
-            
-            
-            
-            <button id="addNewData_btn"
-                class="switchVisibilityOrEditableState hiddenBehavior  flex-1 flex items-center justify-center">
-                <span class="material-symbols-outlined ">
-                    add
-                </span>
-            </button>
+
+
+
+
+
 
             <button onclick="window.location.href='index.html'" class=" flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined  p-2 shadow bg-sky-500 rounded-full">home</span>
             </button>
 
-            <button onclick="window.location.href = 'showAllQuestions.html'"
-                class="hiddenBehavior flex-1 flex items-center justify-center">
-                <span class="material-symbols-outlined">search</span>
-            </button>
 
 
-            <button id="arrowForward_btn"
-                class="showNextAndPreviousData_btn hiddenBehavior  flex-1 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24" width="24">
-                    <g id="arrow-dash-left">
-                        <path id="Union" fill="#000000"
-                            d="M8.54297 5.54333c0.39054 -0.39029 1.02361 -0.39044 1.41406 0 0.39037 0.39046 0.39027 1.02356 0 1.41407l-4.04297 4.043H12c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1H5.91406l4.04297 4.0429c0.39037 0.3905 0.39027 1.0236 0 1.4141 -0.39049 0.3905 -1.02353 0.3904 -1.41406 0l-5.75 -5.75c-0.39053 -0.3905 -0.39053 -1.0235 0 -1.4141zM17 11.0004c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1h-1c-0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1zm4 0c0.5521 0.0001 1 0.4478 1 1 -0.0002 0.552 -0.448 0.9998 -1 1 -0.5522 0 -0.9998 -0.4479 -1 -1 0 -0.5523 0.4477 -1 1 -1"
-                            stroke-width="1"></path>
-                    </g>
-                </svg>
-            </button>
+
+
         </div>
     </footer>
 
-    
+
     <script src="src/search.js"></script>
 </body>
 

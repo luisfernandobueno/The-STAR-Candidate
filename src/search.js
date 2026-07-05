@@ -16,9 +16,9 @@ let screenType = document.getElementById("screenType");
 
 
 /* DISPLAY ALL THE QUESTIONS ON SCREEN */
-function displayAll(data) {
+function displayAll(questionsToBeDisplayed) {
 
-    data.forEach(e => {
+    questionsToBeDisplayed.forEach(e => {
 
         displayAllQuestions.innerHTML += `
                 <a href="index.html" class="searchQuestion">
@@ -28,8 +28,8 @@ function displayAll(data) {
     });
 
 
-    searchingQuestion(data);
-    saveSelectedQuestionOnLocalStorage();
+    searchingQuestion(questionsToBeDisplayed);
+    //saveSelectedQuestionOnLocalStorage();
 
 }
 
@@ -49,13 +49,13 @@ function saveSelectedQuestionOnLocalStorage() {
 
 
 /* FILTER QUESTIONS IN REAL TIME */
-function searchingQuestion() {
+function searchingQuestion(questionsToBeDisplayed) {
     inputSearch.addEventListener('keyup', () => {
 
         displayAllQuestions.innerHTML = '';
         const texto = inputSearch.value.toLowerCase();
 
-        for (let index of data) {
+        for (let index of questionsToBeDisplayed) {
             let typedQuestion = index.question.toLowerCase();
 
             if (typedQuestion.indexOf(texto) !== -1) {
@@ -65,14 +65,17 @@ function searchingQuestion() {
             }
         }
 
-        //saveSelectedQuestionOnLocalStorage();
+        saveSelectedQuestionOnLocalStorage();
 
     })
 }
 
 
 
-
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle('show')
+}
 
 
 
@@ -95,17 +98,18 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("ORIGINAL DATA: ", data);
 
             switch (displayScreen) {
-                case "history":
+                /* case "history":
                     screenType.innerText = "History";
                     console.log(history_arr);
                     displayAll(history_arr)
-                    break;
+                    break; */
 
-                case "simpleSearch":
+                case "Search":
+                    screenType.innerText = displayScreen;
                     displayAll(data);
                     break;
 
-                case "My Favorites":
+                case "Favorites":
                     console.log(data.filter(item => item.favorite))
                     screenType.innerText = displayScreen;
                     displayAll(
@@ -121,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             
-            saveSelectedQuestionOnLocalStorage();
+            
 
         });
 

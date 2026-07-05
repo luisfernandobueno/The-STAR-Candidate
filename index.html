@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="stylesheet" href="src/stylingButtons.css">
     <link rel="stylesheet" href="src/style.css" />
     <title>STAR Candidate</title>
@@ -21,43 +21,20 @@
 
 <body class="m-auto">
 
-    <aside class="m-2 mr-0 p-2 border rounded-lg">
-        <div class="top">
 
-        </div>
-        <div class="bottom">
-            <div>
-                AAAA
-            </div>
-            <div>
-                BBB
-            </div>
-            <div>
-                CCC
-            </div>
-            <div>
-                DDD
-            </div>
-            <div>
-                EEE
-            </div>
-        </div>
-    </aside>
     <!-- ----------------------- HEADER NAV BAR: ------------------------>
-    <nav id="header" class="mb-3 px-3 pt-3 flex text-xs">
+    <nav id="header" class="mb-3 px-3 pt-3 flex items-center text-xs">
 
-        <div id="currentScreenLocation" class="mr-auto text-xl">Home</div>
-
-        <div class="flex  rounded-full">
-
-
-
-            <button id="history_btn" onclick="goToDisplayAllScreen('history')"
-                class="hiddenBehavior flex-1  flex items-center justify-center">
+        <div class="flex-1 items-center">
+            <button onclick="toggleSidebar()">
                 <span class="material-symbols-outlined">
-                    history_2
+                    dehaze
                 </span>
             </button>
+        </div>
+        <div id="currentScreenLocation" class="mr-auto flex-1  text-center text-xl">Home</div>
+
+        <div class="ml-auto flex flex-1 justify-end">
 
             <button id="edit_btn" class="switchVisibilityOrEditableState hiddenBehavior">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-0.855 -0.855 24 24"
@@ -86,6 +63,32 @@
         </div>
     </nav>
 
+    <aside id="sidebar" class="p-3 border shadow-lg">
+        <div class="top mb-1">
+            <button onclick="toggleSidebar()">
+                <span class="material-symbols-outlined">
+                    dehaze
+                </span>
+            </button>
+        </div>
+        <div class="bottom">
+            <div>
+                Profile
+            </div>
+            <div>
+                Login
+            </div>
+            <div>
+                Register
+            </div>
+            <div>
+                Settings
+            </div>
+            <div>
+                About
+            </div>
+        </div>
+    </aside>
     <!-- BUTTONS FOR STYING -->
     <section id="stylingButtonsSection" class="m-auto   section-1 hidden">
 
@@ -201,37 +204,37 @@
 
 
         </div>
-        <div id="favorite_btn" onclick="favoriteState()">
 
-            <svg class="outlineHeart" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"
-                id="Heart--Streamline-Flex" height="24" width="24">
-                <desc>
-                    Heart Streamline Icon: https://streamlinehq.com
-                </desc>
-                <g id="heart--reward-social-rating-media-heart-it-like-favorite-love">
-                    <path id="Vector" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                        d="M6.99999 3.18302C3.98028 -0.522119 0.791951 2.11054 0.75 4.9485c0 4.22492 5.05507 7.6927 6.24999 7.6927 1.19492 0 6.25001 -3.46778 6.25001 -7.6927 -0.042 -2.83796 -3.2303 -5.470619 -6.25001 -1.76548Z"
-                        stroke-width="1"></path>
-                </g>
-            </svg>
+    <div id="favorite_btn" onclick="favoriteState()" class="p-2 bg-gray-50 border shadow rounded-full ">
 
-            <svg class="filled" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                id="Heart--Streamline-Flex" height="24" width="24">
-                <desc>
-                    Heart Streamline Icon: https://streamlinehq.com
-                </desc>
-                <g id="heart--reward-social-rating-media-heart-it-like-favorite-love">
-                    <path id="Union" fill="#ff214fe8" fill-rule="evenodd"
-                        d="M23.571257142857142 8.470697142857142c-0.03994285714285714 -2.712102857142857 -1.5754285714285714 -5.3829771428571425 -3.9378857142857138 -6.483805714285714 -1.2005142857142856 -0.5594537142857143 -2.59284 -0.6987891428571429 -4.044822857142857 -0.23789142857142856 -1.20936 0.38387999999999994 -2.4206057142857142 1.1706514285714287 -3.588565714285714 2.407645714285714 -1.1679599999999999 -1.2369942857142857 -2.3791885714285717 -2.023765714285714 -3.588565714285714 -2.407645714285714 -1.451982857142857 -0.4608977142857143 -2.8443085714285714 -0.3215622857142857 -4.044891428571428 0.23789142857142856C2.0041714285714285 3.0877199999999996 0.46875599999999995 5.758594285714285 0.4286657142857143 8.470697142857142L0.42857142857142855 8.47068v0.012685714285714286c0 3.9556799999999996 2.3524971428571426 7.460177142857143 4.8439371428571425 9.919834285714286 1.2576514285714284 1.241485714285714 2.5851942857142856 2.2520571428571428 3.743211428571428 2.9576571428571428 0.5786571428571429 0.35245714285714286 1.1265085714285714 0.636 1.6119085714285712 0.834 0.46371428571428575 0.18925714285714285 0.9475199999999999 0.33308571428571426 1.3723542857142856 0.33308571428571426 0.4248342857142857 0 0.9086399999999999 -0.14382857142857142 1.3723542857142856 -0.33308571428571426 0.4854 -0.198 1.0332514285714285 -0.4815428571428571 1.6119085714285712 -0.834 1.1580342857142856 -0.7056 2.485525714285714 -1.7161714285714287 3.743297142857143 -2.9576571428571428C21.218914285714288 15.943542857142855 23.57142857142857 12.439045714285713 23.57142857142857 8.483365714285712h0.00017142857142857143l-0.00034285714285714285 -0.012668571428571428Z"
-                        clip-rule="evenodd" stroke-width="1.7143"></path>
-                </g>
-            </svg>
+        <svg class="outlineHeart" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"
+            id="Heart--Streamline-Flex" height="20" width="20">
+            <desc>
+                Heart Streamline Icon: https://streamlinehq.com
+            </desc>
+            <g id="heart--reward-social-rating-media-heart-it-like-favorite-love">
+                <path id="Vector" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                    d="M6.99999 3.18302C3.98028 -0.522119 0.791951 2.11054 0.75 4.9485c0 4.22492 5.05507 7.6927 6.24999 7.6927 1.19492 0 6.25001 -3.46778 6.25001 -7.6927 -0.042 -2.83796 -3.2303 -5.470619 -6.25001 -1.76548Z"
+                    stroke-width="1"></path>
+            </g>
+        </svg>
+
+        <svg class="filled" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            id="Heart--Streamline-Flex" height="20" width="20">
+            <desc>
+                Heart Streamline Icon: https://streamlinehq.com
+            </desc>
+            <g id="heart--reward-social-rating-media-heart-it-like-favorite-love">
+                <path id="Union" fill="#ff214fe8" fill-rule="evenodd"
+                    d="M23.571257142857142 8.470697142857142c-0.03994285714285714 -2.712102857142857 -1.5754285714285714 -5.3829771428571425 -3.9378857142857138 -6.483805714285714 -1.2005142857142856 -0.5594537142857143 -2.59284 -0.6987891428571429 -4.044822857142857 -0.23789142857142856 -1.20936 0.38387999999999994 -2.4206057142857142 1.1706514285714287 -3.588565714285714 2.407645714285714 -1.1679599999999999 -1.2369942857142857 -2.3791885714285717 -2.023765714285714 -3.588565714285714 -2.407645714285714 -1.451982857142857 -0.4608977142857143 -2.8443085714285714 -0.3215622857142857 -4.044891428571428 0.23789142857142856C2.0041714285714285 3.0877199999999996 0.46875599999999995 5.758594285714285 0.4286657142857143 8.470697142857142L0.42857142857142855 8.47068v0.012685714285714286c0 3.9556799999999996 2.3524971428571426 7.460177142857143 4.8439371428571425 9.919834285714286 1.2576514285714284 1.241485714285714 2.5851942857142856 2.2520571428571428 3.743211428571428 2.9576571428571428 0.5786571428571429 0.35245714285714286 1.1265085714285714 0.636 1.6119085714285712 0.834 0.46371428571428575 0.18925714285714285 0.9475199999999999 0.33308571428571426 1.3723542857142856 0.33308571428571426 0.4248342857142857 0 0.9086399999999999 -0.14382857142857142 1.3723542857142856 -0.33308571428571426 0.4854 -0.198 1.0332514285714285 -0.4815428571428571 1.6119085714285712 -0.834 1.1580342857142856 -0.7056 2.485525714285714 -1.7161714285714287 3.743297142857143 -2.9576571428571428C21.218914285714288 15.943542857142855 23.57142857142857 12.439045714285713 23.57142857142857 8.483365714285712h0.00017142857142857143l-0.00034285714285714285 -0.012668571428571428Z"
+                    clip-rule="evenodd" stroke-width="1.7143"></path>
+            </g>
+        </svg>
 
 
-        </div>
-
+    </div>
     </section>
-
+   
     <!-- ----------------------- FOOTER NAV BAR ------------------------>
     <footer class=" rounded-xl">
 
@@ -248,7 +251,7 @@
                 </svg>
             </button>
 
-            <button id="myFavorite_screen" onclick="goToDisplayAllScreen('My Favorites')"
+            <button id="myFavorite_screen" onclick="goToDisplayAllScreen('Favorites')"
                 class="hiddenBehavior flex-1 flex items-center justify-center">
                 <svg class="outlineHeart" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"
                     id="Heart--Streamline-Flex" height="20" width="24">
@@ -270,7 +273,7 @@
                 </span>
             </button>
 
-            <button onclick="goToDisplayAllScreen('simpleSearch')"
+            <button onclick="goToDisplayAllScreen('Search')"
                 class="hiddenBehavior flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">search</span>
             </button>

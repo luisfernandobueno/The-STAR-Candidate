@@ -1,9 +1,7 @@
-
-
 /* body * {
-    border: 0.5px red dotted;
-}
-*/
+    border: .1px rgb(199, 199, 199) solid;
+} */
+
 
 body {
     display: flex;
@@ -15,6 +13,22 @@ body {
     margin: 0;
 }
 
+
+aside {
+    position: fixed;
+    z-index: 10;
+    margin: 0;
+    width: 65%;
+    height: 100%;
+    display: none;
+    background-color: #ffffff;
+
+
+}
+
+.show {
+    display: block;
+}
 
 
 header {
@@ -44,8 +58,7 @@ footer {
     position: absolute;
     bottom: 50%;
 
-    width: 100%;
-    max-width: 600px;
+
 
     background-color: rgb(243, 243, 243);
 }
@@ -117,14 +130,16 @@ footer {
     #categoriesSection {
         display: none;
     }
-    
+
 }
 
 
-@media (max-width: 600px) { 
-aside {
-    display: none;
-}
+@media (max-width: 600px) {
+    aside {
+        display: none;
+    }
+
+
 }
 
 
@@ -138,14 +153,18 @@ aside {
         grid-template-rows: auto auto 1fr auto;
 
         grid-template-areas:
-            "styling aside"
-            "content aside"
-            "content aside"
-            "categories aside";
+            " styling aside"
+            " content aside"
+            " content aside"
+            " categories aside";
 
         height: 100vh;
         max-width: none;
 
+    }
+
+    #favorite_btn {
+        display: none;
     }
 
     #header {
@@ -153,9 +172,14 @@ aside {
     }
 
     aside {
-        grid-area: aside;
+        grid-area: sidebar;
         margin-left: 0;
     }
+
+    .show {
+        display: block;
+    }
+
 
     #stylingButtonsSection {
         grid-area: styling;
@@ -202,6 +226,11 @@ aside {
         display: flex;
         flex-direction: column;
     }
+
+    .show {
+        display: block;
+    }
+
 
     #grid-right {
         grid-area: grid-right;
