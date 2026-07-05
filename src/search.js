@@ -75,12 +75,18 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch(url_interview_data)
         .then((res) => res.json())
         .then((json) => {
-            originalData = json;
-            data = json.lines;
+
+            //Evaluate first to not have andy indexes duplicated
+            originalData = [
+                ...new Map(json.lines.map(item => [item.question, item])).values()
+            ];
+            data = originalData;
+
+            
             console.log(data)
             console.log("ORIGINAL DATA: ", originalData);
 
-            displayAll(originalData.lines);
+            displayAll(data);
             searchingQuestion();
             saveSelectedQuestionOnLocalStorage();
 
