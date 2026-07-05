@@ -93,6 +93,12 @@ function sectionCategoriesBehavior(topic) {
 and pastes there the corresponding data to finally be shown on screen*/
 function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
 
+    document.getElementById("areaWhereTheTextIsGonnaBeShown").scrollTo({
+        top: 0,
+        behavior: "smooth"
+        
+    });
+
     sectionCategoriesBehavior(randomQuestion.topic)
 
     question.innerHTML = randomQuestion.question;
@@ -586,7 +592,7 @@ function fetchPut(originalData) {
 
 /* SHOW THE SEARCH SECTION INTO THE SCREEN */
 function lastSearchedQuestion(searchedQuestion) {
-    console.log(searchedQuestion)
+    console.log(searchedQuestion);
 
     // Takes a string and standardizes it so it can be compared reliably.
     const normalize = str =>
@@ -611,14 +617,15 @@ function lastSearchedQuestion(searchedQuestion) {
         item => normalize(item.question) === normalize(searchedQuestion)
     );
 
-    let questionSearched;
+
     console.log(result)
     if (result) {
         currentIndex_jsonData = data.indexOf(result);
 
         console.log("SEARCHING FOR SEARCHED QUESTION:", result.question);
         console.log("INDEX OF SEARCHED QUESTION:", currentIndex_jsonData);
-
+        history_arr[0] = result;
+        console.log("history_arr: ", history_arr);
         areaWhereTheTextIsGonnaBeShown(result);
     }
 }

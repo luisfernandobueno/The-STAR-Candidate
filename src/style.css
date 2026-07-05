@@ -8,9 +8,13 @@ body {
     flex-direction: column;
     box-sizing: border-box;
 
-    height: 100dvh;
+    height: 100vh;
     /* max-width: 600px; */
     margin: 0;
+}
+
+aside {
+    display: none;
 }
 
 header {
@@ -73,29 +77,37 @@ footer {
 
 
 @media (max-width: 280px) {
-    #addNewData_btn, #edit_btn, #categoriesSection, #explanation, #example {
+
+    #addNewData_btn,
+    #edit_btn,
+    #categoriesSection,
+    #explanation,
+    #example {
         display: none;
     }
 }
 
 @media (max-width: 355px) {
-      #categoriesSection {
+    #categoriesSection {
         display: none;
     }
 }
 
+
+
 @media (min-width: 600px) {
     body {
         display: grid;
+        padding: 12px;
 
-        grid-template-columns:  1fr 25%;
+        grid-template-columns: 1fr 25%;
         grid-template-rows: auto auto 1fr auto;
 
         grid-template-areas:
-            " styling header"
-            " categories header"
-            "  content header"
-            " content footer";
+            "styling aside"
+            "content aside"
+            "content aside"
+            "categories aside";
 
         height: 100vh;
         max-width: none;
@@ -103,7 +115,11 @@ footer {
     }
 
     #header {
-        grid-area: header;
+        display: none;
+    }
+
+    aside {
+        grid-area: aside;
         margin-left: 0;
     }
 
@@ -124,7 +140,7 @@ footer {
     }
 
     footer {
-        grid-area: footer;
+        display: none;
     }
 }
 
@@ -137,17 +153,24 @@ footer {
         grid-template-rows: auto auto 1fr;
 
         grid-template-areas:
-            "header styling "
-            "header categories "
-            "header  content "
-            "footer  content ";
+            "aside styling grid-right"
+            "aside categories grid-right"
+            "aside  content grid-right"
+            "aside  content grid-right";
 
-        height: 100dvh;
+        height: 100vh;
         max-width: none;
     }
 
-    #grid-left {
-        grid-area: grid-left;
+    aside {
+        grid-area: aside;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    #grid-right {
+        grid-area: grid-right;
 
         display: flex;
         flex-direction: column;
