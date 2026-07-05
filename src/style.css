@@ -8,14 +8,12 @@ body {
     flex-direction: column;
     box-sizing: border-box;
 
-    height: 100vh;
+    height: 100dvh;
     /* max-width: 600px; */
     margin: 0;
 }
 
-aside {
-    display: none;
-}
+
 
 header {
     display: flex;
@@ -91,6 +89,14 @@ footer {
     #categoriesSection {
         display: none;
     }
+    
+}
+
+
+@media (max-width: 600px) { 
+aside {
+    display: none;
+}
 }
 
 
