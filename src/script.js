@@ -43,7 +43,7 @@ let newDataToSubmitOnline = {}
 let editDeleteOrAddNew;
 let editing = true;
 let topic;
-let history_array = [];
+let history_arr = [];
 let currentIndex_historyArray;
 
 
@@ -121,21 +121,20 @@ function showTextOnUserScreen(dataToBeDisplayed) {
     //console.log("FIRST INDEX WHEN JUST ENTERING THE WEBSITE: ", currentIndex_jsonData)
     areaWhereTheTextIsGonnaBeShown(randomQuestion);
 
-    history_array.push(randomQuestion);
-    currentIndex_historyArray = history_array.length - 1;
+    history_arr.push(randomQuestion);
+    currentIndex_historyArray = history_arr.length - 1;
 
 
 }
 
 
 
-/* Takes both: Back & Next Buttons and applies the same behavior for both of them:
-To show a random index data to the user screen. */
+
 function arrowForwardBtn(data) {
 
     const arrowForward_btn = document.getElementById("arrowForward_btn");
 
-    
+
     arrowForward_btn.addEventListener("click", () => {
         //console.log("CURRENT INDEX OF THE ARRAY: ", currentIndex_jsonData);
 
@@ -144,35 +143,34 @@ function arrowForwardBtn(data) {
 
         console.log(currentIndex_historyArray)
 
-        if (currentIndex_historyArray === history_array.length - 1) {
+        if (currentIndex_historyArray === history_arr.length - 1) {
             // We're on the latest question.
             // Right arrow should generate a new one.
             showTextOnUserScreen(data);
-            console.log("history_array: ", history_array);
+            console.log("history_arr: ", history_arr);
         } else {
             currentIndex_historyArray++;
-            areaWhereTheTextIsGonnaBeShown(history_array[currentIndex_historyArray]);
+            areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
 
-            console.log("history_array: ", history_array);
+            console.log("history_arr: ", history_arr);
         }
 
         enableArrowBack()
     })
 }
 
-
 function backArrowBtn() {
-    
+
 
     arrowBack_btn.addEventListener("click", () => {
         //console.log("arrow Back Clickedd")
 
         // This line makes the counter go backwards every time you click.
-        currentIndex_historyArray = (currentIndex_historyArray - 1 + history_array.length) % history_array.length;
+        currentIndex_historyArray = (currentIndex_historyArray - 1 + history_arr.length) % history_arr.length;
 
         console.log(currentIndex_historyArray)
-        console.log(history_array[currentIndex_historyArray].question);
-        areaWhereTheTextIsGonnaBeShown(history_array[currentIndex_historyArray])
+        console.log(history_arr[currentIndex_historyArray].question);
+        areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray])
         enableArrowBack();
     })
 }
@@ -180,6 +178,9 @@ function backArrowBtn() {
 function enableArrowBack() {
     arrowBack_btn.disabled = currentIndex_historyArray === 0;
 }
+
+
+
 
 /* SWITCHING STATES FOR BUTTONS AND TEXT AREAS: 
 - THOSE BUTTONS THAT ARE INITIALLY HIDDEN WILL APPEAR ON SCREEN WHEN THE VISIBLES ARE CLICKED, AND THESE LAST ONES WILL HIDE ACCORDINGLY */
@@ -268,7 +269,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 
         /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
         originalData.lines.splice(currentIndex_jsonData, 1);
-        history_array.splice(currentIndex_jsonData, 1);
+        history_arr.splice(currentIndex_jsonData, 1);
         data = originalData.lines;
         alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
 
@@ -402,7 +403,7 @@ function isItEditingDataRightNow() {
     console.log("FULL ARRAY AFTER EDITING: ", data); */
     //console.log(data[currentIndex_jsonData].question)
     originalData.lines[currentIndex_jsonData] = newDataToSubmitOnline;
-    history_array[currentIndex_historyArray] = newDataToSubmitOnline;
+    history_arr[currentIndex_historyArray] = newDataToSubmitOnline;
 
     //console.log("ORIGINAL DATA: ", originalData)
 
@@ -438,7 +439,7 @@ function creatingNewData() {
 
     /* Push the new data into the array */
     originalData.lines.push(newDataToSubmitOnline);
-    history_array.push(newDataToSubmitOnline);
+    history_arr.push(newDataToSubmitOnline);
 
 
     console.log("DATA AFTER CREATING NEW DATA: ", originalData.lines[originalData.lines.length - 1])
@@ -623,6 +624,14 @@ function lastSearchedQuestion(searchedQuestion) {
 }
 
 
+function goToDisplayAllScreen(goTo) {
+    localStorage.setItem("displayScreen", goTo);
+    localStorage.setItem(
+        "history_arr",
+        JSON.stringify(history_arr)
+    );
+    window.location.href = 'showAllQuestions.html'
+}
 
 
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */

@@ -4,6 +4,12 @@
 const url_interview_data = localStorage.getItem("url_interview_data");
 const inputSearch = document.getElementById("inputSearch");
 const displayAllQuestions = document.getElementById("displayAllQuestions");
+const displayScreen = localStorage.getItem("displayScreen");
+const history_arr = JSON.parse(
+    localStorage.getItem("history_arr")
+);
+let screenType = document.getElementById("screenType");
+
 
 
 /* ------------------------- FUNCTIONS ------------------------- */
@@ -86,7 +92,20 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(data)
             console.log("ORIGINAL DATA: ", originalData);
 
-            displayAll(data);
+            switch (displayScreen) {
+                case "history":
+                    screenType.innerText = "History";
+                    console.log(history_arr);
+                    displayAll(history_arr)
+
+                    break   
+                case "simpleSearch":
+                    displayAll(data);
+                    break
+            }
+            
+
+            
             searchingQuestion();
             saveSelectedQuestionOnLocalStorage();
 

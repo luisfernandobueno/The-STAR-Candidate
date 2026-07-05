@@ -25,12 +25,20 @@
 
         <div id="currentScreenLocation" class="mr-auto text-xl">Home</div>
 
-        <div class="ml-auto">
+        <div class=" rounded-full">
             <button id="edit_btn" class="switchVisibilityOrEditableState hiddenBehavior">
                 <span class="material-symbols-outlined">edit_square </span>
             </button>
             <button id="toggleDeleteAlert_btn" class="open-btn hiddenBehavior" hidden commandFor="modal-box"
                 command="show-modal"><span id="delete" class="material-symbols-outlined">delete</span>
+            </button>
+            <button>
+                <span class="material-symbols-outlined">
+                    favorite
+                </span>
+                <span class="material-symbols-outlined" hidden>
+                    heart_check
+                </span>
             </button>
 
         </div>
@@ -39,62 +47,61 @@
     <!-- BUTTONS FOR STYING -->
     <section id="stylingButtonsSection" class="m-auto   section-1 hidden">
 
-        
-            <div id="format-buttons" class="format-buttons mb-1 flex flex-wrap content-center">
-                
-                    <div class="flex1 flex-1 ">
 
-                        <!-- Updated buttons with symbols -->
-                        <button class="circleButton content-center" onclick="formatText('bold')">
-                            <span class="material-symbols-rounded p-0">
-                                format_bold
-                            </span>
-                        </button>
-                        <button class="circleButton" onclick="formatText('strikethrough')">
-                            <span class="material-symbols-rounded p-0">
-                                strikethrough_s
-                            </span>
-                        </button>
-                        <button class="circleButton" onclick="formatText('italic')">
-                            <span class="material-symbols-rounded p-0">
-                                format_italic
-                            </span>
-                        </button>
-                        <button class="circleButton" onclick="formatText('underline')">
-                            <span class="material-symbols-rounded p-0">
-                                format_underlined
-                            </span>
-                        </button>
-                    </div>
+        <div id="format-buttons" class="format-buttons mb-1 flex flex-wrap content-center">
 
+            <div class="flex1 flex-1 ">
 
-                    <div id="highlightContainer" class="flex2 flex-2 align-center ">
-                        
-
-                        <button class="highlight-button" style="background-color:#80E0FF"
-    onclick="highlightText('#80E0FF', this)"></button>
-
-<button class="highlight-button" style="background-color:#B9FBC0"
-    onclick="highlightText('#B9FBC0', this)"></button>
-
-<button class="highlight-button" style="background-color:#FFDAB3"
-    onclick="highlightText('#FFDAB3', this)"></button>
-
-<button class="highlight-button" style="background-color:#E7D0FF"
-    onclick="highlightText('#E7D0FF', this)"></button>
-                    </div>
-
-                    <div class="flex3 flex-3  ">
-
-                        <span onclick="removeHighlight()"
-                            class="material-symbols-rounded removeStyle content-center ">
-                            ink_eraser_off
-                        </span>
-
-                    </div>
-               
+                <!-- Updated buttons with symbols -->
+                <button class="circleButton content-center" onclick="formatText('bold')">
+                    <span class="material-symbols-rounded p-0">
+                        format_bold
+                    </span>
+                </button>
+                <button class="circleButton" onclick="formatText('strikethrough')">
+                    <span class="material-symbols-rounded p-0">
+                        strikethrough_s
+                    </span>
+                </button>
+                <button class="circleButton" onclick="formatText('italic')">
+                    <span class="material-symbols-rounded p-0">
+                        format_italic
+                    </span>
+                </button>
+                <button class="circleButton" onclick="formatText('underline')">
+                    <span class="material-symbols-rounded p-0">
+                        format_underlined
+                    </span>
+                </button>
             </div>
-        
+
+
+            <div id="highlightContainer" class="flex2 flex-2 align-center ">
+
+
+                <button class="highlight-button" style="background-color:#80E0FF"
+                    onclick="highlightText('#80E0FF', this)"></button>
+
+                <button class="highlight-button" style="background-color:#B9FBC0"
+                    onclick="highlightText('#B9FBC0', this)"></button>
+
+                <button class="highlight-button" style="background-color:#FFDAB3"
+                    onclick="highlightText('#FFDAB3', this)"></button>
+
+                <button class="highlight-button" style="background-color:#E7D0FF"
+                    onclick="highlightText('#E7D0FF', this)"></button>
+            </div>
+
+            <div class="flex3 flex-3  ">
+
+                <span onclick="removeHighlight()" class="material-symbols-rounded removeStyle content-center ">
+                    ink_eraser_off
+                </span>
+
+            </div>
+
+        </div>
+
 
 
     </section>
@@ -160,7 +167,7 @@
                 <span class="material-symbols-outlined">arrow_back</span>
             </button>
 
-            <button onclick="window.location.href = 'showAllQuestions.html'"
+            <button onclick="goToDisplayAllScreen('simpleSearch')"
                 class="hiddenBehavior flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">search</span>
             </button>
@@ -172,9 +179,11 @@
                 </span>
             </button>
 
-            <button id="bookmark" onclick="window.location.href = 'showAllQuestions.html'"
+            <button id="history_btn" onclick="goToDisplayAllScreen('history')"
                 class="hiddenBehavior flex-1  flex items-center justify-center">
-                <span class="material-symbols-outlined">bookmark</span>
+                <span class="material-symbols-outlined">
+                    history_2
+                </span>
             </button>
 
             <button id="arrowForward_btn"
