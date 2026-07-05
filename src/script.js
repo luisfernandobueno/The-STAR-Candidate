@@ -257,6 +257,8 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         navBar.classList.remove("hidden");
         delete_btn.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home"
+        stylingButtonsSection.classList.add("hidden");
+
 
 
         console.log("INDEX BEING FINALY DELETED: ", currentIndex_jsonData)
@@ -580,15 +582,40 @@ function fetchPut(originalData) {
 
 /* SHOW THE SEARCH SECTION INTO THE SCREEN */
 function lastSearchedQuestion(searchedQuestion) {
-    const question = data.find(e => e.question === searchedQuestion);
+    console.log(searchedQuestion)
 
-    if (question) {
-        currentIndex_jsonData = data.indexOf(question);
+    // Takes a string and standardizes it so it can be compared reliably.
+    const normalize = str =>
+        str
+            // Replace the literal HTML text "&nbsp;" with a normal space.
+            .replace(/&nbsp;/gi, " ")
 
-        console.log("SEARCHING FOR SEARCHED QUESTION:", question.question);
+            // Replace actual non-breaking space characters (Unicode U+00A0)
+            // with regular spaces.
+            .replace(/\u00A0/g, " ")
+
+            // Replace multiple consecutive whitespace characters
+            // (spaces, tabs, newlines, etc.) with a single space.
+            .replace(/\s+/g, " ")
+
+            // Remove any spaces at the beginning and end of the string.
+            .trim()
+
+            // Convert everything to lowercase so capitalization is ignored.
+            .toLowerCase();
+    const result = data.find(
+        item => normalize(item.question) === normalize(searchedQuestion)
+    );
+
+    let questionSearched;
+    console.log(result)
+    if (result) {
+        currentIndex_jsonData = data.indexOf(result);
+
+        console.log("SEARCHING FOR SEARCHED QUESTION:", result.question);
         console.log("INDEX OF SEARCHED QUESTION:", currentIndex_jsonData);
 
-        areaWhereTheTextIsGonnaBeShown(question);
+        areaWhereTheTextIsGonnaBeShown(result);
     }
 }
 

@@ -57,7 +57,7 @@ function searchingQuestion() {
             }
         }
 
-        saveSelectedQuestionOnLocalStorage();
+        //saveSelectedQuestionOnLocalStorage();
 
     })
 }
@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             displayAll(originalData.lines);
             searchingQuestion();
+            saveSelectedQuestionOnLocalStorage();
 
         });
 
