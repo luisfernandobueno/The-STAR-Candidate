@@ -34,6 +34,7 @@ const addNewData_btn = document.getElementById("addNewData_btn");
 const submitSection = document.getElementById("submitSection");
 
 
+const searchedQuestion = localStorage.getItem("searchedQuestion");
 let currentIndex_jsonData;
 let randomQuestion = {};
 let newDataToSubmitOnline = {}
@@ -629,15 +630,17 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch(url_interview_data)
         .then((res) => res.json())
         .then((json) => {
-            originalData = json;
-            //console.log("Recieved Data: ", originalData)
-            data = json.lines;
-            //console.log(data)
+
+            //Evaluate first to not have andy indexes duplicated
+            originalData = [
+                ...new Map(json.lines.map(item => [item.question, item])).values()
+            ];
+            data = originalData;
 
 
             /* SAVE DATA ON LOCALSTORAGE:
             For the purpose of always having it up to date in case the api is not working right*/
-            const searchedQuestion = localStorage.getItem("searchedQuestion");
+            
             //console.log(`localStorage.getItem("searchedQuestion"):   `, searchedQuestion);
 
 
