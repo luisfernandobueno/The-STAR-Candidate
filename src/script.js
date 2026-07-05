@@ -31,6 +31,8 @@ const stylingButtonsSection = document.getElementById("stylingButtonsSection");
 /* FOOTER SECTION */
 const navBar = document.getElementById("navBar");
 const addNewData_btn = document.getElementById("addNewData_btn");
+const arrowBack_btn = document.getElementById("arrowBack_btn");
+
 const submitSection = document.getElementById("submitSection");
 
 
@@ -42,7 +44,7 @@ let editDeleteOrAddNew;
 let editing = true;
 let topic;
 let history_array = [];
-let currentIndex_historyArray = 0;
+let currentIndex_historyArray;
 
 
 
@@ -133,14 +135,14 @@ function arrowForwardBtn(data) {
 
     const arrowForward_btn = document.getElementById("arrowForward_btn");
 
-    //document.querySelectorAll(".showNextAndPreviousData_btn").forEach(btn => {
+    
     arrowForward_btn.addEventListener("click", () => {
         //console.log("CURRENT INDEX OF THE ARRAY: ", currentIndex_jsonData);
 
         /* Clean all the divs categories to white */
 
 
-
+        console.log(currentIndex_historyArray)
 
         if (currentIndex_historyArray === history_array.length - 1) {
             // We're on the latest question.
@@ -150,19 +152,17 @@ function arrowForwardBtn(data) {
         } else {
             currentIndex_historyArray++;
             areaWhereTheTextIsGonnaBeShown(history_array[currentIndex_historyArray]);
-            console.log(currentIndex_historyArray)
+
             console.log("history_array: ", history_array);
         }
 
+        enableArrowBack()
     })
-    //})
-
-
 }
 
 
 function backArrowBtn() {
-    const arrowBack_btn = document.getElementById("arrowBack_btn");
+    
 
     arrowBack_btn.addEventListener("click", () => {
         //console.log("arrow Back Clickedd")
@@ -173,11 +173,13 @@ function backArrowBtn() {
         console.log(currentIndex_historyArray)
         console.log(history_array[currentIndex_historyArray].question);
         areaWhereTheTextIsGonnaBeShown(history_array[currentIndex_historyArray])
-        arrowBack_btn.disabled = currentIndex_historyArray === 0;
+        enableArrowBack();
     })
 }
 
-
+function enableArrowBack() {
+    arrowBack_btn.disabled = currentIndex_historyArray === 0;
+}
 
 /* SWITCHING STATES FOR BUTTONS AND TEXT AREAS: 
 - THOSE BUTTONS THAT ARE INITIALLY HIDDEN WILL APPEAR ON SCREEN WHEN THE VISIBLES ARE CLICKED, AND THESE LAST ONES WILL HIDE ACCORDINGLY */
@@ -640,7 +642,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             /* SAVE DATA ON LOCALSTORAGE:
             For the purpose of always having it up to date in case the api is not working right*/
-            
+
             //console.log(`localStorage.getItem("searchedQuestion"):   `, searchedQuestion);
 
 
