@@ -89,6 +89,7 @@
             </button>
             <button id="toggleDeleteAlert_btn" class="open-btn hiddenBehavior" hidden commandFor="modal-box"
                 command="show-modal">
+                
 
                 <img id="delete" src="src/img/Delete-Forever-Permanently-Empty-Trash--Streamline-Flex.png" alt=""
                     srcset="">
@@ -133,6 +134,7 @@
             </div>
         </div>
     </aside>
+    
     <!-- BUTTONS FOR STYING -->
     <section id="stylingButtonsSection" class="m-auto   section-1 hidden">
 
@@ -233,7 +235,7 @@
             Advice
         </div>
         <div id="Encouragement" class="category mb-1  px-2 py-1  flex-1 text-center  rounded-lg text-xs mr-auto">
-            Encouragement
+            Keep It Up
         </div>
     </section>
 
@@ -295,6 +297,18 @@
                 </svg>
             </button>
 
+            
+<button onclick="goToDisplayAllScreen('Search')"
+                class="hiddenBehavior flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+            <button id="addNewData_btn"
+                class="switchVisibilityOrEditableState hiddenBehavior  flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined shadow p-2 bg-sky-500 rounded-full">
+                    add
+                </span>
+            </button>
+
             <button id="myFavorite_screen" onclick="goToDisplayAllScreen('Favorites')"
                 class="hiddenBehavior flex-1 flex items-center justify-center">
                 <svg class="outlineHeart" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"
@@ -308,18 +322,6 @@
                             stroke-width="1.15"></path>
                     </g>
                 </svg>
-            </button>
-
-            <button id="addNewData_btn"
-                class="switchVisibilityOrEditableState hiddenBehavior  flex-1 flex items-center justify-center">
-                <span class="material-symbols-outlined shadow p-2 bg-sky-500 rounded-full">
-                    add
-                </span>
-            </button>
-
-            <button onclick="goToDisplayAllScreen('Search')"
-                class="hiddenBehavior flex-1 flex items-center justify-center">
-                <span class="material-symbols-outlined">search</span>
             </button>
 
             <button id="arrowForward_btn"

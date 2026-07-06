@@ -138,7 +138,7 @@ function showTextOnUserScreen(dataToBeDisplayed) {
 
     history_arr.push(randomQuestion);
     currentIndex_historyArray = history_arr.length - 1;
-
+    //backArrowFunction()
 
 }
 
@@ -156,54 +156,45 @@ function favoriteState() {
 
 
 function arrowForwardBtn(data) {
-
     const arrowForward_btn = document.getElementById("arrowForward_btn");
 
-
     arrowForward_btn.addEventListener("click", () => {
-        //console.log("CURRENT INDEX OF THE ARRAY: ", currentIndex_jsonData);
-
+        
         /* Clean all the divs categories to white */
-
-
-        //console.log(currentIndex_historyArray)
-
         if (currentIndex_historyArray === history_arr.length - 1) {
+
             // We're on the latest question.
             // Right arrow should generate a new one.
             showTextOnUserScreen(data);
-            //console.log("history_arr: ", history_arr);
+            
         } else {
+
             currentIndex_historyArray++;
             areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
-
-            //console.log("history_arr: ", history_arr);
         }
 
         enableArrowBack()
     })
 }
 
-function backArrowBtn() {
 
 
+function backArrowFunction() {
     arrowBack_btn.addEventListener("click", () => {
-        //console.log("arrow Back Clickedd")
-
+        
         // This line makes the counter go backwards every time you click.
         currentIndex_historyArray = (currentIndex_historyArray - 1 + history_arr.length) % history_arr.length;
 
-        console.log(currentIndex_historyArray)
-        console.log(history_arr[currentIndex_historyArray].question);
         areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray])
         enableArrowBack();
     })
 }
 
+
+
 function enableArrowBack() {
     arrowBack_btn.disabled = currentIndex_historyArray === 0;
 }
-
 
 
 
@@ -262,13 +253,14 @@ function visibilityOFAlertDeleteData() {
     toggleDeleteAlert_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Delete"
         editDeleteOrAddNew = "delete";
-        console.log(editDeleteOrAddNew)
-        console.log("INDEX TO BE DELETED: ", currentIndex_jsonData)
+        
         delete_btn.classList.add("hidden");
         submitSection.classList.add("hidden");
 
 
-        console.log("submitSectionHidden")
+
+
+        console.log("question to be deleted: ", history_arr[currentIndex_historyArray].question)
         //turningTheTextAreasEditable()
 
     });
@@ -292,12 +284,14 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 
 
 
-        console.log("INDEX BEING FINALY DELETED: ", currentIndex_jsonData)
+        //console.log("INDEX BEING FINALY DELETED: ", currentIndex_jsonData)
 
         /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
         data.splice(currentIndex_jsonData, 1);
-        history_arr.splice(currentIndex_jsonData, 1);
+        
+        history_arr.splice(currentIndex_historyArray, 1);
         data = data;
+        
         alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
 
 
@@ -319,6 +313,8 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 
         removeEditableState();
         showTextOnUserScreen(data);
+        /* arrowForwardBtn(history_arr);
+        arrowBack_btn(history_arr); */
 
     });
 
@@ -341,6 +337,8 @@ function editDataScreen() {
     edit_btn.addEventListener("click", () => {
         stylingButtonsSection.classList.remove("hidden");
         favorite_btn.classList.add("hidden");
+
+        
 
         navBar.classList.add("hidden");
         currentScreenLocation.innerText = "Edit"
@@ -615,43 +613,50 @@ function fetchPost(data) {
 
 /* SHOW THE SEARCH SECTION INTO THE SCREEN */
 function lastSearchedQuestion(searchedQuestion) {
-    //console.log(searchedQuestion);
+    console.log(searchedQuestion);
 
-    // Takes a string and standardizes it so it can be compared reliably.
+    // Takes away any spaces or additional, unnecesaty digits that may fuck up the search later.
     const normalize = str =>
         str
-            // Replace the literal HTML text "&nbsp;" with a normal space.
             .replace(/&nbsp;/gi, " ")
-
-            // Replace actual non-breaking space characters (Unicode U+00A0)
-            // with regular spaces.
             .replace(/\u00A0/g, " ")
-
-            // Replace multiple consecutive whitespace characters
-            // (spaces, tabs, newlines, etc.) with a single space.
             .replace(/\s+/g, " ")
-
-            // Remove any spaces at the beginning and end of the string.
             .trim()
-
-            // Convert everything to lowercase so capitalization is ignored.
             .toLowerCase();
-    const result = data.find(
+
+    // Try an exact match first
+    let result = data.find(
         item => normalize(item.question) === normalize(searchedQuestion)
     );
 
+    // If no exact match, find the most similar one
+    if (!result) {
+        const searchedWords = normalize(searchedQuestion).split(" ");
 
-    //console.log(result)
+        result = data.reduce((best, current) => {
+            const currentQuestion = normalize(current.question);
+
+            const score = searchedWords.filter(word =>
+                currentQuestion.includes(word)
+            ).length;
+
+            const bestScore = searchedWords.filter(word =>
+                normalize(best.question).includes(word)
+            ).length;
+
+            return score > bestScore ? current : best;
+        });
+    }
+
     if (result) {
         currentIndex_jsonData = data.indexOf(result);
 
-        //console.log("SEARCHING FOR SEARCHED QUESTION:", result.question);
-        //console.log("INDEX OF SEARCHED QUESTION:", currentIndex_jsonData);
         history_arr[0] = result;
-        //console.log("history_arr: ", history_arr);
+
         areaWhereTheTextIsGonnaBeShown(result);
     }
 }
+
 
 
 function goToDisplayAllScreen(goTo) {
@@ -694,7 +699,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
             showTextOnUserScreen(data);
             arrowForwardBtn(data);
-            backArrowBtn();
+            backArrowFunction();
             switchVisibilityOrEditableState();
             editDataScreen();
             goToAddNewScreen();
