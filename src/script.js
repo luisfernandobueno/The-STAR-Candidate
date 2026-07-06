@@ -151,7 +151,7 @@ function favoriteState() {
 
     console.log(data[currentIndex_jsonData]);
 
-    fetchPut(data);
+    fetchPost(data);
 }
 
 
@@ -305,7 +305,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 
 
 
-        fetchPut(data);
+        fetchPost(data);
 
 
 
@@ -408,8 +408,8 @@ function isItEditingDataRightNow() {
         explanation: explanation.innerHTML,
         answer: answer.innerHTML,
         example: example.innerHTML,
-        // topic: topic.innerHTML ??????
-        edition: false,
+        topic: data[currentIndex_jsonData].topic,
+        favorite: data[currentIndex_jsonData].favorite,
     };
 
 
@@ -448,7 +448,7 @@ function isItEditingDataRightNow() {
     console.log("SUBMITTING EDITED DATA RIGHT NOW!!! ")
     console.log("Exiting the editing data function right now")
 
-    fetchPut(data);
+    fetchPost(data);
     areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
 }
 
@@ -463,8 +463,8 @@ function creatingNewData() {
         explanation: explanation.innerHTML,
         answer: answer.innerHTML,
         example: example.innerHTML,
-        // topic: topic.innerHTML ??????
-        edition: false,
+        topic: data[currentIndex_jsonData].topic,
+        favorite: false,
     };
 
 
@@ -479,7 +479,7 @@ function creatingNewData() {
 
 
     navBar.classList.remove("hidden");
-    fetchPut(data);
+    fetchPost(data);
     areaWhereTheTextIsGonnaBeShown(newDataToSubmitOnline);
 
 }
@@ -590,7 +590,7 @@ function submittingNewDataOnline() {
 
 
 /* SENDS THE DATA TO UPLOAD IT ONLINE */
-function fetchPut(data) {
+function fetchPost(data) {
 
     originalData.lines = data;
 

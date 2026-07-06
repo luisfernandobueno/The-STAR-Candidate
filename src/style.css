@@ -18,7 +18,7 @@ aside {
     position: fixed;
     z-index: 10;
     margin: 0;
-    width: 65%;
+    width: 70%;
     height: 100%;
     display: none;
     background-color: #ffffff;
@@ -78,7 +78,7 @@ footer {
     position: fixed;
     bottom: 65px;
     right: 20px;
-    z-index: 10;
+    z-index: 5;
 }
 
 .filled {
@@ -117,6 +117,7 @@ footer {
 
 @media (max-width: 280px) {
 
+    #menu,
     #addNewData_btn,
     #edit_btn,
     #categoriesSection,
@@ -124,6 +125,7 @@ footer {
     #example {
         display: none;
     }
+
 }
 
 @media (max-width: 355px) {
@@ -134,74 +136,72 @@ footer {
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 450px) {
     aside {
-        display: none;
+        width: 100%;
     }
-
 
 }
 
+
+@media (max-width: 600px) {
+    /* aside {
+        display: none;
+    } */
+
+    .grid-right {
+        display: none;
+    }
+}
 
 
 @media (min-width: 600px) {
     body {
         display: grid;
         padding: 12px;
+        gap: 12px;
 
-        grid-template-columns: 1fr 25%;
-        grid-template-rows: auto auto 1fr auto;
+        grid-template-columns: auto 25%;
+        grid-template-rows: auto auto 1fr;
 
         grid-template-areas:
-            " styling aside"
-            " content aside"
-            " content aside"
-            " categories aside";
+            "styling grid-right"
+            "categories grid-right"
+            "content grid-right";
 
-        height: 100vh;
+        height: 100dvh;
         max-width: none;
-
+        overflow: hidden;
     }
 
     #favorite_btn {
         display: none;
     }
 
-    #header {
+    #header,
+    footer {
         display: none;
     }
 
-    aside {
-        grid-area: sidebar;
-        margin-left: 0;
+    .grid-right {
+        grid-area: grid-right;
     }
-
-    .show {
-        display: block;
-    }
-
+    
 
     #stylingButtonsSection {
         grid-area: styling;
-        margin-top: 8px;
     }
 
     #categoriesSection {
         grid-area: categories;
-        margin-top: 8px;
     }
 
     .content {
         grid-area: content;
+        min-height: 0;
         overflow-y: auto;
-        margin-bottom: 20px;
-    }
-
-    footer {
-        display: none;
     }
 }
-
 
 @media (min-width: 1150px) {
     body {
@@ -222,7 +222,7 @@ footer {
 
     aside {
         grid-area: aside;
-
+        width: 25%;
         display: flex;
         flex-direction: column;
     }

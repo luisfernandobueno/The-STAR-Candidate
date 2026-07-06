@@ -29,7 +29,7 @@ function displayAll(questionsToBeDisplayed) {
 
 
     searchingQuestion(questionsToBeDisplayed);
-    //saveSelectedQuestionOnLocalStorage();
+    saveSelectedQuestionOnLocalStorage();
 
 }
 
