@@ -11,6 +11,8 @@ localStorage.setItem("url_interview_data", url_interview_data);
 
 /* HEADER SECTION */
 const currentScreenLocation = document.getElementById("currentScreenLocation");
+const currentScreenLocation2 = document.getElementById("currentScreenLocation2");
+
 const edit_btn = document.getElementById("edit_btn");
 const delete_btn = document.getElementById("delete");
 
@@ -69,7 +71,6 @@ function sectionCategoriesBehavior(topic) {
     removePreviousCategory();
 
     topic = topic.trim(); // trim() takes away any pre and post spaces that the variable have
-    console.log(topic);
 
     switch (topic) {
         case "Recruiter":
@@ -97,9 +98,9 @@ function sectionCategoriesBehavior(topic) {
 
 
 function categorySelector() {
-    
+
     categoriesSection.forEach(cat => {
-    cat.style.pointerEvents = "auto";
+        cat.style.pointerEvents = "auto";
 
         cat.addEventListener("click", () => {
             //console.log(cat.innerHTML);
@@ -112,8 +113,8 @@ function categorySelector() {
 
 function disableCategorySelector() {
     categoriesSection.forEach(cat => {
-    cat.style.pointerEvents = "none";
-});
+        cat.style.pointerEvents = "none";
+    });
 }
 
 
@@ -188,21 +189,21 @@ function arrowForwardBtn(data) {
     const arrowForward_btn = document.getElementById("arrowForward_btn");
 
     //arrowForward_btn.addEventListener("click", () => {
-        
-        /* Clean all the divs categories to white */
-        if (currentIndex_historyArray === history_arr.length - 1) {
 
-            // We're on the latest question.
-            // Right arrow should generate a new one.
-            showTextOnUserScreen(data);
-            
-        } else {
+    /* Clean all the divs categories to white */
+    if (currentIndex_historyArray === history_arr.length - 1) {
 
-            currentIndex_historyArray++;
-            areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
-        }
+        // We're on the latest question.
+        // Right arrow should generate a new one.
+        showTextOnUserScreen(data);
 
-        enableArrowBack()
+    } else {
+
+        currentIndex_historyArray++;
+        areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
+    }
+
+    enableArrowBack()
     //})
 }
 
@@ -210,12 +211,12 @@ function arrowForwardBtn(data) {
 
 function backArrowFunction() {
     //arrowBack_btn.addEventListener("click", () => {
-        
-        // This line makes the counter go backwards every time you click.
-        currentIndex_historyArray = (currentIndex_historyArray - 1 + history_arr.length) % history_arr.length;
 
-        areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray])
-        enableArrowBack();
+    // This line makes the counter go backwards every time you click.
+    currentIndex_historyArray = (currentIndex_historyArray - 1 + history_arr.length) % history_arr.length;
+
+    areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray])
+    enableArrowBack();
     //})
 }
 
@@ -281,8 +282,10 @@ function visibilityOFAlertDeleteData() {
 
     toggleDeleteAlert_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Delete"
+                currentScreenLocation2.innerHTML = "Delete"
+
         editDeleteOrAddNew = "delete";
-        
+
         delete_btn.classList.add("hidden");
         submitSection.classList.add("hidden");
 
@@ -307,6 +310,8 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         navBar.classList.remove("hidden");
         delete_btn.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home"
+                currentScreenLocation2.innerHTML = "Home"
+
         stylingButtonsSection.classList.add("hidden");
         favorite_btn.classList.remove("hidden");
         disableCategorySelector();
@@ -317,10 +322,10 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 
         /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
         data.splice(currentIndex_jsonData, 1);
-        
+
         history_arr.splice(currentIndex_historyArray, 1);
         data = data;
-        
+
         alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
 
 
@@ -354,7 +359,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         submitSection.classList.remove("hidden");
         delete_btn.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Edit"
-
+        currentScreenLocation2.innerHTML = "Edit"
 
     });
 }
@@ -372,24 +377,24 @@ function editDataScreen() {
 }
 function edit() {
     stylingButtonsSection.classList.remove("hidden");
-        favorite_btn.classList.add("hidden");
+    favorite_btn.classList.add("hidden");
 
-        
 
-        navBar.classList.add("hidden");
-        currentScreenLocation.innerText = "Edit"
-        editDeleteOrAddNew = "edit";
-        //console.log(editDeleteOrAddNew)
-        editing = true;
-        //console.log("EDITING DATA RIGHT NOW? ", editing)
-        console.log("INDEX BEING EDITED: ", currentIndex_jsonData);
-        turningTheTextAreasEditable_array.forEach(c => {
-            //c.classList.add("px-3");
-            c.classList.add('rounded-lg')
-        });
 
-        categorySelector();
-        submittingNewDataOnline();
+    navBar.classList.add("hidden");
+    currentScreenLocation.innerText = "Edit"
+    editDeleteOrAddNew = "edit";
+    //console.log(editDeleteOrAddNew)
+    editing = true;
+    //console.log("EDITING DATA RIGHT NOW? ", editing)
+    console.log("INDEX BEING EDITED: ", currentIndex_jsonData);
+    turningTheTextAreasEditable_array.forEach(c => {
+        //c.classList.add("px-3");
+        c.classList.add('rounded-lg')
+    });
+
+    categorySelector();
+    submittingNewDataOnline();
 }
 
 
@@ -445,7 +450,7 @@ function isItEditingDataRightNow() {
     };
 
 
-        console.log("newDataToSubmitOnline editing:", newDataToSubmitOnline)
+    console.log("newDataToSubmitOnline editing:", newDataToSubmitOnline)
 
 
     /*  FIRST: 
@@ -644,8 +649,8 @@ function fetchPost(data) {
         .then(result => console.log(result))
         .catch(error => console.error(error));
 
-        console.log("FINAL DATA AFTER FETCH")
-        console.log(originalData)
+    console.log("FINAL DATA AFTER FETCH")
+    console.log(originalData)
 }
 
 
@@ -725,6 +730,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 ...new Map(json.lines.map(item => [item.question, item])).values()
             ];
             data = data;
+
+
+            data.forEach(e => {
+                if (e.topic === "Keep It Up") {
+                    e.topic = "Encouragement";
+                }
+            });
 
 
             /* SAVE DATA ON LOCALSTORAGE:

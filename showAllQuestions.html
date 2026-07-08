@@ -19,11 +19,21 @@
 
 <body class="m-auto bg-gray-50">
 
-    <div class="grid-right">
 
+    <div id="grid-right" class="grid-right flex">
+        <div class="flex border mr-auto  mt-3 p-2  rounded-lg  text-xl">
+            <div id="screenTitle" class=" flex-1">
+                Search
+            </div><button id="menu" onclick="toggleSidebar()" class="">
+                <span class="material-symbols-outlined">
+                    dehaze
+                </span>
+            </button>
+        </div>
 
+        <div><br></div>
 
-        <div onclick="window.location.href='index.html'" class="mb-1 p-2 border rounded-lg">
+        <div onclick="window.location.href='index.html'" class=" flex-1 p-2 border rounded-lg">
             Home
         </div>
     </div>
@@ -47,7 +57,7 @@
 
     <aside id="sidebar" class=" p-3 border shadow">
         <div class="top mb-1">
-            <button id="menu" onclick="toggleSidebar()">
+            <button id="menu-2" onclick="toggleSidebar()">
                 <span class="material-symbols-outlined">
                     dehaze
                 </span>
@@ -73,33 +83,56 @@
     </aside>
 
     <!-- INPUT SEACH AND CATEGORIES -->
-    <section id="" class="p-3 pb-2 rounded-lg text-xl">
+    <section id="searchAndCategories" class="p-3 pb-2 rounded-lg text-xl">
 
         <input id="inputSearch" type="search" name="inputSearch" placeholder="What's your question?"
             class=" p-2 rounded-xl border">
+    </section>
 
 
-        <section id="categoriesSection" class="mt-2 flex flex-wrap ">
-            <div id="Recruiter" class="category  px-2 py-1 flex-1 text-center    rounded-lg text-xs ml-auto">
-                Recruiter
-            </div>
-            <div id="Candidate" class="category  px-2 py-1  flex-1 text-center   rounded-lg text-xs ml-1">
-                Candidate
-            </div>
-            <div id="Advice" class="category  px-2 py-1  flex-1 text-center   rounded-lg text-xs mx-1">
-                Advice
-            </div>
-            <div id="Encouragement" class="category  px-2 py-1  flex-1 text-center  rounded-lg text-xs mr-auto">
-                Keep It Up
-            </div>
-        </section>
+    <section id="categoriesSection" class="mb-2 mx-3   flex flex-wrap ">
+        <div id="Recruiter" class="category  px-2 py-1 flex-1 text-center    rounded-lg text-xs ml-auto">
+            Recruiter
+        </div>
+        <div id="Candidate" class="category  px-2 py-1  flex-1 text-center   rounded-lg text-xs ml-1">
+            Candidate
+        </div>
+        <div id="Advice" class="category  px-2 py-1  flex-1 text-center   rounded-lg text-xs mx-1">
+            Advice
+        </div>
+        <div id="Encouragement" class="category  px-2 py-1  flex-1 text-center  rounded-lg text-xs mr-auto">
+            Keep It Up
+        </div>
     </section>
 
 
     <!-- TEXT AREAS TO DISPLAY ALL THE LINKS -->
-    <display id="displayAllQuestions" class="content mx-3 mt-0 border shadow rounded-xl p-2">
+    <display id="displayAllQuestions" class="content mx-3 mt-0 blue-border  rounded-xl p-2">
     </display>
 
+    <div class="grid-left">
+        <div>
+            <br>
+        </div>
+        <div class="mb-1 p-2 border rounded-lg">
+            Profile
+        </div>
+        <div class="mb-1 p-2 border rounded-lg">
+            Login
+        </div>
+        <div class="mb-1 p-2 border rounded-lg">
+            Register
+        </div>
+        <div class="mb-1 p-2 border rounded-lg">
+            Settings
+        </div>
+        <div class="mb-1 p-2 border rounded-lg">
+            About
+        </div>
+        <div class="mb-1 p-2 border rounded-lg">
+            Dark Mode
+        </div>
+    </div>
 
     <!-- FOOTER NAVBAR -->
     <footer class=" rounded-xl  text-xs">

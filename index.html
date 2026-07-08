@@ -21,50 +21,43 @@
 
 <body class="m-auto bg-gray-50">
 
-    <div class="grid-right">
+    <div id="grid-right" class="grid-right flex">
+        <div class="flex border mr-auto  mt-3 p-2  rounded-lg  text-xl">
+            <div  id="screenTitle" class=" flex-1">
+                Home
+            </div><button id="menu" onclick="toggleSidebar()" class="">
+                <span class="material-symbols-outlined">
+                    dehaze
+                </span>
+            </button>
+        </div>
+            
             <div>
                 <br>
-            </div>
-            <div  onclick="goToDisplayAllScreen('Search')" class="mb-1 p-2 border rounded-lg">
-                Serch
-            </div>
-            <div onclick="goToDisplayAllScreen('Favorites')"  class="mb-1 p-2 border rounded-lg">
-                Favorite
-            </div>
-            <div onclick="edit()"  class="mb-1 p-2 border rounded-lg">
-                Edit
             </div>
             <div  class="mb-1 p-2 border rounded-lg">
                 Add New
             </div>
-            <div>
+            <div onclick="edit()"  class="mb-1 p-2 border rounded-lg">
+                Edit
+            </div>
+            <div onclick="goToDisplayAllScreen('Favorites')"  class="mb-1 p-2 border rounded-lg">
+                Favorite
+            </div>
+            <div  onclick="goToDisplayAllScreen('Search')" class="mb-1 p-2 border rounded-lg">
+                Serch
+            </div>
+            
+            
+            
+            
+            <div class="m-auto ">
                 <br>
             </div>
-            <div  class="mb-1 p-2 border rounded-lg">
-                Profile
-            </div>
-            <div  class="mb-1 p-2 border rounded-lg">
-                Login
-            </div>
-            <div  class="mb-1 p-2 border rounded-lg">
-                Register
-            </div>
-            <div class="mb-1 p-2 border rounded-lg">
-                Settings
-            </div>
-            <div  class="mb-1 p-2 border rounded-lg">
-                About
-            </div>
-            <div  class="mb-1 p-2 border rounded-lg">
-                Dark Mode
-            </div>
-            <div>
-                <br>
-            </div>
-            <div onclick="backArrowFunction()"  class="mb-1 p-2 border rounded-lg">
+            <div onclick="backArrowFunction()"  class="mt-auto mb-1 p-2 border rounded-lg">
                 Back
             </div>
-            <div onclick="moveForward()"  class="mb-1 p-2 border rounded-lg">
+            <div onclick="moveForward()"  class="mb-1 p-2 blue-border rounded-lg">
                 Next
             </div>
             
@@ -73,13 +66,14 @@
     <!-- ----------------------- HEADER NAV BAR: ------------------------>
     <nav id="header" class="mb-3 px-3 pt-3 flex items-center text-xs">
 
-        <div class="flex-1 items-center">
+        <div class="flex-1 flex items-center">
             <button id="menu" onclick="toggleSidebar()">
                 <span class="material-symbols-outlined">
                     dehaze
                 </span>
             </button>
         </div>
+
         <div id="currentScreenLocation" class="mr-auto flex-1  text-center text-xl">Home</div>
 
         <div class="ml-auto flex flex-1 justify-end">
@@ -100,7 +94,7 @@
 
     <aside id="sidebar" class="p-3 border shadow-lg">
         <div class="top mb-1">
-            <button onclick="toggleSidebar()">
+            <button id="menu-2" onclick="toggleSidebar()">
                 <span class="material-symbols-outlined">
                     dehaze
                 </span>
@@ -242,7 +236,7 @@
     </section>
 
     <!-- ----------------------- EDITABLE TEXT AREAS: ------------------------>
-    <section id="areaWhereTheTextIsGonnaBeShown" class="content mx-3 border shadow rounded-xl p-1  rounded-xl bg-fixed">
+    <section id="areaWhereTheTextIsGonnaBeShown" class="content mx-3 blue-border  rounded-xl p-1  rounded-xl bg-fixed">
         <div class="container">
             <div id="question" class=" px-1 py-3 pt-2 font-bold editable  text-sky-500 text-xl" contenteditable="false">
                 Question</div>
@@ -344,7 +338,27 @@
         </div>
     </footer>
 
-    <div class="grid-left"></div>
+    <div class="grid-left mt-3">
+        
+            <div  class="mb-1 p-2 border rounded-lg">
+                Profile
+            </div>
+            <div  class="mb-1 p-2 border rounded-lg">
+                Login
+            </div>
+            <div  class="mb-1 p-2 border rounded-lg">
+                Register
+            </div>
+            <div class="mb-1 p-2 border rounded-lg">
+                Settings
+            </div>
+            <div  class="mb-1 p-2 border rounded-lg">
+                About
+            </div>
+            <div  class="mb-1 p-2 border rounded-lg">
+                Dark Mode
+            </div>
+    </div>
 
     <script src="src/stylingButtons.js"></script>
     <script src="src/script.js"></script>

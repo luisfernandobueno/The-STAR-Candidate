@@ -10,9 +10,90 @@ const history_arr = JSON.parse(
 );
 let screenType = document.getElementById("screenType");
 
+const categoriesSection = document.querySelectorAll(".category");
 
 
 /* ------------------------- FUNCTIONS ------------------------- */
+
+function removePreviousCategory() {
+    const deleteCategory = document.querySelectorAll(".category");
+    deleteCategory.forEach(e => {
+        e.style.backgroundColor = "rgb(243, 243, 243)";
+        e.classList.remove("shadow")
+        //console.log(e)
+    })
+}
+
+
+
+function sectionCategoriesBehavior(topic) {
+
+    
+
+    topic = topic.trim(); // trim() takes away any pre and post spaces that the variable have
+    console.log(topic);
+
+    switch (topic) {
+        case "Recruiter":
+            document.getElementById("Recruiter").style.backgroundColor = "#BDE3FF";
+            break;
+
+        case "Candidate":
+            document.getElementById("Candidate").style.backgroundColor = "#CFFFB5";
+            break;
+
+        case "Advice":
+            document.getElementById("Advice").style.backgroundColor = "#FBF291";
+            break;
+
+        case "Encouragement":
+            document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
+            break;
+
+        case "Keep It Up":
+            document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
+            break;
+    }
+}
+
+
+
+/* FILTER DATA BY TOPIC */
+function filterByTopic(data) {
+    //let filteredData = data.lines;
+    let categoriesSelected = [];
+
+    categoriesSection.forEach(cat => {
+        cat.addEventListener("click", () => {
+            const index = categoriesSection.indexOf(cat.innerText);
+
+            // If index in array detele, else add it.
+            if (
+            index !== -1) {
+                 categoriesSection.splice(index, 1)
+                removePreviousCategory()
+            } else {
+                 categoriesSection.push(cat.innerText);
+                sectionCategoriesBehavior(cat.innerText);
+            }
+            
+        });
+    });
+
+
+
+    // Apply search filter
+    /* const searchTerm = inputSearch.value.toLowerCase();
+    if (searchTerm) {
+        filteredData = filteredData.filter(item => item.question.toLowerCase().includes(searchTerm));
+    }
+ */
+
+
+    
+    displayAll(filteredData);
+}
+
 
 
 /* DISPLAY ALL THE QUESTIONS ON SCREEN */
@@ -32,6 +113,7 @@ function displayAll(questionsToBeDisplayed) {
     saveSelectedQuestionOnLocalStorage();
 
 }
+
 
 
 /* SAVE SELECTED QUESTION ON LOCAL STORAGE */
@@ -78,6 +160,32 @@ function toggleSidebar() {
 }
 
 
+function displayScreenFunction(displayScreen) {
+    switch (displayScreen) {
+        /* case "history":
+            screenType.innerText = "History";
+            console.log(history_arr);
+            displayAll(history_arr)
+            break; */
+
+        case "Search":
+            screenType.innerText = displayScreen;
+            displayAll(data);
+            break;
+
+        case "Favorites":
+            console.log(data.filter(item => item.favorite))
+            screenType.innerText = displayScreen;
+            displayAll(
+
+                data.filter(item => item.favorite)
+                /* This creates a new array containing only objects 
+                where:
+                item.favorite === true */
+
+            );
+    }
+}
 
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
@@ -97,39 +205,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(data)
             console.log("ORIGINAL DATA: ", data);
 
-            switch (displayScreen) {
-                /* case "history":
-                    screenType.innerText = "History";
-                    console.log(history_arr);
-                    displayAll(history_arr)
-                    break; */
-
-                case "Search":
-                    screenType.innerText = displayScreen;
-                    displayAll(data);
-                    break;
-
-                case "Favorites":
-                    console.log(data.filter(item => item.favorite))
-                    screenType.innerText = displayScreen;
-                    displayAll(
-                        
-                        data.filter(item => item.favorite)
-                        /* This creates a new array containing only objects 
-                        where:
-                        item.favorite === true */
-                        
-                    );
-            }
-
-
-
-            
-            
+            displayScreenFunction(displayScreen)
+            //filterByTopic()
 
         });
-
-
-
-
 });

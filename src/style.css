@@ -26,8 +26,8 @@ aside {
 
 }
 
-#grid-right div:hover {
-    background-color: #333;
+#grid-right {
+    display: none;
 }
 
 .show {
@@ -97,12 +97,24 @@ footer {
     display: block;
 }
 
-
+.grid-left {
+    display: none;
+}
 
 #inputSearch,
 .submitChangesAndCancelChanges,
 .submitSection div {
     width: 100%;
+}
+
+.blue-border {
+    border: 2px solid rgb(0, 102, 255);
+}
+
+#inputSearch {
+    caret-color: rgb(0, 102, 255);
+
+
 }
 
 .searchQuestion {
@@ -160,15 +172,16 @@ footer {
 @media (min-width: 600px) {
     body {
         display: grid;
-        padding: 12px;
+        padding: 0 12px;
         gap: 12px;
 
         grid-template-columns: auto 25%;
         grid-template-rows: auto auto 1fr;
 
         grid-template-areas:
-            "styling grid-right"
+        
             "categories grid-right"
+            "styling grid-right"
             "content grid-right";
 
         height: 100dvh;
@@ -184,20 +197,52 @@ footer {
     #navBar {
         display: none;
     }
-
     
+    #menu-2 {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
 
-    .grid-right {
+#searchAndCategories {
+    padding: 0;
+}
+
+aside {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    z-index: 10;
+    margin: 0;
+    width: 30%;
+    height: 100vh;
+
+    display: none;
+    background-color: #ffffff;
+}
+
+
+
+    #grid-right {
+        display: block;
         grid-area: grid-right;
-    }
-    
+        flex-direction: column;
 
+    }
+
+
+    #screenTitle {
+        grid-area: screenTitle;
+    }
     #stylingButtonsSection {
         grid-area: styling;
     }
 
     #categoriesSection {
         grid-area: categories;
+        margin-top: 12px;
+
     }
 
     .content {
@@ -205,6 +250,23 @@ footer {
         min-height: 0;
         overflow-y: auto;
     }
+
+    #categoriesSection,
+    #areaWhereTheTextIsGonnaBeShown {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+ #searchAndCategories {
+    padding-left: 0;
+    padding-right: 0;
+ }
+
+  #displayAllQuestions {
+     margin-left: 0;
+    margin-right: 0;
+  }
+
 }
 
 @media (min-width: 1150px) {
@@ -215,8 +277,8 @@ footer {
         grid-template-rows: auto auto 1fr;
 
         grid-template-areas:
-            "aside styling grid-right"
             "aside categories grid-right"
+            "aside styling grid-right"
             "aside  content grid-right"
             "aside  content grid-right";
 
@@ -225,11 +287,13 @@ footer {
     }
 
     aside {
-        grid-area: aside;
-        width: 20%;
+        display: none;
+        /* grid-area: aside; */
+        /* width: 20%;
         z-index: 0;
         display: flex;
         flex-direction: column;
+        padding: 0; */
     }
 
     .show {
@@ -237,12 +301,23 @@ footer {
     }
 
 
-    #grid-right {
+    .grid-right {
+
         grid-area: grid-right;
 
         display: flex;
         flex-direction: column;
     }
+
+    .grid-left {
+        display: block;
+        grid-area: aside;
+    }
+
+    #menu, aside {
+        display: none;
+    }
+
 
     #stylingButtonsSection {
         grid-area: styling;
@@ -250,6 +325,7 @@ footer {
 
     #categoriesSection {
         grid-area: categories;
+        margin-top: 12px;
     }
 
     #areaWhereTheTextIsGonnaBeShown {
