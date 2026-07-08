@@ -107,9 +107,9 @@ footer {
     width: 100%;
 }
 
-.blue-border {
-    border: 2px solid rgb(0, 102, 255);
-}
+/* .blue-border {
+    border: 2px solid #BDE3FF";
+} */
 
 #inputSearch {
     caret-color: rgb(0, 102, 255);
@@ -188,7 +188,7 @@ footer {
         max-width: none;
         overflow: hidden;
     }
-    
+
 
     #favorite_btn {
         display: none;
