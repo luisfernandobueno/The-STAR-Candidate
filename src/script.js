@@ -68,6 +68,8 @@ function sectionCategoriesBehavior(topic) {
 
     removePreviousCategory();
 
+    topic = topic.trim(); // trim() takes away any pre and post spaces that the variable have
+    console.log(topic);
 
     switch (topic) {
         case "Recruiter":
@@ -86,9 +88,33 @@ function sectionCategoriesBehavior(topic) {
             document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
             break;
 
+        case "Keep It Up":
+            document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
+            break;
     }
 }
 
+
+
+function categorySelector() {
+    
+    categoriesSection.forEach(cat => {
+    cat.style.pointerEvents = "auto";
+
+        cat.addEventListener("click", () => {
+            //console.log(cat.innerHTML);
+            //removePreviousCategory()
+            topic = cat.innerHTML
+            sectionCategoriesBehavior(topic);
+        });
+    });
+}
+
+function disableCategorySelector() {
+    categoriesSection.forEach(cat => {
+    cat.style.pointerEvents = "none";
+});
+}
 
 
 /* Finds the text areas where the info is gonna be displayed on the HTML
@@ -155,10 +181,13 @@ function favoriteState() {
 }
 
 
+function moveForward() {
+    arrowForwardBtn(data)
+}
 function arrowForwardBtn(data) {
     const arrowForward_btn = document.getElementById("arrowForward_btn");
 
-    arrowForward_btn.addEventListener("click", () => {
+    //arrowForward_btn.addEventListener("click", () => {
         
         /* Clean all the divs categories to white */
         if (currentIndex_historyArray === history_arr.length - 1) {
@@ -174,20 +203,20 @@ function arrowForwardBtn(data) {
         }
 
         enableArrowBack()
-    })
+    //})
 }
 
 
 
 function backArrowFunction() {
-    arrowBack_btn.addEventListener("click", () => {
+    //arrowBack_btn.addEventListener("click", () => {
         
         // This line makes the counter go backwards every time you click.
         currentIndex_historyArray = (currentIndex_historyArray - 1 + history_arr.length) % history_arr.length;
 
         areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray])
         enableArrowBack();
-    })
+    //})
 }
 
 
@@ -280,7 +309,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         currentScreenLocation.innerHTML = "Home"
         stylingButtonsSection.classList.add("hidden");
         favorite_btn.classList.remove("hidden");
-
+        disableCategorySelector();
 
 
 
@@ -331,11 +360,18 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 }
 
 
-
 /* GO TO "EDIT DATA" SCREEN */
+
+
 function editDataScreen() {
     edit_btn.addEventListener("click", () => {
-        stylingButtonsSection.classList.remove("hidden");
+        edit();
+        categorySelector();
+    });
+
+}
+function edit() {
+    stylingButtonsSection.classList.remove("hidden");
         favorite_btn.classList.add("hidden");
 
         
@@ -352,12 +388,9 @@ function editDataScreen() {
             c.classList.add('rounded-lg')
         });
 
-
+        categorySelector();
         submittingNewDataOnline();
-    });
-
 }
-
 
 
 /* GO TO "ADD NEW" SCREEN */
@@ -385,6 +418,7 @@ function goToAddNewScreen() {
         //console.log("EDITING DATA RIGHT NOW? ", editing)
 
         submittingNewDataOnline();
+        categorySelector();
     });
 }
 
@@ -406,10 +440,12 @@ function isItEditingDataRightNow() {
         explanation: explanation.innerHTML,
         answer: answer.innerHTML,
         example: example.innerHTML,
-        topic: data[currentIndex_jsonData].topic,
+        topic: topic.trim(), //data[currentIndex_jsonData].topic,
         favorite: data[currentIndex_jsonData].favorite,
     };
 
+
+        console.log("newDataToSubmitOnline editing:", newDataToSubmitOnline)
 
 
     /*  FIRST: 
@@ -461,7 +497,7 @@ function creatingNewData() {
         explanation: explanation.innerHTML,
         answer: answer.innerHTML,
         example: example.innerHTML,
-        topic: data[currentIndex_jsonData].topic,
+        topic: topic.trim(), //data[currentIndex_jsonData].topic,
         favorite: false,
     };
 
@@ -469,6 +505,8 @@ function creatingNewData() {
     /* Push the new data into the array */
     data.push(newDataToSubmitOnline);
     history_arr.push(newDataToSubmitOnline);
+
+    console.log("newDataToSubmitOnline creating new:", newDataToSubmitOnline)
 
 
     console.log("DATA AFTER CREATING NEW DATA: ", data[data.length - 1])
@@ -538,7 +576,7 @@ function submittingNewDataOnline() {
     cancelChangesDoNotSubmit_btn.addEventListener("click", () => {
         stylingButtonsSection.classList.add("hidden");
         favorite_btn.classList.remove("hidden");
-
+        disableCategorySelector();
 
         currentScreenLocation.innerHTML = "Home";
         delete_btn.classList.remove("hidden");
@@ -556,7 +594,7 @@ function submittingNewDataOnline() {
     submitChanges_btn.addEventListener("click", () => {
         stylingButtonsSection.classList.add("hidden");
         favorite_btn.classList.remove("hidden");
-
+        disableCategorySelector();
         navBar.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home";
         delete_btn.classList.remove("hidden");

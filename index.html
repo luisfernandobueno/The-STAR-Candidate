@@ -22,36 +22,50 @@
 <body class="m-auto bg-gray-50">
 
     <div class="grid-right">
-        
             <div>
+                <br>
+            </div>
+            <div  onclick="goToDisplayAllScreen('Search')" class="mb-1 p-2 border rounded-lg">
                 Serch
             </div>
-            <div>
+            <div onclick="goToDisplayAllScreen('Favorites')"  class="mb-1 p-2 border rounded-lg">
                 Favorite
+            </div>
+            <div onclick="edit()"  class="mb-1 p-2 border rounded-lg">
+                Edit
+            </div>
+            <div  class="mb-1 p-2 border rounded-lg">
+                Add New
             </div>
             <div>
                 <br>
             </div>
-            <div>
+            <div  class="mb-1 p-2 border rounded-lg">
                 Profile
             </div>
-            <div>
+            <div  class="mb-1 p-2 border rounded-lg">
                 Login
             </div>
-            <div>
+            <div  class="mb-1 p-2 border rounded-lg">
                 Register
             </div>
-            <div>
+            <div class="mb-1 p-2 border rounded-lg">
                 Settings
             </div>
-            <div>
+            <div  class="mb-1 p-2 border rounded-lg">
                 About
             </div>
-            <div>
+            <div  class="mb-1 p-2 border rounded-lg">
                 Dark Mode
             </div>
             <div>
                 <br>
+            </div>
+            <div onclick="backArrowFunction()"  class="mb-1 p-2 border rounded-lg">
+                Back
+            </div>
+            <div onclick="moveForward()"  class="mb-1 p-2 border rounded-lg">
+                Next
             </div>
             
     </div>
@@ -96,12 +110,7 @@
             <div>
                 Profile
             </div>
-            <div>
-                Serch
-            </div>
-            <div>
-                Favorite
-            </div>
+            
             <div>
                 <br>
             </div>
@@ -117,6 +126,13 @@
             </div>
             <div>
                 About
+            </div>
+            <div>
+                <br>
+            </div>
+            
+            <div>
+                Dark Mode
             </div>
         </div>
     </aside>
@@ -269,21 +285,20 @@
    
     <!-- ----------------------- FOOTER NAV BAR ------------------------>
     <footer class=" rounded-xl">
-
         <div id="navBar" class="flex">
-            <button id="arrowBack_btn"
+            <button id="arrowBack_btn" onclick="backArrowFunction()"
                 class="showNextAndPreviousData_btn hiddenBehavior flex-1 flex items-center justify-center">
 
                 <span class="material-symbols-outlined">
-arrow_back
-</span>
+                arrow_back
+                </span>
             </button>
 
-            
             <button onclick="goToDisplayAllScreen('Search')"
                 class="hiddenBehavior flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">search</span>
             </button>
+
             <button id="addNewData_btn"
                 class="switchVisibilityOrEditableState hiddenBehavior  flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined shadow p-2 bg-sky-500 rounded-full">
@@ -306,11 +321,11 @@ arrow_back
                 </svg>
             </button>
 
-            <button id="arrowForward_btn"
+            <button id="arrowForward_btn"  onclick="moveForward()"
                 class="showNextAndPreviousData_btn hiddenBehavior  flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">
-arrow_forward
-</span>
+                arrow_forward
+                </span>
             </button>
         </div>
 
