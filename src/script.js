@@ -282,7 +282,7 @@ function visibilityOFAlertDeleteData() {
 
     toggleDeleteAlert_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Delete"
-                currentScreenLocation2.innerHTML = "Delete"
+        currentScreenLocation2.innerHTML = "Delete"
 
         editDeleteOrAddNew = "delete";
 
@@ -310,7 +310,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         navBar.classList.remove("hidden");
         delete_btn.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home"
-                currentScreenLocation2.innerHTML = "Home"
+        currentScreenLocation2.innerHTML = "Home"
 
         stylingButtonsSection.classList.add("hidden");
         favorite_btn.classList.remove("hidden");
@@ -717,45 +717,69 @@ function toggleSidebar() {
     sidebar.classList.toggle('show')
 }
 
-/* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    fetch(url_interview_data)
-        .then((res) => res.json())
-        .then((json) => {
-
-            //Evaluate first to not have andy indexes duplicated
-            data = [
-                ...new Map(json.lines.map(item => [item.question, item])).values()
-            ];
-            data = data;
 
 
-            data.forEach(e => {
-                if (e.topic === "Keep It Up") {
-                    e.topic = "Encouragement";
-                }
+
+let darkmode = localStorage.getItem('darkmode')
+const themeSwitch = document.getElementById('theme-switch')
+
+const enableDarkmode = () => {
+    document.body.classList.add('darkmode')
+    localStorage.setItem('darkmode', 'active')
+}
+
+const disableDarkmode = () => {
+    document.body.classList.remove('darkmode')
+    localStorage.setItem('darkmode', null)
+}
+
+if (darkmode === "active") enableDarkmode()
+
+themeSwitch.addEventListener("click", () => {
+    darkmode = localStorage.getItem('darkmode')
+    darkmode !== "active" ? enableDarkmode() : disableDarkmode()
+})
+
+
+    /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        fetch(url_interview_data)
+            .then((res) => res.json())
+            .then((json) => {
+
+                //Evaluate first to not have andy indexes duplicated
+                data = [
+                    ...new Map(json.lines.map(item => [item.question, item])).values()
+                ];
+                data = data;
+
+
+                data.forEach(e => {
+                    if (e.topic === "Keep It Up") {
+                        e.topic = "Encouragement";
+                    }
+                });
+
+
+                /* SAVE DATA ON LOCALSTORAGE:
+                For the purpose of always having it up to date in case the api is not working right*/
+
+                //console.log(`localStorage.getItem("searchedQuestion"):   `, searchedQuestion);
+
+
+
+                // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
+                showTextOnUserScreen(data);
+                arrowForwardBtn(data);
+                backArrowFunction();
+                switchVisibilityOrEditableState();
+                editDataScreen();
+                goToAddNewScreen();
+                visibilityOFAlertDeleteData();
+                lastSearchedQuestion(searchedQuestion);
+
+
             });
-
-
-            /* SAVE DATA ON LOCALSTORAGE:
-            For the purpose of always having it up to date in case the api is not working right*/
-
-            //console.log(`localStorage.getItem("searchedQuestion"):   `, searchedQuestion);
-
-
-
-            // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
-            showTextOnUserScreen(data);
-            arrowForwardBtn(data);
-            backArrowFunction();
-            switchVisibilityOrEditableState();
-            editDataScreen();
-            goToAddNewScreen();
-            visibilityOFAlertDeleteData();
-            lastSearchedQuestion(searchedQuestion);
-
-
-        });
-});
+    });
