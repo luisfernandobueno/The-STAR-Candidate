@@ -76,7 +76,7 @@ footer {
 
 .category {
     /* Keep the categories at the top when overflowing */
-    background-color: rgb(243, 243, 243);
+    background-color: var(--base-color);
 }
 
 #deleteData_alert {
@@ -85,7 +85,12 @@ footer {
 
 
 
-    background-color: rgb(243, 243, 243);
+    background-color: var(--base-color);
+}
+
+#modal-box {
+    background-color: var(--base-color);
+    color: var(--text-color);
 }
 
 #areaWhereTheTextIsGonnaBeShown,

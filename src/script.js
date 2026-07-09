@@ -344,11 +344,11 @@ function visibilityOFAlertDeleteData() {
 
     toggleDeleteAlert_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Delete"
-        currentScreenLocation2.innerHTML = "Delete"
+        
 
         editDeleteOrAddNew = "delete";
 
-        delete_btn.classList.add("hidden");
+        toggleDeleteAlert_btn.classList.add("hidden");
         submitSection.classList.add("hidden");
 
 
@@ -370,9 +370,9 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     deleteDataAccepted_btn.addEventListener("click", () => {
         submitSection.classList.remove("hidden");
         navBar.classList.remove("hidden");
-        delete_btn.classList.remove("hidden");
+        toggleDeleteAlert_btn.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home"
-        currentScreenLocation2.innerHTML = "Home"
+        
 
         stylingButtonsSection.classList.add("hidden");
         favorite_btn.classList.remove("hidden");
