@@ -38,6 +38,10 @@ const arrowBack_btn = document.getElementById("arrowBack_btn");
 
 const submitSection = document.getElementById("submitSection");
 
+/* DARKMODE */
+let darkmode = localStorage.getItem('darkmode')
+const themeSwitch = document.getElementById('theme-switch')
+
 
 const searchedQuestion = localStorage.getItem("searchedQuestion");
 let currentIndex_jsonData;
@@ -55,12 +59,30 @@ let originalData = { lines: {} };
 /* ------------------------- FUNCTIONS ------------------------- */
 
 
+
+
+
 function removePreviousCategory() {
+
+    
+
     const deleteCategory = document.querySelectorAll(".category");
     deleteCategory.forEach(e => {
-        e.style.backgroundColor = "rgb(243, 243, 243)";
-        e.classList.remove("shadow")
-        //console.log(e)
+        
+
+        let darkmodeStatus = localStorage.getItem("darkmode")
+
+        switch (darkmode) {
+            case "active":
+                e.style.backgroundColor = "rgb(243, 243, 243)";
+                e.classList.remove("shadow")
+                break;
+
+            case "null":
+                e.style.backgroundColor = "rgb(80, 80, 80)";
+                break;
+        }
+
     })
 }
 
@@ -72,27 +94,67 @@ function sectionCategoriesBehavior(topic) {
 
     topic = topic.trim(); // trim() takes away any pre and post spaces that the variable have
 
-    switch (topic) {
-        case "Recruiter":
-            document.getElementById("Recruiter").style.backgroundColor = "#BDE3FF";
+    switch (darkmode) {
+        case "null":
+
+            switch (topic) {
+                case "Recruiter":
+                    document.getElementById("Recruiter").style.backgroundColor = "#004b81";
+                    break;
+
+                case "Candidate":
+                    document.getElementById("Candidate").style.backgroundColor = "#287400";
+                    break;
+
+                case "Advice":
+                    document.getElementById("Advice").style.backgroundColor = "#a79900";
+                    break;
+
+                case "Encouragement":
+                    document.getElementById("Encouragement").style.backgroundColor = "#9b00ca";
+                    break;
+
+                case "Keep It Up":
+                    document.getElementById("Encouragement").style.backgroundColor = "#9b00ca";
+                    break;
+            }
+
             break;
 
-        case "Candidate":
-            document.getElementById("Candidate").style.backgroundColor = "#CFFFB5";
-            break;
+        case "active":
 
-        case "Advice":
-            document.getElementById("Advice").style.backgroundColor = "#FBF291";
-            break;
+            switch (topic) {
+                case "Recruiter":
+                    document.getElementById("Recruiter").style.backgroundColor = "#BDE3FF";
+                    break;
 
-        case "Encouragement":
-            document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
-            break;
+                case "Candidate":
+                    document.getElementById("Candidate").style.backgroundColor = "#CFFFB5";
+                    break;
 
-        case "Keep It Up":
-            document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
+                case "Advice":
+                    document.getElementById("Advice").style.backgroundColor = "#FBF291";
+                    break;
+
+                case "Encouragement":
+                    document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
+                    break;
+
+                case "Keep It Up":
+                    document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
+                    break;
+            }
+
             break;
     }
+
+
+    if (darkmode === "active") {
+
+    } else {
+
+    }
+
 }
 
 
@@ -403,11 +465,12 @@ function goToAddNewScreen() {
 
     /* Text areas go empty on click the "Add New"" button */
     addNewData_btn.addEventListener("click", () => {
+        console.log("add new screen")
         stylingButtonsSection.classList.remove("hidden");
         favorite_btn.classList.add("hidden");
 
 
-        delete_btn.classList.add("hidden");
+        toggleDeleteAlert_btn.classList.add("hidden");
         navBar.classList.add("hidden");
         currentScreenLocation.innerHTML = "Add New";
         editDeleteOrAddNew = "addNew";
@@ -579,18 +642,20 @@ function submittingNewDataOnline() {
 
     /* On click, the "CANCEL" BUTTON turns the screen back to what it looked like */
     cancelChangesDoNotSubmit_btn.addEventListener("click", () => {
+        disableCategorySelector();
         stylingButtonsSection.classList.add("hidden");
         favorite_btn.classList.remove("hidden");
-        disableCategorySelector();
 
         currentScreenLocation.innerHTML = "Home";
-        delete_btn.classList.remove("hidden");
+        toggleDeleteAlert_btn.classList.remove("hidden");
         navBar.classList.remove("hidden");
         editing = true;
         //console.log("CANCELING SUBMITTING CHANGES RIGHT NOW!!! ", editing)
-
+        console.log("sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic)", (history_arr[currentIndex_historyArray].topic))
+        sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic)
         removeEditableState();
-        areaWhereTheTextIsGonnaBeShown(randomQuestion);
+        areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
+        
     });
 
 
@@ -602,7 +667,8 @@ function submittingNewDataOnline() {
         disableCategorySelector();
         navBar.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home";
-        delete_btn.classList.remove("hidden");
+                toggleDeleteAlert_btn.classList.remove("hidden");
+
 
         console.log("WHAT ARE YOU CURRENTLY SUBMITING? - ", editDeleteOrAddNew);
         console.log("INDEX OF THE ARRAY WHEN SUBMITTIN: ", currentIndex_jsonData);
@@ -720,12 +786,11 @@ function toggleSidebar() {
 
 
 
-let darkmode = localStorage.getItem('darkmode')
-const themeSwitch = document.getElementById('theme-switch')
 
 const enableDarkmode = () => {
     document.body.classList.add('darkmode')
     localStorage.setItem('darkmode', 'active')
+
 }
 
 const disableDarkmode = () => {
@@ -735,51 +800,65 @@ const disableDarkmode = () => {
 
 if (darkmode === "active") enableDarkmode()
 
-themeSwitch.addEventListener("click", () => {
-    darkmode = localStorage.getItem('darkmode')
+    function darkmodeState() {
+        darkmode = localStorage.getItem('darkmode')
+    console.log("darkmode:", darkmode)
+    sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic);
     darkmode !== "active" ? enableDarkmode() : disableDarkmode()
+    }
+
+themeSwitch.addEventListener("click", () => {
+    darkmodeState()
 })
 
+function initialDarkmode () {
+    darkmode = localStorage.getItem("darkmode");
+    removePreviousCategory();
+}
 
-    /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
+/* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
-    document.addEventListener("DOMContentLoaded", function () {
-
-        fetch(url_interview_data)
-            .then((res) => res.json())
-            .then((json) => {
-
-                //Evaluate first to not have andy indexes duplicated
-                data = [
-                    ...new Map(json.lines.map(item => [item.question, item])).values()
-                ];
-                data = data;
+document.addEventListener("DOMContentLoaded", function () {
+    
 
 
-                data.forEach(e => {
-                    if (e.topic === "Keep It Up") {
-                        e.topic = "Encouragement";
-                    }
-                });
+    fetch("src/data.json")
+        .then((res) => res.json())
+        .then((json) => {
+
+            //Evaluate first to not have andy indexes duplicated
+            data = [
+                ...new Map(json.lines.map(item => [item.question, item])).values()
+            ];
+            data = data;
 
 
-                /* SAVE DATA ON LOCALSTORAGE:
-                For the purpose of always having it up to date in case the api is not working right*/
-
-                //console.log(`localStorage.getItem("searchedQuestion"):   `, searchedQuestion);
-
-
-
-                // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
-                showTextOnUserScreen(data);
-                arrowForwardBtn(data);
-                backArrowFunction();
-                switchVisibilityOrEditableState();
-                editDataScreen();
-                goToAddNewScreen();
-                visibilityOFAlertDeleteData();
-                lastSearchedQuestion(searchedQuestion);
-
-
+            data.forEach(e => {
+                if (e.topic === "Keep It Up") {
+                    e.topic = "Encouragement";
+                }
             });
-    });
+
+
+            /* SAVE DATA ON LOCALSTORAGE:
+            For the purpose of always having it up to date in case the api is not working right*/
+
+            //console.log(`localStorage.getItem("searchedQuestion"):   `, searchedQuestion);
+
+
+             console.log(url_interview_data)
+            initialDarkmode();
+            //darkmode !== "active" ? enableDarkmode() : disableDarkmode()
+            
+            // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
+            showTextOnUserScreen(data);
+            arrowForwardBtn(data);
+            backArrowFunction();
+            switchVisibilityOrEditableState();
+            editDataScreen();
+            goToAddNewScreen();
+            visibilityOFAlertDeleteData();
+            lastSearchedQuestion(searchedQuestion);
+            
+        });
+});

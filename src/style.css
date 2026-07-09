@@ -112,6 +112,9 @@ footer {
     right: 20px;
     z-index: 5;
     background-color: var(--base-color);
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
 }
 
 .filled {
