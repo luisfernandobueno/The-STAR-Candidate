@@ -3,18 +3,15 @@
 
 /* URL FOR ACTUAL LEARNING */
 const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/STAR Candidate App";
+//const url_interview_data = "src/data.json"
 
-/* URL FOR DEVELOPING */
-//const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/my-new-basket-name";
 localStorage.setItem("url_interview_data", url_interview_data);
 
 
 /* HEADER SECTION */
 const currentScreenLocation = document.getElementById("currentScreenLocation");
-const currentScreenLocation2 = document.getElementById("currentScreenLocation2");
 
 const edit_btn = document.getElementById("edit_btn");
-const delete_btn = document.getElementById("delete");
 
 /* DELETE ALERT */
 const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
@@ -802,7 +799,7 @@ if (darkmode === "active") enableDarkmode()
 
     function darkmodeState() {
         darkmode = localStorage.getItem('darkmode')
-    console.log("darkmode:", darkmode)
+    //console.log("darkmode:", darkmode)
     sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic);
     darkmode !== "active" ? enableDarkmode() : disableDarkmode()
     }
@@ -822,7 +819,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
 
-    fetch("src/data.json")
+    fetch(url_interview_data)
         .then((res) => res.json())
         .then((json) => {
 

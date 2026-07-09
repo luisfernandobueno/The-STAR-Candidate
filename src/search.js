@@ -13,6 +13,34 @@ let screenType = document.getElementById("screenType");
 const categoriesSection = document.querySelectorAll(".category");
 
 
+
+
+/* -------------DARK MODE --------------- */
+
+let darkmode = localStorage.getItem('darkmode')
+const themeSwitch = document.getElementById('theme-switch')
+
+const enableDarkmode = () => {
+    document.body.classList.add('darkmode')
+    localStorage.setItem('darkmode', 'active')
+}
+
+const disableDarkmode = () => {
+    document.body.classList.remove('darkmode')
+    localStorage.setItem('darkmode', null)
+}
+
+if (darkmode === "active") enableDarkmode()
+
+themeSwitch.addEventListener("click", () => {
+    darkmode = localStorage.getItem('darkmode')
+    darkmode !== "active" ? enableDarkmode() : disableDarkmode()
+})
+
+
+
+
+
 /* ------------------------- FUNCTIONS ------------------------- */
 
 function removePreviousCategory() {
@@ -160,7 +188,10 @@ function toggleSidebar() {
 }
 
 
-function displayScreenFunction(displayScreen) {
+function displayScreenFunction(displayScreen, data) {
+
+        console.log(displayScreen);
+        console.log("DATA ABOUT TO BE DISPLAYED!!!")
     switch (displayScreen) {
         /* case "history":
             screenType.innerText = "History";
@@ -190,33 +221,17 @@ function displayScreenFunction(displayScreen) {
 
 
 
-let darkmode = localStorage.getItem('darkmode')
-const themeSwitch = document.getElementById('theme-switch')
 
-const enableDarkmode = () => {
-    document.body.classList.add('darkmode')
-    localStorage.setItem('darkmode', 'active')
-}
-
-const disableDarkmode = () => {
-    document.body.classList.remove('darkmode')
-    localStorage.setItem('darkmode', null)
-}
-
-if (darkmode === "active") enableDarkmode()
-
-themeSwitch.addEventListener("click", () => {
-    darkmode = localStorage.getItem('darkmode')
-    darkmode !== "active" ? enableDarkmode() : disableDarkmode()
-})
 
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
 document.addEventListener("DOMContentLoaded", function () {
-
+console.log(url_interview_data)
     fetch(url_interview_data)
         .then((res) => res.json())
         .then((json) => {
+
+            console.log("2nd url check: ", url_interview_data)
 
             //Evaluate first to not have andy indexes duplicated
             data = [
@@ -228,8 +243,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(data)
             console.log("ORIGINAL DATA: ", data);
 
-            displayScreenFunction(displayScreen)
-            //filterByTopic()
+            displayScreenFunction(displayScreen, data)
+            
 
         });
 });

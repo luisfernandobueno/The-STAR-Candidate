@@ -21,81 +21,6 @@
 
 <body class="m-auto ">
 
-    <div id="grid-right" class="grid-right flex">
-        <div class="flex border mr-auto  mt-3 p-2  rounded-lg  text-xl">
-            <div id="screenTitle" class=" flex-1">
-                Home
-            </div><button id="menu" onclick="toggleSidebar()" class="">
-                <span class="material-symbols-outlined">
-                    dehaze
-                </span>
-            </button>
-        </div>
-
-        <div>
-            <br>
-        </div>
-        <div class="mb-1 p-2 border rounded-lg">
-            Add New
-        </div>
-        <div onclick="edit()" class="mb-1 p-2 border rounded-lg">
-            Edit
-        </div>
-        <div onclick="goToDisplayAllScreen('Favorites')" class="mb-1 p-2 border rounded-lg">
-            Favorite
-        </div>
-        <div onclick="goToDisplayAllScreen('Search')" class="mb-1 p-2 border rounded-lg">
-            Serch
-        </div>
-
-
-
-
-        <div class="m-auto ">
-            <br>
-        </div>
-        <div onclick="backArrowFunction()" class="mt-auto mb-1 p-2 border rounded-lg">
-            Back
-        </div>
-        <div onclick="moveForward()" class="mb-1 p-2 blue-border rounded-lg">
-            Next
-        </div>
-
-    </div>
-
-    <!-- ----------------------- HEADER NAV BAR: ------------------------>
-    <nav id="header" class="mb-3 px-3 pt-3 flex items-center text-xs">
-
-        <div class="flex-1 flex items-center">
-            <button id="menu" onclick="toggleSidebar()">
-                <span class="material-symbols-outlined">
-                    dehaze
-                </span>
-            </button>
-        </div>
-
-        <div id="currentScreenLocation" class="mr-auto flex-1  text-center text-xl">Home</div>
-
-        <div class="ml-auto flex flex-1 justify-end">
-
-            <button id="edit_btn" class="switchVisibilityOrEditableState hiddenBehavior">
-                <span class="material-symbols-outlined">
-                    edit_square
-                </span>
-
-            </button>
-            <button id="toggleDeleteAlert_btn" class="open-btn hiddenBehavior" hidden commandFor="modal-box"
-                command="show-modal">
-
-
-                <span class="material-symbols-outlined">
-                    delete_forever
-                </span>
-
-            </button>
-        </div>
-    </nav>
-
     <aside id="sidebar" class="p-3 border shadow-xl">
         <div class="top mb-1">
             <button id="menu-2" onclick="toggleSidebar()">
@@ -146,6 +71,81 @@
             </div>
         </div>
     </aside>
+
+    <!-- ----------------------- HEADER NAV BAR: ------------------------>
+    <nav id="header" class="mb-3 px-3 pt-3 flex items-center text-xs">
+
+        <div class="flex-1 flex items-center">
+            <button id="menu" onclick="toggleSidebar()">
+                <span class="material-symbols-outlined">
+                    dehaze
+                </span>
+            </button>
+        </div>
+
+        <div id="currentScreenLocation" class="mr-auto flex-1  text-center text-xl">Home</div>
+
+        <div class="ml-auto flex flex-1 justify-end">
+
+            <button id="edit_btn" class="switchVisibilityOrEditableState hiddenBehavior">
+                <span class="material-symbols-outlined">
+                    edit_square
+                </span>
+
+            </button>
+            <button id="toggleDeleteAlert_btn" class="open-btn hiddenBehavior" hidden commandFor="modal-box"
+                command="show-modal">
+
+
+                <span class="material-symbols-outlined">
+                    delete_forever
+                </span>
+
+            </button>
+        </div>
+    </nav>
+
+    <div id="grid-right" class="grid-right flex">
+        <div class="flex border mr-auto  mt-3 p-2  rounded-lg  text-xl">
+            <div id="screenTitle" class=" flex-1">
+                Home
+            </div><button id="menu" onclick="toggleSidebar()" class="">
+                <span class="material-symbols-outlined">
+                    dehaze
+                </span>
+            </button>
+        </div>
+
+        <div>
+            <br>
+        </div>
+        <div class="mb-1 p-2 border rounded-lg">
+            Add New
+        </div>
+        <div onclick="edit()" class="mb-1 p-2 border rounded-lg">
+            Edit
+        </div>
+        <div onclick="goToDisplayAllScreen('Favorites')" class="mb-1 p-2 border rounded-lg">
+            Favorite
+        </div>
+        <div onclick="goToDisplayAllScreen('Search')" class="mb-1 p-2 border rounded-lg">
+            Serch
+        </div>
+
+
+
+
+        <div class="m-auto ">
+            <br>
+        </div>
+        <div onclick="backArrowFunction()" class="mt-auto mb-1 p-2 border rounded-lg">
+            Back
+        </div>
+        <div onclick="moveForward()" class="mb-1 p-2 blue-border rounded-lg">
+            Next
+        </div>
+
+    </div>
 
     <!-- BUTTONS FOR STYING -->
     <section id="stylingButtonsSection" class="m-auto  section-1 hidden">
@@ -234,26 +234,24 @@
 
     <!-- ADD OTHER ALERTS LIKE THIS FOR WHEN DATA GET SUCCESFULLY UPDATED -->
 
-
     <!-- ----------------------- CATEGORIES SECTION: ------------------------>
     <section id="categoriesSection" class="mx-3 mb-1 flex flex-wrap ">
-        <div id="Recruiter" class="category mb-1  px-2 py-1 flex-1 text-center  shadow  rounded-lg text-xs ml-auto">
+        <div id="Recruiter" class="category mb-1  px-2 py-1 flex-1 text-center border shadow  rounded-lg text-xs ml-auto">
             Recruiter
         </div>
-        <div id="Candidate" class="category mb-1  px-2 py-1  flex-1 text-center shadow  rounded-lg text-xs ml-1">
+        <div id="Candidate" class="category mb-1  px-2 py-1  flex-1 text-center border shadow  rounded-lg text-xs ml-1">
             Candidate
         </div>
-        <div id="Advice" class="category mb-1  px-2 py-1  flex-1 text-center shadow  rounded-lg text-xs mx-1">
+        <div id="Advice" class="category mb-1  px-2 py-1  flex-1 text-center border shadow  rounded-lg text-xs mx-1">
             Advice
         </div>
-        <div id="Encouragement" class="category mb-1  px-2 py-1  flex-1 text-center shadow rounded-lg text-xs mr-auto">
+        <div id="Encouragement" class="category mb-1  px-2 py-1  flex-1 text-center border shadow rounded-lg text-xs mr-auto">
             Keep It Up
         </div>
     </section>
 
     <!-- ----------------------- EDITABLE TEXT AREAS: ------------------------>
-    <section id="areaWhereTheTextIsGonnaBeShown"
-        class="content mx-3 border shadow rounded-xl p-1 rounded-xl bg-fixed">
+    <section id="areaWhereTheTextIsGonnaBeShown" class="content mx-3 border shadow rounded-xl p-1 rounded-xl bg-fixed">
         <div class="container">
             <div id="question" class=" px-1 py-3 pt-2 font-bold editable  text-sky-500 text-xl" contenteditable="false">
                 Question</div>
@@ -274,7 +272,6 @@
                 <path
                     d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" />
             </svg>
-
 
         </div>
     </section>
@@ -315,9 +312,6 @@
                     </span>
                 </button>
         </div>
-
-
-
 
         <div id="submitSection" class="flex switchVisibilityOrEditableState" hidden>
             <button id="cancelChangesDoNotSubmit_btn" class="submitChangesAndCancelChanges hiddenBehavior " hidden>

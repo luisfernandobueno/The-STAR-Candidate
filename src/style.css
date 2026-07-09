@@ -99,10 +99,6 @@ footer {
     overflow-y: auto;
 }
 
-#displayAllQuestions {
-    
-    overflow-x: scroll;
-}
 
 #areaWhereTheTextIsGonnaBeShown {
     flex: 1;
@@ -152,6 +148,7 @@ footer {
 
 #inputSearch {
     caret-color: rgb(0, 102, 255);
+    background-color: var(--base-color);
 
 
 }
