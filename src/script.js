@@ -4,6 +4,8 @@
 /* URL FOR ACTUAL LEARNING */
 const url_interview_data = "https://getpantry.cloud/apiv1/pantry/3892fc79-3651-48dd-aa62-75da3e708be7/basket/STAR Candidate App";
 //const url_interview_data = "src/data.json"
+//const url_interview_data = "https://luisfernandobueno.github.io/json/db.json"
+//const url_interview_data = "https://api.npoint.io/facb5749d433f9be2b92"
 
 localStorage.setItem("url_interview_data", url_interview_data);
 
@@ -53,6 +55,7 @@ let originalData = { lines: {} };
 
 
 
+
 /* ------------------------- FUNCTIONS ------------------------- */
 
 
@@ -61,11 +64,11 @@ let originalData = { lines: {} };
 
 function removePreviousCategory() {
 
-    
+
 
     const deleteCategory = document.querySelectorAll(".category");
     deleteCategory.forEach(e => {
-        
+
 
         let darkmodeStatus = localStorage.getItem("darkmode")
 
@@ -111,7 +114,7 @@ function sectionCategoriesBehavior(topic) {
                     document.getElementById("Encouragement").style.backgroundColor = "#9b00ca";
                     break;
 
-                case "Keep It Up":
+                default:
                     document.getElementById("Encouragement").style.backgroundColor = "#9b00ca";
                     break;
             }
@@ -137,7 +140,7 @@ function sectionCategoriesBehavior(topic) {
                     document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
                     break;
 
-                case "Keep It Up":
+                default:
                     document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
                     break;
             }
@@ -341,7 +344,7 @@ function visibilityOFAlertDeleteData() {
 
     toggleDeleteAlert_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Delete"
-        
+
 
         editDeleteOrAddNew = "delete";
 
@@ -369,7 +372,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         navBar.classList.remove("hidden");
         toggleDeleteAlert_btn.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home"
-        
+
 
         stylingButtonsSection.classList.add("hidden");
         favorite_btn.classList.remove("hidden");
@@ -429,6 +432,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 
 function editDataScreen() {
     edit_btn.addEventListener("click", () => {
+         favorite_btn.classList.toggle("hidden", true);   // Add the class
         edit();
         categorySelector();
     });
@@ -436,8 +440,8 @@ function editDataScreen() {
 }
 function edit() {
     stylingButtonsSection.classList.remove("hidden");
-    favorite_btn.classList.add("hidden");
-
+    favorite_btn.classList.toggle("hidden", true);   // Add the class
+    //favorite_btn.classList.toggle("hidden", false);  // Remove the class
 
 
     navBar.classList.add("hidden");
@@ -562,7 +566,7 @@ function creatingNewData() {
         explanation: explanation.innerHTML,
         answer: answer.innerHTML,
         example: example.innerHTML,
-        topic: topic.trim(), //data[currentIndex_jsonData].topic,
+        topic: topic,
         favorite: false,
     };
 
@@ -652,7 +656,7 @@ function submittingNewDataOnline() {
         sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic)
         removeEditableState();
         areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
-        
+
     });
 
 
@@ -664,7 +668,7 @@ function submittingNewDataOnline() {
         disableCategorySelector();
         navBar.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home";
-                toggleDeleteAlert_btn.classList.remove("hidden");
+        toggleDeleteAlert_btn.classList.remove("hidden");
 
 
         console.log("WHAT ARE YOU CURRENTLY SUBMITING? - ", editDeleteOrAddNew);
@@ -797,18 +801,18 @@ const disableDarkmode = () => {
 
 if (darkmode === "active") enableDarkmode()
 
-    function darkmodeState() {
-        darkmode = localStorage.getItem('darkmode')
+function darkmodeState() {
+    darkmode = localStorage.getItem('darkmode')
     //console.log("darkmode:", darkmode)
     sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic);
     darkmode !== "active" ? enableDarkmode() : disableDarkmode()
-    }
+}
 
 themeSwitch.addEventListener("click", () => {
     darkmodeState()
 })
 
-function initialDarkmode () {
+function initialDarkmode() {
     darkmode = localStorage.getItem("darkmode");
     removePreviousCategory();
 }
@@ -816,13 +820,16 @@ function initialDarkmode () {
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
 document.addEventListener("DOMContentLoaded", function () {
-    
+
+    console.log(url_interview_data)
 
 
     fetch(url_interview_data)
         .then((res) => res.json())
         .then((json) => {
 
+            console.log(json)
+            console.log("iside fetch")
             //Evaluate first to not have andy indexes duplicated
             data = [
                 ...new Map(json.lines.map(item => [item.question, item])).values()
@@ -836,17 +843,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-
+            console.log(data);
             /* SAVE DATA ON LOCALSTORAGE:
             For the purpose of always having it up to date in case the api is not working right*/
 
             //console.log(`localStorage.getItem("searchedQuestion"):   `, searchedQuestion);
 
 
-             console.log(url_interview_data)
-            initialDarkmode();
+            console.log(url_interview_data)
+
             //darkmode !== "active" ? enableDarkmode() : disableDarkmode()
-            
+
             // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
             showTextOnUserScreen(data);
             arrowForwardBtn(data);
@@ -856,6 +863,12 @@ document.addEventListener("DOMContentLoaded", function () {
             goToAddNewScreen();
             visibilityOFAlertDeleteData();
             lastSearchedQuestion(searchedQuestion);
-            
-        });
+
+        })
+        .then(response => {
+            console.log("Status:", response.status);
+            return response.json();
+        })
+        .then(result => console.log(result))
+        .catch(error => console.error(error));
 });
