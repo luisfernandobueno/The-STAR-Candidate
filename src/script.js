@@ -72,14 +72,15 @@ function removePreviousCategory() {
 
         let darkmodeStatus = localStorage.getItem("darkmode")
 
+
         switch (darkmode) {
             case "active":
-                e.style.backgroundColor = "rgb(243, 243, 243)";
+                e.style.backgroundColor = "var(--base-color)";
                 e.classList.remove("shadow")
                 break;
 
             case "null":
-                e.style.backgroundColor = "rgb(80, 80, 80)";
+                e.style.backgroundColor = "var(--base-color)";
                 break;
         }
 
@@ -87,6 +88,57 @@ function removePreviousCategory() {
 }
 
 
+function themeLight(topic, darkmode) {
+    if (darkmode === 'active') { return };
+    switch (topic) {
+        case "Recruiter":
+            document.getElementById("Recruiter").style.backgroundColor = "#BDE3FF";
+            break;
+
+        case "Candidate":
+            document.getElementById("Candidate").style.backgroundColor = "#CFFFB5";
+            break;
+
+        case "Advice":
+            document.getElementById("Advice").style.backgroundColor = "#FBF291";
+            break;
+
+        case "Encouragement":
+            document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
+            break;
+
+        default:
+            document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
+            break;
+    }
+
+}
+
+function themeDark(topic, darkmode) {
+    if (darkmode === 'null') { return };
+    switch (topic) {
+        case "Recruiter":
+            document.getElementById("Recruiter").style.backgroundColor = "#004b81";
+            break;
+
+        case "Candidate":
+            document.getElementById("Candidate").style.backgroundColor = "#287400";
+            break;
+
+        case "Advice":
+            document.getElementById("Advice").style.backgroundColor = "#ffd57b";
+            break;
+
+        case "Encouragement":
+            document.getElementById("Encouragement").style.backgroundColor = "#9b00ca";
+            break;
+
+        default:
+            document.getElementById("Encouragement").style.backgroundColor = "#9b00ca";
+            break;
+    }
+
+}
 
 function sectionCategoriesBehavior(topic) {
 
@@ -94,67 +146,10 @@ function sectionCategoriesBehavior(topic) {
 
     topic = topic.trim(); // trim() takes away any pre and post spaces that the variable have
 
-    switch (darkmode) {
-        case "null":
+    let getDarkmode = localStorage.getItem("darkmode")
 
-            switch (topic) {
-                case "Recruiter":
-                    document.getElementById("Recruiter").style.backgroundColor = "#004b81";
-                    break;
-
-                case "Candidate":
-                    document.getElementById("Candidate").style.backgroundColor = "#287400";
-                    break;
-
-                case "Advice":
-                    document.getElementById("Advice").style.backgroundColor = "#a79900";
-                    break;
-
-                case "Encouragement":
-                    document.getElementById("Encouragement").style.backgroundColor = "#9b00ca";
-                    break;
-
-                default:
-                    document.getElementById("Encouragement").style.backgroundColor = "#9b00ca";
-                    break;
-            }
-
-            break;
-
-        case "active":
-
-            switch (topic) {
-                case "Recruiter":
-                    document.getElementById("Recruiter").style.backgroundColor = "#BDE3FF";
-                    break;
-
-                case "Candidate":
-                    document.getElementById("Candidate").style.backgroundColor = "#CFFFB5";
-                    break;
-
-                case "Advice":
-                    document.getElementById("Advice").style.backgroundColor = "#FBF291";
-                    break;
-
-                case "Encouragement":
-                    document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
-                    break;
-
-                default:
-                    document.getElementById("Encouragement").style.backgroundColor = "#FFDC92";
-                    break;
-            }
-
-            break;
-    }
-
-
-    if (darkmode === "active") {
-
-    } else {
-
-    }
-
+    themeDark(topic, getDarkmode);
+    themeLight(topic, getDarkmode)
 }
 
 
@@ -190,7 +185,7 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
 
     });
 
-    sectionCategoriesBehavior(randomQuestion.topic)
+
 
     question.innerHTML = randomQuestion.question;
     explanation.innerHTML = randomQuestion.explanation;
@@ -207,8 +202,8 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
     localStorage.removeItem("searchedQuestion");
     //console.log("FINAL INDEX BEING SHOWN ON  SCREEN: ", currentIndex_jsonData);
 
+    sectionCategoriesBehavior(randomQuestion.topic)
 }
-
 
 
 /* Chooses a random index from the array and passes that one to the function that displays
@@ -432,7 +427,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 
 function editDataScreen() {
     edit_btn.addEventListener("click", () => {
-         favorite_btn.classList.toggle("hidden", true);   // Add the class
+        favorite_btn.classList.toggle("hidden", true);   // Add the class
         edit();
         categorySelector();
     });
@@ -791,7 +786,6 @@ function toggleSidebar() {
 const enableDarkmode = () => {
     document.body.classList.add('darkmode')
     localStorage.setItem('darkmode', 'active')
-
 }
 
 const disableDarkmode = () => {
@@ -803,9 +797,8 @@ if (darkmode === "active") enableDarkmode()
 
 function darkmodeState() {
     darkmode = localStorage.getItem('darkmode')
-    //console.log("darkmode:", darkmode)
-    sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic);
     darkmode !== "active" ? enableDarkmode() : disableDarkmode()
+    sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic);
 }
 
 themeSwitch.addEventListener("click", () => {
