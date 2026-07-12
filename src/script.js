@@ -504,7 +504,7 @@ function isItEditingDataRightNow() {
         explanation: explanation.innerHTML,
         answer: answer.innerHTML,
         example: example.innerHTML,
-        topic: topic.trim(), //data[currentIndex_jsonData].topic,
+        topic: topic, //data[currentIndex_jsonData].topic,
         favorite: data[currentIndex_jsonData].favorite,
     };
 
