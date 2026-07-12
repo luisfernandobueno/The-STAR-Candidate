@@ -10,6 +10,10 @@ const history_arr = JSON.parse(
 );
 let screenType = document.getElementById("screenType");
 
+const search_screen = document.getElementById("search_screen");
+const favorites_screen = document.getElementById("favorites_screen")
+
+
 const categoriesSection = document.querySelectorAll(".category");
 
 
@@ -56,7 +60,7 @@ function removePreviousCategory() {
 
 function sectionCategoriesBehavior(topic) {
 
-    
+
 
     topic = topic.trim(); // trim() takes away any pre and post spaces that the variable have
     console.log(topic);
@@ -97,14 +101,14 @@ function filterByTopic(data) {
 
             // If index in array detele, else add it.
             if (
-            index !== -1) {
-                 categoriesSection.splice(index, 1)
+                index !== -1) {
+                categoriesSection.splice(index, 1)
                 removePreviousCategory()
             } else {
-                 categoriesSection.push(cat.innerText);
+                categoriesSection.push(cat.innerText);
                 sectionCategoriesBehavior(cat.innerText);
             }
-            
+
         });
     });
 
@@ -118,10 +122,19 @@ function filterByTopic(data) {
  */
 
 
-    
+
     displayAll(filteredData);
 }
 
+
+function goToDisplayAllScreen(goTo) {
+    localStorage.setItem("displayScreen", goTo);
+    localStorage.setItem(
+        "history_arr",
+        JSON.stringify(history_arr)
+    );
+    window.location.href = 'showAllQuestions.html'
+}
 
 
 /* DISPLAY ALL THE QUESTIONS ON SCREEN */
@@ -190,23 +203,21 @@ function toggleSidebar() {
 
 function displayScreenFunction(displayScreen, data) {
 
-        console.log(displayScreen);
-        console.log("DATA ABOUT TO BE DISPLAYED!!!")
+    console.log(displayScreen);
+    console.log("DATA ABOUT TO BE DISPLAYED!!!")
     switch (displayScreen) {
-        /* case "history":
-            screenType.innerText = "History";
-            console.log(history_arr);
-            displayAll(history_arr)
-            break; */
 
         case "Search":
             screenType.innerText = displayScreen;
+            search_screen.disabled;
             displayAll(data);
             break;
 
         case "Favorites":
             console.log(data.filter(item => item.favorite))
             screenType.innerText = displayScreen;
+            favorites_screen.disabled;
+
             displayAll(
 
                 data.filter(item => item.favorite)
@@ -226,7 +237,7 @@ function displayScreenFunction(displayScreen, data) {
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
 document.addEventListener("DOMContentLoaded", function () {
-console.log(url_interview_data)
+    console.log(url_interview_data)
     fetch(url_interview_data)
         .then((res) => res.json())
         .then((json) => {
@@ -244,7 +255,7 @@ console.log(url_interview_data)
             console.log("ORIGINAL DATA: ", data);
 
             displayScreenFunction(displayScreen, data)
-            
+
 
         });
 });

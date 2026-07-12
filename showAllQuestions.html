@@ -156,13 +156,33 @@
 
 
 
-
-            <button onclick="window.location.href='index.html'" class=" flex-1 flex items-center justify-center">
-                <span class="material-symbols-outlined  p-2 shadow bg-sky-500 rounded-full">home</span>
+            <button
+                class="hiddenBehavior flex-1 flex items-center justify-center">
             </button>
 
 
 
+            <button id="search_screen" onclick="goToDisplayAllScreen('Search')"
+                class="hiddenBehavior flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+
+            
+            <button onclick="window.location.href='index.html'" class=" flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined  p-2 shadow bg-sky-500 rounded-full">home</span>
+            </button>
+
+            <button id="favorites_screen" onclick="goToDisplayAllScreen('Favorites')"
+                class="hiddenBehavior flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined">
+                    favorite
+                </span>
+            </button>
+
+
+            <button
+                class="hiddenBehavior flex-1 flex items-center justify-center">
+            </button>
 
 
         </div>
