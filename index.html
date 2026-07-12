@@ -20,6 +20,80 @@
 </head>
 
 <body class="m-auto ">
+    <div id="grid-right" class="grid-right flex">
+        <div class="flex border mr-auto  mt-3 p-2  rounded-lg  text-xl">
+            <div id="screenTitle" class=" flex-1">
+                Home
+            </div><button id="menu" onclick="toggleSidebar()" class="">
+                <span class="material-symbols-outlined">
+                    dehaze
+                </span>
+            </button>
+        </div>
+
+        <div>
+            <br>
+        </div>
+        <div class="mb-1 p-2 border rounded-lg">
+            Add New
+        </div>
+        <div onclick="edit()" class="mb-1 p-2 border rounded-lg">
+            Edit
+        </div>
+        <div onclick="goToDisplayAllScreen('Favorites')" class="mb-1 p-2 border rounded-lg">
+            Favorite
+        </div>
+        <div onclick="goToDisplayAllScreen('Search')" class="mb-1 p-2 border rounded-lg">
+            Search
+        </div>
+
+
+
+
+        <div class="m-auto ">
+            <br>
+        </div>
+        <div onclick="backArrowFunction()" class="mt-auto mb-1 p-2 border rounded-lg">
+            Back
+        </div>
+        <div onclick="moveForward()" class="mb-1 p-2 border rounded-lg">
+            Next
+        </div>
+
+    </div>
+
+    <!-- ----------------------- HEADER NAV BAR: ------------------------>
+    <nav id="header" class="mb-3 px-3 pt-3 flex items-center text-xs">
+
+        <div class="flex-1 flex items-center">
+            <button id="menu" onclick="toggleSidebar()">
+                <span class="material-symbols-outlined">
+                    dehaze
+                </span>
+            </button>
+        </div>
+
+        <div id="currentScreenLocation" class="mr-auto flex-1  text-center text-xl">Home</div>
+
+        <div class="ml-auto flex flex-1 justify-end">
+
+            <button id="edit_btn" class="switchVisibilityOrEditableState hiddenBehavior">
+                <span class="material-symbols-outlined">
+                    edit_square
+                </span>
+
+            </button>
+            <button id="toggleDeleteAlert_btn" class="open-btn hiddenBehavior" hidden commandFor="modal-box"
+                command="show-modal">
+
+
+                <span class="material-symbols-outlined">
+                    delete_forever
+                </span>
+
+            </button>
+        </div>
+    </nav>
 
     <aside id="sidebar" class="p-3 border shadow-xl">
         <div class="top mb-1">
@@ -72,80 +146,9 @@
         </div>
     </aside>
 
-    <!-- ----------------------- HEADER NAV BAR: ------------------------>
-    <nav id="header" class="mb-3 px-3 pt-3 flex items-center text-xs">
-
-        <div class="flex-1 flex items-center">
-            <button id="menu" onclick="toggleSidebar()">
-                <span class="material-symbols-outlined">
-                    dehaze
-                </span>
-            </button>
-        </div>
-
-        <div id="currentScreenLocation" class="mr-auto flex-1  text-center text-xl">Home</div>
-
-        <div class="ml-auto flex flex-1 justify-end">
-
-            <button id="edit_btn" class="switchVisibilityOrEditableState hiddenBehavior">
-                <span class="material-symbols-outlined">
-                    edit_square
-                </span>
-
-            </button>
-            <button id="toggleDeleteAlert_btn" class="open-btn hiddenBehavior" hidden commandFor="modal-box"
-                command="show-modal">
+    
 
 
-                <span class="material-symbols-outlined">
-                    delete_forever
-                </span>
-
-            </button>
-        </div>
-    </nav>
-
-    <div id="grid-right" class="grid-right flex">
-        <div class="flex border mr-auto  mt-3 p-2  rounded-lg  text-xl">
-            <div id="screenTitle" class=" flex-1">
-                Home
-            </div><button id="menu" onclick="toggleSidebar()" class="">
-                <span class="material-symbols-outlined">
-                    dehaze
-                </span>
-            </button>
-        </div>
-
-        <div>
-            <br>
-        </div>
-        <div class="mb-1 p-2 border rounded-lg">
-            Add New
-        </div>
-        <div onclick="edit()" class="mb-1 p-2 border rounded-lg">
-            Edit
-        </div>
-        <div onclick="goToDisplayAllScreen('Favorites')" class="mb-1 p-2 border rounded-lg">
-            Favorite
-        </div>
-        <div onclick="goToDisplayAllScreen('Search')" class="mb-1 p-2 border rounded-lg">
-            Serch
-        </div>
-
-
-
-
-        <div class="m-auto ">
-            <br>
-        </div>
-        <div onclick="backArrowFunction()" class="mt-auto mb-1 p-2 border rounded-lg">
-            Back
-        </div>
-        <div onclick="moveForward()" class="mb-1 p-2 blue-border rounded-lg">
-            Next
-        </div>
-
-    </div>
 
     <!-- BUTTONS FOR STYING -->
     <section id="stylingButtonsSection" class="m-auto  section-1 hidden">
@@ -343,9 +346,9 @@
         <div class="mb-1 p-2 border rounded-lg">
             About
         </div>
-        <div class="mb-1 p-2 border rounded-lg">
+        <div id="toggleDarkMode" onclick="darkmodeState()" class="mb-1 p-2 flex border rounded-lg">
 
-            <button id="theme-switch">
+            <button id="theme-switch" class="flex">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                     fill="#000000">
                     <path
@@ -356,8 +359,10 @@
                     <path
                         d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
                 </svg>
-            </button>witch
-            Theme Switch
+            </button>
+            <div class="flex-1">
+                Theme Switch
+            </div>
 
         </div>
     </div>

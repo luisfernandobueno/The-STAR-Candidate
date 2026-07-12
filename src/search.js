@@ -42,7 +42,12 @@ themeSwitch.addEventListener("click", () => {
 })
 
 
-
+function darkmodeState() {
+    
+    darkmode = localStorage.getItem('darkmode')
+    darkmode !== "active" ? enableDarkmode() : disableDarkmode()
+    sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic);
+}
 
 
 /* ------------------------- FUNCTIONS ------------------------- */
