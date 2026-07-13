@@ -42,7 +42,7 @@ let darkmode = localStorage.getItem('darkmode')
 const themeSwitch = document.getElementById('theme-switch')
 
 
-const searchedQuestion = localStorage.getItem("searchedQuestion");
+let indexOfQuestionSearched = localStorage.getItem("indexOfQuestionSearched");
 let currentIndex_jsonData;
 let randomQuestion = {};
 let newDataToSubmitOnline = {}
@@ -57,6 +57,39 @@ let originalData = { lines: {} };
 
 
 /* ------------------------- FUNCTIONS ------------------------- */
+
+
+
+
+const enableDarkmode = () => {
+    document.body.classList.add('darkmode')
+    localStorage.setItem('darkmode', 'active')
+}
+
+const disableDarkmode = () => {
+    document.body.classList.remove('darkmode')
+    localStorage.setItem('darkmode', null)
+}
+
+if (darkmode === "active") enableDarkmode()
+
+function darkmodeState() {
+    darkmode = localStorage.getItem('darkmode')
+    darkmode !== "active" ? enableDarkmode() : disableDarkmode()
+    sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic);
+}
+
+themeSwitch.addEventListener("click", () => {
+    darkmodeState()
+})
+
+function initialDarkmode() {
+    darkmode = localStorage.getItem("darkmode");
+    removePreviousCategory();
+}
+
+
+
 
 
 
@@ -343,8 +376,7 @@ function visibilityOFAlertDeleteData() {
 
         editDeleteOrAddNew = "delete";
 
-        toggleDeleteAlert_btn.classList.add("hidden");
-        submitSection.classList.add("hidden");
+        
 
 
 
@@ -363,16 +395,20 @@ function visibilityOFAlertDeleteData() {
 function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     // BEHAVIOR FOR "DELETE" BUTTON INSIDE THE ALERT TO EFFECTIVELY DELETE DATA:
     deleteDataAccepted_btn.addEventListener("click", () => {
-        submitSection.classList.remove("hidden");
-        navBar.classList.remove("hidden");
-        toggleDeleteAlert_btn.classList.remove("hidden");
+        const togglesDeleteEdit = document.getElementById("togglesDeleteEdit")
+        submitSection.classList.add("hidden");
+        //togglesDeleteEdit.classList.add("")
+
+        
         currentScreenLocation.innerHTML = "Home"
+        
+        //disableCategorySelector();
 
+         turningTheTextAreasEditable_array.forEach(c => {
+        c.contentEditable = "false";
 
-        stylingButtonsSection.classList.add("hidden");
-        favorite_btn.classList.remove("hidden");
-        disableCategorySelector();
-
+        
+    });
 
 
         //console.log("INDEX BEING FINALY DELETED: ", currentIndex_jsonData)
@@ -386,26 +422,17 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
 
 
-
-
-
-
         fetchPost(data);
-
-
-
-
-
 
 
         document.querySelectorAll("button").forEach(b => {
             b.hidden;
         });
 
-        removeEditableState();
+        
         showTextOnUserScreen(data);
-        /* arrowForwardBtn(history_arr);
-        arrowBack_btn(history_arr); */
+        arrowForwardBtn(history_arr);
+        arrowBack_btn(history_arr);
 
     });
 
@@ -413,10 +440,10 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     // BEHAVIOR FOR "CANCEL" BUTTON INSIDE THE ALERT TO CANCEL THE DELETE:
     const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
     doNotDeleteData_btn.addEventListener("click", () => {
-        submitSection.classList.remove("hidden");
+        //submitSection.classList.remove("hidden");
         delete_btn.classList.remove("hidden");
-        currentScreenLocation.innerHTML = "Edit"
-        currentScreenLocation2.innerHTML = "Edit"
+        currentScreenLocation.innerHTML = "Home"
+        
 
     });
 }
@@ -647,7 +674,7 @@ function submittingNewDataOnline() {
         navBar.classList.remove("hidden");
         editing = true;
         //console.log("CANCELING SUBMITTING CHANGES RIGHT NOW!!! ", editing)
-        console.log("sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic)", (history_arr[currentIndex_historyArray].topic))
+        
         sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic)
         removeEditableState();
         areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
@@ -663,7 +690,7 @@ function submittingNewDataOnline() {
         disableCategorySelector();
         navBar.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home";
-        toggleDeleteAlert_btn.classList.remove("hidden");
+        
 
 
         console.log("WHAT ARE YOU CURRENTLY SUBMITING? - ", editDeleteOrAddNew);
@@ -717,10 +744,12 @@ function fetchPost(data) {
 
 
 /* SHOW THE SEARCH SECTION INTO THE SCREEN */
-function lastSearchedQuestion(searchedQuestion) {
-    console.log(searchedQuestion);
+function lastSearchedQuestion() {
+
+    if (indexOfQuestionSearched) {
+        //console.log(searchedQuestion);
     console.log("index of question saved: ", localStorage.getItem("indexOfQuestionSearched"));
-    let indexOfQuestionSearched = localStorage.getItem("indexOfQuestionSearched");
+    
     history_arr[0] = data[indexOfQuestionSearched];
     currentIndex_jsonData = indexOfQuestionSearched;
     console.log(currentIndex_jsonData)
@@ -771,6 +800,8 @@ function lastSearchedQuestion(searchedQuestion) {
         localStorage.removeItem("indexOfQuestionSearched");
         console.log(localStorage.getItem("indexOfQuestionSearched"))
     //}
+    }
+    
 }
 
 
@@ -794,32 +825,6 @@ function toggleSidebar() {
 
 
 
-const enableDarkmode = () => {
-    document.body.classList.add('darkmode')
-    localStorage.setItem('darkmode', 'active')
-}
-
-const disableDarkmode = () => {
-    document.body.classList.remove('darkmode')
-    localStorage.setItem('darkmode', null)
-}
-
-if (darkmode === "active") enableDarkmode()
-
-function darkmodeState() {
-    darkmode = localStorage.getItem('darkmode')
-    darkmode !== "active" ? enableDarkmode() : disableDarkmode()
-    sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic);
-}
-
-themeSwitch.addEventListener("click", () => {
-    darkmodeState()
-})
-
-function initialDarkmode() {
-    darkmode = localStorage.getItem("darkmode");
-    removePreviousCategory();
-}
 
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
@@ -866,7 +871,7 @@ document.addEventListener("DOMContentLoaded", function () {
             editDataScreen();
             goToAddNewScreen();
             visibilityOFAlertDeleteData();
-            lastSearchedQuestion(searchedQuestion);
+            lastSearchedQuestion();
 
         })
         .then(response => {
