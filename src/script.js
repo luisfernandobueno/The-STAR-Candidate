@@ -16,6 +16,7 @@ const currentScreenLocation = document.getElementById("currentScreenLocation");
 const edit_btn = document.getElementById("edit_btn");
 
 /* DELETE ALERT */
+const togglesDeleteEdit  = document.getElementById("togglesDeleteEdit");
 const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
 const deleteData_alert = document.getElementById("deleteData_alert");
 const deleteDataAccepted_btn = document.getElementById("deleteDataAccepted_btn");
@@ -397,13 +398,19 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     deleteDataAccepted_btn.addEventListener("click", () => {
         const togglesDeleteEdit = document.getElementById("togglesDeleteEdit")
         submitSection.classList.add("hidden");
-        
+        document.querySelectorAll("button").forEach(b => {
+            b.hidden;
+        });
+
+        togglesDeleteEdit.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home"
+        navBar.classList.remove("hidden");
+        
+        alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
 
          turningTheTextAreasEditable_array.forEach(c => {
         c.contentEditable = "false";        
     });
-
 
         //console.log("INDEX BEING FINALY DELETED: ", currentIndex_jsonData)
 
@@ -413,17 +420,13 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         history_arr.splice(currentIndex_historyArray, 1);
         data = data;
 
-        alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
 
 
         fetchPost(data);
 
 
-        document.querySelectorAll("button").forEach(b => {
-            b.hidden;
-        });
-
         
+
         showTextOnUserScreen(data);
         arrowForwardBtn(history_arr);
         arrowBack_btn(history_arr);
@@ -434,6 +437,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
     doNotDeleteData_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Home";
+        
         //submitSection.classList.remove("hidden");
         delete_btn.classList.remove("hidden");
     });
@@ -452,10 +456,12 @@ function editDataScreen() {
 
 }
 function edit() {
+    
     stylingButtonsSection.classList.remove("hidden");
     favorite_btn.classList.toggle("hidden", true);   // Add the class
     //favorite_btn.classList.toggle("hidden", false);  // Remove the class
-
+    
+    togglesDeleteEdit.classList.add("hidden");
 
     navBar.classList.add("hidden");
     currentScreenLocation.innerText = "Edit"
@@ -482,9 +488,11 @@ function goToAddNewScreen() {
         console.log("add new screen")
         stylingButtonsSection.classList.remove("hidden");
         favorite_btn.classList.add("hidden");
+        submitSection.classList.remove('hidden')
 
 
         toggleDeleteAlert_btn.classList.add("hidden");
+        edit_btn.classList.add("hidden");
         navBar.classList.add("hidden");
         currentScreenLocation.innerHTML = "Add New";
         editDeleteOrAddNew = "addNew";
@@ -662,6 +670,8 @@ function submittingNewDataOnline() {
 
         currentScreenLocation.innerHTML = "Home";
         toggleDeleteAlert_btn.classList.remove("hidden");
+        edit_btn.classList.remove("hidden");
+
         navBar.classList.remove("hidden");
         editing = true;
         //console.log("CANCELING SUBMITTING CHANGES RIGHT NOW!!! ", editing)
@@ -681,7 +691,8 @@ function submittingNewDataOnline() {
         disableCategorySelector();
         navBar.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home";
-        
+        toggleDeleteAlert_btn.classList.remove("hidden");
+        edit_btn.classList.remove("hidden");
 
 
         console.log("WHAT ARE YOU CURRENTLY SUBMITING? - ", editDeleteOrAddNew);
