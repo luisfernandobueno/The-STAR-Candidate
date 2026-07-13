@@ -872,7 +872,7 @@ document.addEventListener("DOMContentLoaded", function () {
             switchVisibilityOrEditableState();
             editDataScreen();
             goToAddNewScreen();
-            
+            visibilityOFAlertDeleteData() 
             lastSearchedQuestion();
 
         })
