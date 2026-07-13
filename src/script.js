@@ -199,7 +199,7 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
     );
 
 
-    localStorage.removeItem("searchedQuestion");
+    //localStorage.removeItem("indexOfQuestionSearched");
     //console.log("FINAL INDEX BEING SHOWN ON  SCREEN: ", currentIndex_jsonData);
 
     sectionCategoriesBehavior(randomQuestion.topic)
@@ -719,9 +719,16 @@ function fetchPost(data) {
 /* SHOW THE SEARCH SECTION INTO THE SCREEN */
 function lastSearchedQuestion(searchedQuestion) {
     console.log(searchedQuestion);
+    console.log("index of question saved: ", localStorage.getItem("indexOfQuestionSearched"));
+    let indexOfQuestionSearched = localStorage.getItem("indexOfQuestionSearched");
+    history_arr[0] = data[indexOfQuestionSearched];
+    currentIndex_jsonData = indexOfQuestionSearched;
+    console.log(currentIndex_jsonData)
+    console.log("history_arr: ", history_arr)
+    //console.log(data)
 
     // Takes away any spaces or additional, unnecesaty digits that may fuck up the search later.
-    const normalize = str =>
+    /* const normalize = str =>
         str
             .replace(/&nbsp;/gi, " ")
             .replace(/\u00A0/g, " ")
@@ -734,8 +741,10 @@ function lastSearchedQuestion(searchedQuestion) {
         item => normalize(item.question) === normalize(searchedQuestion)
     );
 
+    console.log("result: - ", result);
+
     // If no exact match, find the most similar one
-    if (!result) {
+    if (!result || result === undefined) {
         const searchedWords = normalize(searchedQuestion).split(" ");
 
         result = data.reduce((best, current) => {
@@ -756,10 +765,12 @@ function lastSearchedQuestion(searchedQuestion) {
     if (result) {
         currentIndex_jsonData = data.indexOf(result);
 
-        history_arr[0] = result;
+        history_arr[0] = result; */
 
-        areaWhereTheTextIsGonnaBeShown(result);
-    }
+        areaWhereTheTextIsGonnaBeShown(data[indexOfQuestionSearched]);
+        localStorage.removeItem("indexOfQuestionSearched");
+        console.log(localStorage.getItem("indexOfQuestionSearched"))
+    //}
 }
 
 
@@ -831,7 +842,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             data.forEach(e => {
-                if (e.topic === "Keep It Up") {
+                if (e.topic === "Keep It Up" || e.topic === undefined) {
                     e.topic = "Encouragement";
                 }
             });

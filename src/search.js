@@ -43,7 +43,7 @@ themeSwitch.addEventListener("click", () => {
 
 
 function darkmodeState() {
-    
+
     darkmode = localStorage.getItem('darkmode')
     darkmode !== "active" ? enableDarkmode() : disableDarkmode()
     sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic);
@@ -144,14 +144,34 @@ function goToDisplayAllScreen(goTo) {
 
 /* DISPLAY ALL THE QUESTIONS ON SCREEN */
 function displayAll(questionsToBeDisplayed) {
-
+    let index = 0;
+    console.log(questionsToBeDisplayed.filter(item => item.favorite))
     questionsToBeDisplayed.forEach(e => {
 
-        displayAllQuestions.innerHTML += `
-                <a href="index.html" class="searchQuestion">
-                    ${e.question.replace(/<[^>]*>/g, "")}
+        switch (displayScreen) {
+
+            case "Search":
+                displayAllQuestions.innerHTML += `
+                <a id="${index}" href="index.html" class="searchQuestion">
+                    ${e}
                 </a>
             `;
+                break;
+
+            case "Favorites":
+                if (e.favorite) {
+
+                    displayAllQuestions.innerHTML += `
+                        <a id="${index}" href="index.html" class="searchQuestion">
+                            ${e.question.replace(/<[^>]*>/g, "")}
+                        </a> `;
+                    break
+                }
+
+        }
+        index++;
+
+
     });
 
 
@@ -169,7 +189,11 @@ function saveSelectedQuestionOnLocalStorage() {
 
         a.addEventListener("click", () => {
             console.log("SELECTED QUESTION ON LS: ", a.textContent)
-            localStorage.setItem("searchedQuestion", a.textContent);
+            console.log("SELECTED QUESTION ON LS: ", a.textContent)
+            let selectedQuestion = a.textContent.trim()
+            localStorage.setItem("searchedQuestion", selectedQuestion);
+            localStorage.setItem("indexOfQuestionSearched", a.id);
+
         });
 
     });
@@ -188,12 +212,12 @@ function searchingQuestion(questionsToBeDisplayed) {
 
             if (typedQuestion.indexOf(texto) !== -1) {
                 displayAllQuestions.innerHTML += `
-                        <a href="index.html" class="searchQuestion">${index.question}</a>
+                        <a id="${index}" href="index.html" class="searchQuestion">${index.question}</a>
                         `
             }
         }
 
-        saveSelectedQuestionOnLocalStorage();
+        //saveSelectedQuestionOnLocalStorage();
 
     })
 }
@@ -215,17 +239,15 @@ function displayScreenFunction(displayScreen, data) {
         case "Search":
             screenType.innerText = displayScreen;
             search_screen.disabled;
-            displayAll(data);
+            displayAll(data.map(item => item.question));
             break;
 
         case "Favorites":
-            console.log(data.filter(item => item.favorite))
+
             screenType.innerText = displayScreen;
-            favorites_screen.disabled;
 
-            displayAll(
 
-                data.filter(item => item.favorite)
+            displayAll(data
                 /* This creates a new array containing only objects 
                 where:
                 item.favorite === true */
@@ -260,6 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("ORIGINAL DATA: ", data);
 
             displayScreenFunction(displayScreen, data)
+            saveSelectedQuestionOnLocalStorage()
 
 
         });
