@@ -397,17 +397,11 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     deleteDataAccepted_btn.addEventListener("click", () => {
         const togglesDeleteEdit = document.getElementById("togglesDeleteEdit")
         submitSection.classList.add("hidden");
-        //togglesDeleteEdit.classList.add("")
-
         
         currentScreenLocation.innerHTML = "Home"
-        
-        //disableCategorySelector();
 
          turningTheTextAreasEditable_array.forEach(c => {
-        c.contentEditable = "false";
-
-        
+        c.contentEditable = "false";        
     });
 
 
@@ -433,18 +427,15 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         showTextOnUserScreen(data);
         arrowForwardBtn(history_arr);
         arrowBack_btn(history_arr);
-
     });
 
 
     // BEHAVIOR FOR "CANCEL" BUTTON INSIDE THE ALERT TO CANCEL THE DELETE:
     const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
     doNotDeleteData_btn.addEventListener("click", () => {
+        currentScreenLocation.innerHTML = "Home";
         //submitSection.classList.remove("hidden");
         delete_btn.classList.remove("hidden");
-        currentScreenLocation.innerHTML = "Home"
-        
-
     });
 }
 
@@ -870,7 +861,7 @@ document.addEventListener("DOMContentLoaded", function () {
             switchVisibilityOrEditableState();
             editDataScreen();
             goToAddNewScreen();
-            visibilityOFAlertDeleteData();
+            
             lastSearchedQuestion();
 
         })
