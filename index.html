@@ -256,9 +256,17 @@
 
 
         <div id="floating-actions-container">
-            <button id="floating-actions-trigger" class="p-2 border shadow rounded-full">➕</button>
+            <button 
+            id="floating-actions-trigger" 
+            class="p-2 border shadow p-2 rounded-full  bg-sky-500 ">
+ 
+            <span class="material-symbols-outlined">
+                    add
+            </span>    
 
-            <div id="floating-actions-menu" class="border shadow">
+        </button>
+
+            <div id="floating-actions-menu" class="p-2 border shadow">
 
                 <div id="togglesDeleteEdit" class="ml-auto  flex-1 justify-end">
                     <button id="toggleDeleteAlert_btn" class="open-btn rounded" commandFor="modal-box" command="show-modal">
@@ -294,7 +302,7 @@
 
     <!-- ----------------------- FOOTER NAV BAR ------------------------>
     <footer class=" rounded-xl">
-        <div id="navBar" class="flex">
+        <div id="navBar" class="flex py-2">
             <button id="arrowBack_btn" onclick="backArrowFunction()"
                 class="showNextAndPreviousData_btn hiddenBehavior flex-1 flex items-center justify-center">
 
@@ -310,7 +318,7 @@
 
             <button id="addNewData_btn"
                 class="switchVisibilityOrEditableState hiddenBehavior flex-1 flex items-center justify-center">
-                <span class="material-symbols-outlined shadow p-2 bg-sky-500 rounded-full">
+                <span class="material-symbols-outlined">
                     add
                 </span>
             </button>

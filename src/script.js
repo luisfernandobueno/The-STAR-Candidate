@@ -16,6 +16,7 @@ const currentScreenLocation = document.getElementById("currentScreenLocation");
 const edit_btn = document.getElementById("edit_btn");
 
 /* DELETE ALERT */
+const floating_actions_container = document.getElementById("floating-actions-container")
 const togglesDeleteEdit = document.getElementById("togglesDeleteEdit");
 const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
 const deleteData_alert = document.getElementById("deleteData_alert");
@@ -517,6 +518,7 @@ function edit() {
     toggleDeleteAlert_btn.classList.add("hidden");
     edit_btn.classList.add("hidden");
     submitSection.classList.remove('hidden')
+    floating_actions_container.classList.add("hidden");
     
     navBar.classList.add("hidden");
     currentScreenLocation.innerText = "Edit"
@@ -550,7 +552,7 @@ function goToAddNewScreen() {
         navBar.classList.add("hidden");
         submitSection.classList.remove('hidden')
         currentScreenLocation.innerHTML = "Add New";
-        
+        floating_actions_container.classList.add("hidden");
         favorite_btn.classList.add("hidden");
         editDeleteOrAddNew = "addNew";
         //console.log(editDeleteOrAddNew)
@@ -724,7 +726,7 @@ function submittingNewDataOnline() {
         disableCategorySelector();
         stylingButtonsSection.classList.add("hidden");
         favorite_btn.classList.remove("hidden");
-
+        floating_actions_container.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home";
         toggleDeleteAlert_btn.classList.remove("hidden");
         edit_btn.classList.remove("hidden");
@@ -751,7 +753,7 @@ function submittingNewDataOnline() {
         toggleDeleteAlert_btn.classList.remove("hidden");
         edit_btn.classList.remove("hidden");
         categoriesSection.classList.remove("border-red-500");
-
+        floating_actions_container.classList.remove("hidden");
 
         console.log("WHAT ARE YOU CURRENTLY SUBMITING? - ", editDeleteOrAddNew);
         console.log("INDEX OF THE ARRAY WHEN SUBMITTIN: ", currentIndex_jsonData);
