@@ -207,15 +207,15 @@ footer {
 
 #floating-actions-menu {
     position: absolute;
-    bottom: 84px;
+    bottom: 42px;
     right: 0;
 
     display: flex;
     flex-direction: column;
     gap: 8px;
 
-    padding: 8px;
-    border-radius: 12px;
+    padding: 12px 8px 36px;
+    /* border-radius: 12px; */
     background-color: var(--base-color);
     /* box-shadow: 0 5px 15px rgba(0, 0, 0, .2); */
 
