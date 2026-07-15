@@ -44,6 +44,7 @@ let darkmode = localStorage.getItem('darkmode')
 const themeSwitch = document.getElementById('theme-switch')
 
 
+let data;
 let indexOfQuestionSearched = localStorage.getItem("indexOfQuestionSearched");
 let currentIndex_jsonData;
 let randomQuestion = {};
@@ -513,13 +514,13 @@ function edit() {
 
     stylingButtonsSection.classList.remove("hidden");
     //favorite_btn.classList.toggle("hidden", true);   // Add the class
-    
-    
+
+
     toggleDeleteAlert_btn.classList.add("hidden");
     edit_btn.classList.add("hidden");
     submitSection.classList.remove('hidden')
     floating_actions_container.classList.add("hidden");
-    
+
     navBar.classList.add("hidden");
     currentScreenLocation.innerText = "Edit"
     editDeleteOrAddNew = "edit";
@@ -531,7 +532,7 @@ function edit() {
         //c.classList.add("px-3");
         c.classList.add('rounded-lg')
     });
-    
+
     favorite_btn.classList.toggle("hidden", false);  // Remove the class
     categorySelector();
     submittingNewDataOnline();
@@ -544,7 +545,7 @@ function goToAddNewScreen() {
 
     /* Text areas go empty on click the "Add New"" button */
     addNewData_btn.addEventListener("click", () => {
-        
+
         console.log("add new screen")
         stylingButtonsSection.classList.remove("hidden");
         toggleDeleteAlert_btn.classList.add("hidden");
@@ -905,45 +906,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             data = json.lines;
 
-            data.forEach(e => {
-                if (e.topic === "Keep It Up" || e.topic === undefined) {
-                    e.topic = "Encouragement";
-                }
-            });
 
-            console.log(data);
-
-            // Remove duplicate questions, keeping the first occurrence
-            const seen = new Set();
-
-            data = data.filter(item => {
-                if (seen.has(item.question)) {
-                    return false;
-                }
-
-                seen.add(item.question);
-                return true;
-            });
-
-            // Overwrite the online data only if duplicates were removed
-            if (data.length !== json.lines.length) {
-                fetchPost(data);
-            }
-
-            console.log(data)
-            console.log(url_interview_data);
-
-            //favoriteState();
-            // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
-            showTextOnUserScreen(data);
-            arrowForwardBtn(data);
-            backArrowFunction();
-            switchVisibilityOrEditableState();
-            editDataScreen();
-            goToAddNewScreen();
-
-            visibilityOFAlertDeleteData();
-            lastSearchedQuestion();
 
         })
         .then(response => {
@@ -952,4 +915,47 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(result => console.log(result))
         .catch(error => console.error(error));
+
+
+
+    data.forEach(e => {
+        if (e.topic === "Keep It Up" || e.topic === undefined) {
+            e.topic = "Encouragement";
+        }
+    });
+
+    console.log(data);
+
+    // Remove duplicate questions, keeping the first occurrence
+    const seen = new Set();
+
+    data = data.filter(item => {
+        if (seen.has(item.question)) {
+            return false;
+        }
+
+        seen.add(item.question);
+        return true;
+    });
+
+    // Overwrite the online data only if duplicates were removed
+    if (data.length !== json.lines.length) {
+        fetchPost(data);
+    }
+
+    console.log(data)
+    console.log(url_interview_data);
+
+    //favoriteState();
+    // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
+    showTextOnUserScreen(data);
+    arrowForwardBtn(data);
+    backArrowFunction();
+    switchVisibilityOrEditableState();
+    editDataScreen();
+    goToAddNewScreen();
+
+    visibilityOFAlertDeleteData();
+    lastSearchedQuestion();
+
 });
