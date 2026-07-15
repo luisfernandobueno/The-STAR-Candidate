@@ -14,8 +14,6 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-
-
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -75,24 +73,10 @@
 
         <div id="currentScreenLocation" class="mr-auto flex-1  text-center text-xl">Home</div>
 
-        <div id="togglesDeleteEdit" class="ml-auto flex flex-1 justify-end">
-            <button id="toggleDeleteAlert_btn" class="open-btn" commandFor="modal-box"
-                command="show-modal">
-
-
-                <span class="material-symbols-outlined">
-                    delete_forever
-                </span>
-
-            </button>
-            <button id="edit_btn" class="switchVisibilityOrEditableState ">
-                <span class="material-symbols-outlined">
-                    edit_square
-                </span>
-
-            </button>
+        <div class="flex-1">
 
         </div>
+
     </nav>
 
     <aside id="sidebar" class="p-3 border shadow-xl">
@@ -145,9 +129,6 @@
             </div>
         </div>
     </aside>
-
-
-
 
 
     <!-- BUTTONS FOR STYING -->
@@ -235,6 +216,8 @@
         </div>
     </dialog>
 
+
+
     <!-- ADD OTHER ALERTS LIKE THIS FOR WHEN DATA GET SUCCESFULLY UPDATED -->
 
     <!-- ----------------------- CATEGORIES SECTION: ------------------------>
@@ -265,21 +248,47 @@
             <div id="example" class="px-1 py-2 text-xs editable" contenteditable="false">Example</div>
 
 
-            <button id="favorite_btn" onclick="favoriteState()" class="p-2 border shadow rounded-full">
 
-                <span class="outlineHeart material-symbols-outlined" height="24px">
-                    favorite
-                </span>
-
-                <svg class="filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px"
-                    fill="#ff004c">
-                    <path
-                        d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" />
-                </svg>
-
-            </button>
         </div>
 
+
+
+
+
+        <div id="floating-actions-container">
+            <button id="floating-actions-trigger" class="p-2 border shadow rounded-full">➕</button>
+
+            <div id="floating-actions-menu" class="border shadow">
+
+                <div id="togglesDeleteEdit" class="ml-auto  flex-1 justify-end">
+                    <button id="toggleDeleteAlert_btn" class="open-btn rounded" commandFor="modal-box" command="show-modal">
+                        <span class="material-symbols-outlined">
+                            delete_forever
+                        </span>
+                    </button>
+
+                    <button id="edit_btn" class="switchVisibilityOrEditableState ">
+                        <span class="material-symbols-outlined">
+                            edit_square
+                        </span>
+                    </button>
+
+                    <button id="favorite_btn" onclick="favoriteState()">
+    
+                        <span class="outlineHeart material-symbols-outlined" height="24px">
+                            favorite
+                        </span>
+    
+                        <svg class="filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px"
+                            fill="#ff004c">
+                            <path
+                                d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" />
+                        </svg>
+    
+                    </button>
+                </div>
+            </div>
+        </div>
 
     </section>
 
@@ -321,7 +330,7 @@
             </button>
         </div>
 
-        <div id="submitSection" class="flex switchVisibilityOrEditableState" >
+        <div id="submitSection" class="flex switchVisibilityOrEditableState">
             <button id="cancelChangesDoNotSubmit_btn" class="submitChangesAndCancelChanges hiddenBehavior " hidden>
                 Cancel
             </button>
@@ -372,6 +381,7 @@
     </div>
 
     <script src="src/stylingButtons.js"></script>
+
     <script src="src/script.js"></script>
 </body>
 

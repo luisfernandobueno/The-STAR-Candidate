@@ -16,7 +16,7 @@ const currentScreenLocation = document.getElementById("currentScreenLocation");
 const edit_btn = document.getElementById("edit_btn");
 
 /* DELETE ALERT */
-const togglesDeleteEdit  = document.getElementById("togglesDeleteEdit");
+const togglesDeleteEdit = document.getElementById("togglesDeleteEdit");
 const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
 const deleteData_alert = document.getElementById("deleteData_alert");
 const deleteDataAccepted_btn = document.getElementById("deleteDataAccepted_btn");
@@ -58,6 +58,68 @@ let originalData = { lines: {} };
 
 
 /* ------------------------- FUNCTIONS ------------------------- */
+
+
+
+
+
+const floatingActionsTrigger = document.querySelector("#floating-actions-trigger");
+const floatingActionsMenu = document.querySelector("#floating-actions-menu");
+
+let floatingActionsPressTimer;
+let floatingActionsLongPressTriggered = false;
+
+// Open menu after long press
+floatingActionsTrigger.addEventListener("pointerdown", () => {
+    floatingActionsLongPressTriggered = false;
+
+    floatingActionsPressTimer = setTimeout(() => {
+        floatingActionsMenu.classList.add("open");
+        floatingActionsLongPressTriggered = true;
+    }, 300);
+});
+
+// Cancel if released too early
+function cancelFloatingActionsPress() {
+    clearTimeout(floatingActionsPressTimer);
+}
+
+floatingActionsTrigger.addEventListener("pointerup", cancelFloatingActionsPress);
+floatingActionsTrigger.addEventListener("pointerleave", cancelFloatingActionsPress);
+floatingActionsTrigger.addEventListener("pointercancel", cancelFloatingActionsPress);
+
+// Prevent the click generated after a long press
+floatingActionsTrigger.addEventListener("click", (e) => {
+    if (floatingActionsLongPressTriggered) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+});
+
+// Close when clicking outside
+document.addEventListener("click", (e) => {
+    if (
+        !floatingActionsMenu.contains(e.target) &&
+        e.target !== floatingActionsTrigger
+    ) {
+        floatingActionsMenu.classList.remove("open");
+    }
+});
+
+// Close after selecting an option
+floatingActionsMenu.querySelectorAll("button").forEach(option => {
+    option.addEventListener("click", () => {
+        console.log("Selected:", option.textContent);
+        floatingActionsMenu.classList.remove("open");
+    });
+});
+
+
+
+
+
+
+
 
 
 
@@ -263,11 +325,13 @@ function showTextOnUserScreen(dataToBeDisplayed) {
 
 function favoriteState() {
     favorite_btn.classList.toggle("active");
+    console.log("Lenght favorites list: ", data.filter(item => item.favorite).length)
 
     data[currentIndex_jsonData].favorite =
         favorite_btn.classList.contains("active");
 
     console.log(data[currentIndex_jsonData]);
+    console.log("Lenght favorites list: ", data.filter(item => item.favorite).length)
 
     fetchPost(data);
 }
@@ -374,13 +438,7 @@ function visibilityOFAlertDeleteData() {
     toggleDeleteAlert_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Delete"
 
-
         editDeleteOrAddNew = "delete";
-
-        
-
-
-
 
         console.log("question to be deleted: ", history_arr[currentIndex_historyArray].question)
         //turningTheTextAreasEditable()
@@ -388,12 +446,12 @@ function visibilityOFAlertDeleteData() {
     });
 
 
-    behaviorForButtonsDeleteAndCancelInsideTheAlertDelete();
+    buttonsDeleteAndCancelInsideTheAlertDelete();
 }
 
 
 
-function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
+function buttonsDeleteAndCancelInsideTheAlertDelete() {
     // BEHAVIOR FOR "DELETE" BUTTON INSIDE THE ALERT TO EFFECTIVELY DELETE DATA:
     deleteDataAccepted_btn.addEventListener("click", () => {
         const togglesDeleteEdit = document.getElementById("togglesDeleteEdit")
@@ -405,27 +463,24 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
         togglesDeleteEdit.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home"
         navBar.classList.remove("hidden");
-        
+        console.log("Lenght data list before deleting: ", data.length);
+
         alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
+        console.log(history_arr[currentIndex_historyArray])
 
-         turningTheTextAreasEditable_array.forEach(c => {
-        c.contentEditable = "false";        
-    });
+        turningTheTextAreasEditable_array.forEach(c => {
+            c.contentEditable = "false";
+        });
 
-        //console.log("INDEX BEING FINALY DELETED: ", currentIndex_jsonData)
 
         /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
         data.splice(currentIndex_jsonData, 1);
-
         history_arr.splice(currentIndex_historyArray, 1);
         data = data;
-
-
-
         fetchPost(data);
 
+        console.log("Lenght data list after deleting: ", data.length);
 
-        
 
         showTextOnUserScreen(data);
         arrowForwardBtn(history_arr);
@@ -437,7 +492,7 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
     const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
     doNotDeleteData_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Home";
-        
+
         //submitSection.classList.remove("hidden");
         delete_btn.classList.remove("hidden");
     });
@@ -445,8 +500,6 @@ function behaviorForButtonsDeleteAndCancelInsideTheAlertDelete() {
 
 
 /* GO TO "EDIT DATA" SCREEN */
-
-
 function editDataScreen() {
     edit_btn.addEventListener("click", () => {
         favorite_btn.classList.toggle("hidden", true);   // Add the class
@@ -456,13 +509,15 @@ function editDataScreen() {
 
 }
 function edit() {
-    
-    stylingButtonsSection.classList.remove("hidden");
-    favorite_btn.classList.toggle("hidden", true);   // Add the class
-    //favorite_btn.classList.toggle("hidden", false);  // Remove the class
-    
-    togglesDeleteEdit.classList.add("hidden");
 
+    stylingButtonsSection.classList.remove("hidden");
+    //favorite_btn.classList.toggle("hidden", true);   // Add the class
+    
+    
+    toggleDeleteAlert_btn.classList.add("hidden");
+    edit_btn.classList.add("hidden");
+    submitSection.classList.remove('hidden')
+    
     navBar.classList.add("hidden");
     currentScreenLocation.innerText = "Edit"
     editDeleteOrAddNew = "edit";
@@ -474,7 +529,8 @@ function edit() {
         //c.classList.add("px-3");
         c.classList.add('rounded-lg')
     });
-
+    
+    favorite_btn.classList.toggle("hidden", false);  // Remove the class
     categorySelector();
     submittingNewDataOnline();
 }
@@ -482,19 +538,20 @@ function edit() {
 
 /* GO TO "ADD NEW" SCREEN */
 function goToAddNewScreen() {
+    const categoriesSection = document.getElementById("categoriesSection");
 
     /* Text areas go empty on click the "Add New"" button */
     addNewData_btn.addEventListener("click", () => {
+        
         console.log("add new screen")
         stylingButtonsSection.classList.remove("hidden");
-        favorite_btn.classList.add("hidden");
-        submitSection.classList.remove('hidden')
-
-
         toggleDeleteAlert_btn.classList.add("hidden");
         edit_btn.classList.add("hidden");
         navBar.classList.add("hidden");
+        submitSection.classList.remove('hidden')
         currentScreenLocation.innerHTML = "Add New";
+        
+        favorite_btn.classList.add("hidden");
         editDeleteOrAddNew = "addNew";
         //console.log(editDeleteOrAddNew)
 
@@ -656,7 +713,7 @@ function submittingNewDataOnline() {
 
     console.log("FULL ARRAY PREVIOUSLY EDITING OR ADDING NEW: ", data);
 
-
+    const categoriesSection = document.getElementById("categoriesSection");
     const submitChanges_btn = document.getElementById("submitChanges_btn");
     const cancelChangesDoNotSubmit_btn = document.getElementById("cancelChangesDoNotSubmit_btn");
 
@@ -675,7 +732,7 @@ function submittingNewDataOnline() {
         navBar.classList.remove("hidden");
         editing = true;
         //console.log("CANCELING SUBMITTING CHANGES RIGHT NOW!!! ", editing)
-        
+
         sectionCategoriesBehavior(history_arr[currentIndex_historyArray].topic)
         removeEditableState();
         areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
@@ -693,6 +750,7 @@ function submittingNewDataOnline() {
         currentScreenLocation.innerHTML = "Home";
         toggleDeleteAlert_btn.classList.remove("hidden");
         edit_btn.classList.remove("hidden");
+        categoriesSection.classList.remove("border-red-500");
 
 
         console.log("WHAT ARE YOU CURRENTLY SUBMITING? - ", editDeleteOrAddNew);
@@ -750,60 +808,60 @@ function lastSearchedQuestion() {
 
     if (indexOfQuestionSearched) {
         //console.log(searchedQuestion);
-    console.log("index of question saved: ", localStorage.getItem("indexOfQuestionSearched"));
+        console.log("index of question saved: ", localStorage.getItem("indexOfQuestionSearched"));
+
+        history_arr[0] = data[indexOfQuestionSearched];
+        currentIndex_jsonData = indexOfQuestionSearched;
+        console.log(currentIndex_jsonData)
+        console.log("history_arr: ", history_arr)
+        //console.log(data)
+
+        // Takes away any spaces or additional, unnecesaty digits that may fuck up the search later.
+        /* const normalize = str =>
+            str
+                .replace(/&nbsp;/gi, " ")
+                .replace(/\u00A0/g, " ")
+                .replace(/\s+/g, " ")
+                .trim()
+                .toLowerCase();
     
-    history_arr[0] = data[indexOfQuestionSearched];
-    currentIndex_jsonData = indexOfQuestionSearched;
-    console.log(currentIndex_jsonData)
-    console.log("history_arr: ", history_arr)
-    //console.log(data)
-
-    // Takes away any spaces or additional, unnecesaty digits that may fuck up the search later.
-    /* const normalize = str =>
-        str
-            .replace(/&nbsp;/gi, " ")
-            .replace(/\u00A0/g, " ")
-            .replace(/\s+/g, " ")
-            .trim()
-            .toLowerCase();
-
-    // Try an exact match first
-    let result = data.find(
-        item => normalize(item.question) === normalize(searchedQuestion)
-    );
-
-    console.log("result: - ", result);
-
-    // If no exact match, find the most similar one
-    if (!result || result === undefined) {
-        const searchedWords = normalize(searchedQuestion).split(" ");
-
-        result = data.reduce((best, current) => {
-            const currentQuestion = normalize(current.question);
-
-            const score = searchedWords.filter(word =>
-                currentQuestion.includes(word)
-            ).length;
-
-            const bestScore = searchedWords.filter(word =>
-                normalize(best.question).includes(word)
-            ).length;
-
-            return score > bestScore ? current : best;
-        });
-    }
-
-    if (result) {
-        currentIndex_jsonData = data.indexOf(result);
-
-        history_arr[0] = result; */
+        // Try an exact match first
+        let result = data.find(
+            item => normalize(item.question) === normalize(searchedQuestion)
+        );
+    
+        console.log("result: - ", result);
+    
+        // If no exact match, find the most similar one
+        if (!result || result === undefined) {
+            const searchedWords = normalize(searchedQuestion).split(" ");
+    
+            result = data.reduce((best, current) => {
+                const currentQuestion = normalize(current.question);
+    
+                const score = searchedWords.filter(word =>
+                    currentQuestion.includes(word)
+                ).length;
+    
+                const bestScore = searchedWords.filter(word =>
+                    normalize(best.question).includes(word)
+                ).length;
+    
+                return score > bestScore ? current : best;
+            });
+        }
+    
+        if (result) {
+            currentIndex_jsonData = data.indexOf(result);
+    
+            history_arr[0] = result; */
 
         areaWhereTheTextIsGonnaBeShown(data[indexOfQuestionSearched]);
         localStorage.removeItem("indexOfQuestionSearched");
         console.log(localStorage.getItem("indexOfQuestionSearched"))
-    //}
+        //}
     }
-    
+
 }
 
 
@@ -814,6 +872,7 @@ function goToDisplayAllScreen(goTo) {
         "history_arr",
         JSON.stringify(history_arr)
     );
+    localStorage.setItem("data", JSON.stringify(data));
     window.location.href = 'showAllQuestions.html'
 }
 
@@ -839,14 +898,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((res) => res.json())
         .then((json) => {
 
-            console.log(json)
-            console.log("iside fetch")
-            //Evaluate first to not have andy indexes duplicated
-            data = [
-                ...new Map(json.lines.map(item => [item.question, item])).values()
-            ];
-            data = data;
+            console.log(json);
+            console.log("inside fetch");
 
+            data = json.lines;
 
             data.forEach(e => {
                 if (e.topic === "Keep It Up" || e.topic === undefined) {
@@ -855,16 +910,28 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             console.log(data);
-            /* SAVE DATA ON LOCALSTORAGE:
-            For the purpose of always having it up to date in case the api is not working right*/
 
-            //console.log(`localStorage.getItem("searchedQuestion"):   `, searchedQuestion);
+            // Remove duplicate questions, keeping the first occurrence
+            const seen = new Set();
 
+            data = data.filter(item => {
+                if (seen.has(item.question)) {
+                    return false;
+                }
 
-            console.log(url_interview_data)
+                seen.add(item.question);
+                return true;
+            });
 
-            //darkmode !== "active" ? enableDarkmode() : disableDarkmode()
+            // Overwrite the online data only if duplicates were removed
+            if (data.length !== json.lines.length) {
+                fetchPost(data);
+            }
 
+            console.log(data)
+            console.log(url_interview_data);
+
+            //favoriteState();
             // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
             showTextOnUserScreen(data);
             arrowForwardBtn(data);
@@ -872,7 +939,8 @@ document.addEventListener("DOMContentLoaded", function () {
             switchVisibilityOrEditableState();
             editDataScreen();
             goToAddNewScreen();
-            visibilityOFAlertDeleteData() 
+
+            visibilityOFAlertDeleteData();
             lastSearchedQuestion();
 
         })

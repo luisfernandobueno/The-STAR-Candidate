@@ -8,12 +8,12 @@ const displayScreen = localStorage.getItem("displayScreen");
 const history_arr = JSON.parse(
     localStorage.getItem("history_arr")
 );
-let screenType = document.getElementById("screenType");
+const screenType = document.getElementById("screenType");
 
 const search_screen = document.getElementById("search_screen");
 const favorites_screen = document.getElementById("favorites_screen")
 
-
+const data = JSON.parse(localStorage.getItem("data"));
 const categoriesSection = document.querySelectorAll(".category");
 
 
@@ -145,7 +145,7 @@ function goToDisplayAllScreen(goTo) {
 /* DISPLAY ALL THE QUESTIONS ON SCREEN */
 function displayAll(questionsToBeDisplayed) {
     let index = 0;
-    console.log(questionsToBeDisplayed.filter(item => item.favorite))
+    
     questionsToBeDisplayed.forEach(e => {
 
         switch (displayScreen) {
@@ -169,9 +169,8 @@ function displayAll(questionsToBeDisplayed) {
                 }
 
         }
+
         index++;
-
-
     });
 
 
@@ -239,6 +238,7 @@ function displayScreenFunction(displayScreen, data) {
         case "Search":
             screenType.innerText = displayScreen;
             search_screen.disabled;
+            console.log("Lenght data: ", data.length);
             displayAll(data.map(item => item.question));
             break;
 
@@ -246,7 +246,7 @@ function displayScreenFunction(displayScreen, data) {
 
             screenType.innerText = displayScreen;
 
-
+        console.log("Lenght data favorites: ", data.filter(item => item.favorite).length);
             displayAll(data
                 /* This creates a new array containing only objects 
                 where:
@@ -265,17 +265,15 @@ function displayScreenFunction(displayScreen, data) {
 
 document.addEventListener("DOMContentLoaded", function () {
     console.log(url_interview_data)
-    fetch(url_interview_data)
-        .then((res) => res.json())
-        .then((json) => {
+    
 
             console.log("2nd url check: ", url_interview_data)
 
             //Evaluate first to not have andy indexes duplicated
-            data = [
-                ...new Map(json.lines.map(item => [item.question, item])).values()
-            ];
-            data = data;
+           /*  data = 
+                data.filter(item => item.question)
+            ;
+            data = data; */
 
 
             console.log(data)
@@ -285,5 +283,5 @@ document.addEventListener("DOMContentLoaded", function () {
             saveSelectedQuestionOnLocalStorage()
 
 
-        });
+       
 });
