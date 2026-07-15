@@ -907,6 +907,40 @@ document.addEventListener("DOMContentLoaded", function () {
             data = json.lines;
 
 
+            data.forEach(e => {
+                if (e.topic === "Keep It Up" || e.topic === undefined) {
+                    e.topic = "Encouragement";
+                }
+            });
+
+            console.log(data);
+
+            // Remove duplicate questions, keeping the first occurrence
+            const seen = new Set();
+
+            data = data.filter(item => {
+                if (seen.has(item.question)) {
+                    return false;
+                }
+
+                seen.add(item.question);
+                return true;
+            });
+
+            // Overwrite the online data only if duplicates were removed
+            if (data.length !== json.lines.length) {
+                fetchPost(data);
+            }
+
+            console.log(data)
+            console.log(url_interview_data);
+
+            //favoriteState();
+            // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
+            showTextOnUserScreen(data);
+
+
+
 
         })
         .then(response => {
@@ -918,37 +952,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    data.forEach(e => {
-        if (e.topic === "Keep It Up" || e.topic === undefined) {
-            e.topic = "Encouragement";
-        }
-    });
 
-    console.log(data);
-
-    // Remove duplicate questions, keeping the first occurrence
-    const seen = new Set();
-
-    data = data.filter(item => {
-        if (seen.has(item.question)) {
-            return false;
-        }
-
-        seen.add(item.question);
-        return true;
-    });
-
-    // Overwrite the online data only if duplicates were removed
-    if (data.length !== json.lines.length) {
-        fetchPost(data);
-    }
-
-    console.log(data)
-    console.log(url_interview_data);
-
-    //favoriteState();
-    // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
-    showTextOnUserScreen(data);
     arrowForwardBtn(data);
     backArrowFunction();
     switchVisibilityOrEditableState();
