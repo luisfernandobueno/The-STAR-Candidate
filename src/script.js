@@ -953,6 +953,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+        
     arrowForwardBtn(data);
     backArrowFunction();
     switchVisibilityOrEditableState();
