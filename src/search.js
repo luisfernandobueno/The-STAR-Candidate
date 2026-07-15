@@ -13,7 +13,7 @@ const screenType = document.getElementById("screenType");
 const search_screen = document.getElementById("search_screen");
 const favorites_screen = document.getElementById("favorites_screen")
 
-const data = JSON.parse(localStorage.getItem("data"));
+let data = JSON.parse(localStorage.getItem("data"));
 const categoriesSection = document.querySelectorAll(".category");
 
 
@@ -145,34 +145,41 @@ function goToDisplayAllScreen(goTo) {
 /* DISPLAY ALL THE QUESTIONS ON SCREEN */
 function displayAll(questionsToBeDisplayed) {
     let index = 0;
-    
-    questionsToBeDisplayed.forEach(e => {
 
-        switch (displayScreen) {
+    switch (displayScreen) {
 
-            case "Search":
+        case "Search":
+
+
+
+
+
+            questionsToBeDisplayed.forEach(e => {
                 displayAllQuestions.innerHTML += `
-                <a id="${index}" href="index.html" class="searchQuestion">
-                    ${e}
-                </a>
-            `;
-                break;
+                            <a id="${index}" href="index.html" class="searchQuestion">
+                                ${e.question.replace(/<[^>]*>/g, "")}
+                            </a>`;
 
-            case "Favorites":
-                if (e.favorite) {
+                index++;
+            })
 
-                    displayAllQuestions.innerHTML += `
+            break;
+
+
+        case "Favorites":
+            const favoriteQuestions = questionsToBeDisplayed.filter(item => item.favorite)
+
+            favoriteQuestions.forEach(e => {
+                displayAllQuestions.innerHTML += `
                         <a id="${index}" href="index.html" class="searchQuestion">
                             ${e.question.replace(/<[^>]*>/g, "")}
                         </a> `;
-                    break
-                }
 
-        }
+                index++;
+            })
 
-        index++;
-    });
-
+            break
+    }
 
     searchingQuestion(questionsToBeDisplayed);
     saveSelectedQuestionOnLocalStorage();
@@ -229,7 +236,7 @@ function toggleSidebar() {
 }
 
 
-function displayScreenFunction(displayScreen, data) {
+function displayScreenFunction(data) {
 
     console.log(displayScreen);
     console.log("DATA ABOUT TO BE DISPLAYED!!!")
@@ -239,20 +246,24 @@ function displayScreenFunction(displayScreen, data) {
             screenType.innerText = displayScreen;
             search_screen.disabled;
             console.log("Lenght data: ", data.length);
-            displayAll(data.map(item => item.question));
+
+            //takes data and creates a new array containing only the question property from each object.
+            //displayAll(data.map(item => item.question));
+            displayAll(data);
+
+
             break;
 
-        case "Favorites":
 
+
+        case "Favorites":
             screenType.innerText = displayScreen;
 
-        console.log("Lenght data favorites: ", data.filter(item => item.favorite).length);
+            console.log("Lenght data favorites: ", data.filter(item => item.favorite).length);
             displayAll(data
-                /* This creates a new array containing only objects 
-                where:
-                item.favorite === true */
 
             );
+            break;
     }
 }
 
@@ -264,24 +275,14 @@ function displayScreenFunction(displayScreen, data) {
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log(url_interview_data)
-    
 
-            console.log("2nd url check: ", url_interview_data)
+    data = data.map(item => ({
+        question: item.question,
+        favorite: item.favorite,
+        topic: item.topic
+    }));
 
-            //Evaluate first to not have andy indexes duplicated
-           /*  data = 
-                data.filter(item => item.question)
-            ;
-            data = data; */
+    displayScreenFunction(data)
+    saveSelectedQuestionOnLocalStorage()
 
-
-            console.log(data)
-            console.log("ORIGINAL DATA: ", data);
-
-            displayScreenFunction(displayScreen, data)
-            saveSelectedQuestionOnLocalStorage()
-
-
-       
 });
