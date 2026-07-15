@@ -72,13 +72,13 @@ let floatingActionsPressTimer;
 let floatingActionsLongPressTriggered = false;
 
 // Open menu after long press
-floatingActionsTrigger.addEventListener("pointerdown", () => {
+floatingActionsTrigger.addEventListener("click", () => {
     floatingActionsLongPressTriggered = false;
 
     floatingActionsPressTimer = setTimeout(() => {
         floatingActionsMenu.classList.add("open");
         floatingActionsLongPressTriggered = true;
-    }, 300);
+    }, 0);
 });
 
 // Cancel if released too early
@@ -953,7 +953,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-        
+
     arrowForwardBtn(data);
     backArrowFunction();
     switchVisibilityOrEditableState();
