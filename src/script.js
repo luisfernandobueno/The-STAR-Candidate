@@ -45,6 +45,7 @@ const themeSwitch = document.getElementById('theme-switch')
 
 
 let data;
+const searchedQuestion = localStorage.getItem("searchedQuestion");
 let indexOfQuestionSearched = localStorage.getItem("indexOfQuestionSearched");
 let currentIndex_jsonData;
 let randomQuestion = {};
@@ -808,59 +809,19 @@ function fetchPost(data) {
 
 /* SHOW THE SEARCH SECTION INTO THE SCREEN */
 function lastSearchedQuestion() {
-
+        console.log("index of question saved: ", localStorage.getItem("indexOfQuestionSearched"));
     if (indexOfQuestionSearched) {
-        //console.log(searchedQuestion);
+        console.log(searchedQuestion);
         console.log("index of question saved: ", localStorage.getItem("indexOfQuestionSearched"));
 
         history_arr[0] = data[indexOfQuestionSearched];
         currentIndex_jsonData = indexOfQuestionSearched;
         console.log(currentIndex_jsonData)
         console.log("history_arr: ", history_arr)
-        //console.log(data)
-
-        // Takes away any spaces or additional, unnecesaty digits that may fuck up the search later.
-        /* const normalize = str =>
-            str
-                .replace(/&nbsp;/gi, " ")
-                .replace(/\u00A0/g, " ")
-                .replace(/\s+/g, " ")
-                .trim()
-                .toLowerCase();
-    
-        // Try an exact match first
-        let result = data.find(
-            item => normalize(item.question) === normalize(searchedQuestion)
-        );
-    
-        console.log("result: - ", result);
-    
-        // If no exact match, find the most similar one
-        if (!result || result === undefined) {
-            const searchedWords = normalize(searchedQuestion).split(" ");
-    
-            result = data.reduce((best, current) => {
-                const currentQuestion = normalize(current.question);
-    
-                const score = searchedWords.filter(word =>
-                    currentQuestion.includes(word)
-                ).length;
-    
-                const bestScore = searchedWords.filter(word =>
-                    normalize(best.question).includes(word)
-                ).length;
-    
-                return score > bestScore ? current : best;
-            });
-        }
-    
-        if (result) {
-            currentIndex_jsonData = data.indexOf(result);
-    
-            history_arr[0] = result; */
+        
 
         areaWhereTheTextIsGonnaBeShown(data[indexOfQuestionSearched]);
-        localStorage.removeItem("indexOfQuestionSearched");
+        //localStorage.removeItem("indexOfQuestionSearched");
         console.log(localStorage.getItem("indexOfQuestionSearched"))
         //}
     }
@@ -944,7 +905,7 @@ document.addEventListener("DOMContentLoaded", function () {
             //favoriteState();
             // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
             showTextOnUserScreen(data);
-
+            lastSearchedQuestion();
 
 
 
@@ -963,5 +924,5 @@ document.addEventListener("DOMContentLoaded", function () {
     editDataScreen();
     goToAddNewScreen();
     visibilityOFAlertDeleteData();
-    lastSearchedQuestion();
+    
 });
