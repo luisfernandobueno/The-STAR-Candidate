@@ -821,7 +821,9 @@ function lastSearchedQuestion() {
 
 
         areaWhereTheTextIsGonnaBeShown(data[indexOfQuestionSearched]);
-        //localStorage.removeItem("indexOfQuestionSearched");
+        localStorage.removeItem("searchedQuestion");
+
+        localStorage.removeItem("indexOfQuestionSearched");
         console.log(localStorage.getItem("indexOfQuestionSearched"))
         //}
     }

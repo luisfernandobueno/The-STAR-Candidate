@@ -164,7 +164,7 @@ function displayAll(questionsToBeDisplayed) {
             break;
 
         case "Favorites":
-                        
+
             questionsToBeDisplayed.forEach(e => {
                 if (e.favorite) {
                     displayAllQuestions.innerHTML += `
@@ -174,7 +174,7 @@ function displayAll(questionsToBeDisplayed) {
                 }
                 index++;
             })
-            
+
             break
     }
 
@@ -210,17 +210,19 @@ function searchingQuestion(questionsToBeDisplayed) {
         displayAllQuestions.innerHTML = '';
         const texto = inputSearch.value.toLowerCase();
 
-        for (let index of questionsToBeDisplayed) {
-            let typedQuestion = index.question.toLowerCase();
+        for (let i = 0; i < questionsToBeDisplayed.length; i++) {
+            let typedQuestion = questionsToBeDisplayed[i].question.toLowerCase();
 
             if (typedQuestion.indexOf(texto) !== -1) {
                 displayAllQuestions.innerHTML += `
-                        <a id="${index}" href="index.html" class="searchQuestion">${index.question}</a>
-                        `
+            <a id="${i}" href="index.html" class="searchQuestion">
+                ${questionsToBeDisplayed[i].question}
+            </a>
+        `;
             }
         }
 
-        //saveSelectedQuestionOnLocalStorage();
+        saveSelectedQuestionOnLocalStorage();
 
     })
 }
@@ -273,7 +275,7 @@ function displayScreenFunction(data) {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    
+
     displayScreenFunction(data)
     saveSelectedQuestionOnLocalStorage()
 
