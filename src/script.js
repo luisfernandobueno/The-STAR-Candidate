@@ -18,9 +18,9 @@ const edit_btn = document.getElementById("edit_btn");
 /* DELETE ALERT */
 const floating_actions_container = document.getElementById("floating-actions-container")
 const togglesDeleteEdit = document.getElementById("togglesDeleteEdit");
-const toggleDeleteAlert_btn = document.getElementById("toggleDeleteAlert_btn");
-const deleteData_alert = document.getElementById("deleteData_alert");
-const deleteDataAccepted_btn = document.getElementById("deleteDataAccepted_btn");
+
+
+const acceptPermanentDelete_btn = document.getElementById("acceptPermanentDelete_btn");
 
 /* CATEGORIES AND TEXT AREAS */
 const categoriesSection = document.querySelectorAll(".category");
@@ -54,7 +54,7 @@ let editDeleteOrAddNew;
 let editing = true;
 let topic;
 let history_arr = [];
-let currentIndex_historyArray;
+let currentIndex_historyArray = 0;
 let originalData = { lines: {} };
 
 
@@ -435,52 +435,52 @@ function turningTheTextAreasEditable() {
 
 
 
-/* IT HANDLES ALERT AND ITS BUTTONS */
-function visibilityOFAlertDeleteData() {
 
-    // DELETE BUTTON BEHAVIOR: IT TOGGLES ALERT VISIBILITY 
+function deleteData_alert() {
 
-    toggleDeleteAlert_btn.addEventListener("click", () => {
+    deleteThis_btn.addEventListener("click", () => {
+        console.clear();
         currentScreenLocation.innerHTML = "Delete"
-
-        //editDeleteOrAddNew = "delete";
-
         console.log("question to be deleted: ", history_arr[currentIndex_historyArray].question)
-        //turningTheTextAreasEditable()
 
     });
 
-    console.log(history_arr);
-    buttonsDeleteAndCancelInsideTheAlertDelete();
-}
-
-
-
-function buttonsDeleteAndCancelInsideTheAlertDelete() {
     // BEHAVIOR FOR "DELETE" BUTTON INSIDE THE ALERT TO EFFECTIVELY DELETE DATA:
-    deleteDataAccepted_btn.addEventListener("click", () => {
+    acceptPermanentDelete_btn.addEventListener("click", () => {
 
         currentScreenLocation.innerHTML = "Home";
 
-        /* turningTheTextAreasEditable_array.forEach(c => {
-            c.contentEditable = "false";
-        }); */
 
-        //console.clear();
 
         console.log("========== DELETE ==========");
-        console.log("JSON index:", currentIndex_jsonData);
         console.log("History index:", currentIndex_historyArray);
 
         console.log("JSON length BEFORE:", data.length);
         console.log("History length BEFORE:", history_arr.length);
 
-        console.log("JSON item about to delete:", data[currentIndex_jsonData]);
-        console.log("History item about to delete:", history_arr[currentIndex_historyArray]);
+        // Object selected in the history array
+        const historyItem = history_arr[currentIndex_historyArray];
 
-        // Save and delete in one line
-        const deletedItemJson = data.splice(currentIndex_jsonData, 1)[0];
-        const deletedItemHistory = history_arr.splice(currentIndex_historyArray, 1)[0];
+        console.log("History item about to delete:", historyItem.question);
+
+        // Find the matching object inside data
+        const jsonIndex = data.findIndex(item =>
+            item.question === historyItem.question &&
+            item.answer === historyItem.answer &&
+            item.category === historyItem.category
+        );
+
+        console.log("Matching JSON index:", jsonIndex);
+
+        // Delete from data only if found
+        let deletedItemJson = [];
+
+        if (jsonIndex !== -1) {
+            deletedItemJson = data.splice(jsonIndex, 1);
+        }
+
+        // Delete from history
+        const deletedItemHistory = history_arr.splice(currentIndex_historyArray, 1);
 
         console.log("Deleted JSON item:", deletedItemJson);
         console.log("Deleted History item:", deletedItemHistory);
@@ -489,7 +489,7 @@ function buttonsDeleteAndCancelInsideTheAlertDelete() {
         console.log("History length AFTER:", history_arr.length);
 
         console.log("Remaining history:", history_arr);
-        console.log("Remaining json:", data);
+        //console.log("Remaining json:", data);
 
         fetchPost(data);
 
@@ -518,23 +518,16 @@ function buttonsDeleteAndCancelInsideTheAlertDelete() {
             areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
 
         }
-
-        /* arrowForwardBtn(history_arr);
-        arrowBack_btn(history_arr);
- */
-        
-        /* submitSection.classList.add("hidden"); */
     });
 
 
     // BEHAVIOR FOR "CANCEL" BUTTON INSIDE THE ALERT TO CANCEL THE DELETE:
-    const doNotDeleteData_btn = document.getElementById("doNotDeleteData_btn");
-    doNotDeleteData_btn.addEventListener("click", () => {
+    const cancellPermanentDelete_btn = document.getElementById("cancellPermanentDelete_btn");
+    cancellPermanentDelete_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Home";
-
-        //submitSection.classList.remove("hidden");
-        //delete_btn.classList.remove("hidden");
     });
+
+
 }
 
 
@@ -554,7 +547,7 @@ function edit() {
     //favorite_btn.classList.toggle("hidden", true);   // Add the class
 
 
-    toggleDeleteAlert_btn.classList.add("hidden");
+
     edit_btn.classList.add("hidden");
 
     floating_actions_container.classList.add("hidden");
@@ -587,7 +580,7 @@ function goToAddNewScreen() {
 
         console.log("add new screen")
         stylingButtonsSection.classList.remove("hidden");
-        toggleDeleteAlert_btn.classList.add("hidden");
+
         edit_btn.classList.add("hidden");
         navBar.classList.add("hidden");
 
@@ -769,7 +762,7 @@ function submittingNewDataOnline() {
         favorite_btn.classList.remove("hidden");
         floating_actions_container.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home";
-        toggleDeleteAlert_btn.classList.remove("hidden");
+
         edit_btn.classList.remove("hidden");
 
         navBar.classList.remove("hidden");
@@ -791,7 +784,7 @@ function submittingNewDataOnline() {
         disableCategorySelector();
         navBar.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home";
-        toggleDeleteAlert_btn.classList.remove("hidden");
+
         edit_btn.classList.remove("hidden");
         categoriesSection.classList.remove("border-red-500");
         floating_actions_container.classList.remove("hidden");
@@ -949,7 +942,7 @@ document.addEventListener("DOMContentLoaded", function () {
             arrowForwardBtn(data);
             backArrowFunction();
             switchVisibilityOrEditableState();
-            visibilityOFAlertDeleteData();
+            deleteData_alert()
             editDataScreen();
             goToAddNewScreen();
 

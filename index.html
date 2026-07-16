@@ -203,13 +203,13 @@
             <p class="text-xs">This action can not be undone in the future</p>
         </div>
 
-        <div id="" class="alertDeleteButtons flex text-center">
-            <button id="doNotDeleteData_btn" class=" flex-1 px-4 py-2 rounded-full mr-auto close-btn"
+        <div id="" class=" flex text-center">
+            <button id="cancellPermanentDelete_btn" class=" flex-1 px-4 py-2 rounded-full mr-auto close-btn"
                 commandFor="modal-box" command="close">
                 Cancel
             </button>
-            <button id="deleteDataAccepted_btn"
-                class="switchVisibilityOrEditableState  flex-1 bg-red-500 px-4 py-2 rounded-full ml-auto text-red-800  close-btn"
+            <button id="acceptPermanentDelete_btn"
+                class="  flex-1 bg-red-500 px-4 py-2 rounded-full ml-auto text-red-800  close-btn"
                 commandFor="modal-box" command="close">
                 Delete
             </button>
@@ -262,12 +262,12 @@
 
             <div id="floating-actions-menu" class="p-2 border rounded-full shadow">
 
+                <button id="deleteThis_btn" class="open-btn rounded" commandFor="modal-box" command="show-modal">
+                    <span class="material-symbols-outlined">
+                        delete_forever
+                    </span>
+                </button>
                 <div id="togglesDeleteEdit" class="ml-auto  flex-1 justify-end">
-                    <button id="toggleDeleteAlert_btn" class="open-btn rounded" commandFor="modal-box" command="show-modal">
-                        <span class="material-symbols-outlined">
-                            delete_forever
-                        </span>
-                    </button>
 
                     <button id="edit_btn" onclick="" class="switchVisibilityOrEditableState ">
                         <span class="material-symbols-outlined">
