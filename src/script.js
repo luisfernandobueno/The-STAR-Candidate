@@ -322,7 +322,7 @@ function showTextOnUserScreen(dataToBeDisplayed) {
     history_arr.push(randomQuestion);
     currentIndex_historyArray = history_arr.length - 1;
     //backArrowFunction()
-
+    console.log(history_arr);
 }
 
 
@@ -448,7 +448,7 @@ function visibilityOFAlertDeleteData() {
 
     });
 
-
+    console.log(history_arr);
     buttonsDeleteAndCancelInsideTheAlertDelete();
 }
 
@@ -456,39 +456,80 @@ function visibilityOFAlertDeleteData() {
 
 function buttonsDeleteAndCancelInsideTheAlertDelete() {
     // BEHAVIOR FOR "DELETE" BUTTON INSIDE THE ALERT TO EFFECTIVELY DELETE DATA:
-    deleteDataAccepted_btn.addEventListener("click", () => {
-        const togglesDeleteEdit = document.getElementById("togglesDeleteEdit")
-        submitSection.classList.add("hidden");
-        document.querySelectorAll("button").forEach(b => {
-            b.hidden;
-        });
+deleteDataAccepted_btn.addEventListener("click", () => {
 
-        togglesDeleteEdit.classList.remove("hidden");
-        currentScreenLocation.innerHTML = "Home"
-        navBar.classList.remove("hidden");
-        console.log("Lenght data list before deleting: ", data.length);
+    const togglesDeleteEdit = document.getElementById("togglesDeleteEdit");
 
-        alert("DATA PERMANENTLY DELETED. CHECK THE CONSOLE FOR MORE INFO")
-        console.log(history_arr[currentIndex_historyArray])
+    submitSection.classList.add("hidden");
 
-        turningTheTextAreasEditable_array.forEach(c => {
-            c.contentEditable = "false";
-        });
-
-
-        /* IN HERE: => MAKE AN HTTP DELETE REQUEST */
-        data.splice(currentIndex_jsonData, 1);
-        history_arr.splice(currentIndex_historyArray, 1);
-        data = data;
-        fetchPost(data);
-
-        console.log("Lenght data list after deleting: ", data.length);
-
-
-        showTextOnUserScreen(data);
-        arrowForwardBtn(history_arr);
-        arrowBack_btn(history_arr);
+    document.querySelectorAll("button").forEach(b => {
+        b.hidden = true;
     });
+
+    togglesDeleteEdit.classList.remove("hidden");
+    currentScreenLocation.innerHTML = "Home";
+    navBar.classList.remove("hidden");
+
+    turningTheTextAreasEditable_array.forEach(c => {
+        c.contentEditable = "false";
+    });
+
+    //console.clear();
+
+    console.log("========== DELETE ==========");
+    console.log("JSON index:", currentIndex_jsonData);
+    console.log("History index:", currentIndex_historyArray);
+
+    console.log("JSON length BEFORE:", data.length);
+    console.log("History length BEFORE:", history_arr.length);
+
+    console.log("JSON item about to delete:", data[currentIndex_jsonData]);
+    console.log("History item about to delete:", history_arr[currentIndex_historyArray]);
+
+    // Save and delete in one line
+    const deletedItemJson = data.splice(currentIndex_jsonData, 1)[0];
+    const deletedItemHistory = history_arr.splice(currentIndex_historyArray, 1)[0];
+
+    console.log("Deleted JSON item:", deletedItemJson);
+    console.log("Deleted History item:", deletedItemHistory);
+
+    console.log("JSON length AFTER:", data.length);
+    console.log("History length AFTER:", history_arr.length);
+
+    console.log("Remaining history:", history_arr);
+    console.log("Remaining json:", data);
+
+    fetchPost(data);
+
+    alert("DATA PERMANENTLY DELETED.");
+
+    // Decide what to display next
+    if (history_arr.length === 0) {
+
+        console.log("History is now empty.");
+
+    } else if (currentIndex_historyArray >= history_arr.length) {
+
+        // Deleted the last item
+        currentIndex_historyArray = history_arr.length - 1;
+
+        console.log("Showing previous item:", history_arr[currentIndex_historyArray]);
+
+        areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
+
+    } else {
+
+        // Show the item that shifted into the deleted position
+        console.log("Showing next item:", history_arr[currentIndex_historyArray]);
+
+        areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
+
+    }
+
+    arrowForwardBtn(history_arr);
+    arrowBack_btn(history_arr);
+
+});
 
 
     // BEHAVIOR FOR "CANCEL" BUTTON INSIDE THE ALERT TO CANCEL THE DELETE:
@@ -913,7 +954,7 @@ document.addEventListener("DOMContentLoaded", function () {
             editDataScreen();
             goToAddNewScreen();
             visibilityOFAlertDeleteData();
-            
+
             lastSearchedQuestion();
 
 
