@@ -443,7 +443,7 @@ function visibilityOFAlertDeleteData() {
     toggleDeleteAlert_btn.addEventListener("click", () => {
         currentScreenLocation.innerHTML = "Delete"
 
-        editDeleteOrAddNew = "delete";
+        //editDeleteOrAddNew = "delete";
 
         console.log("question to be deleted: ", history_arr[currentIndex_historyArray].question)
         //turningTheTextAreasEditable()
@@ -462,9 +462,9 @@ function buttonsDeleteAndCancelInsideTheAlertDelete() {
 
         currentScreenLocation.innerHTML = "Home";
 
-        turningTheTextAreasEditable_array.forEach(c => {
+        /* turningTheTextAreasEditable_array.forEach(c => {
             c.contentEditable = "false";
-        });
+        }); */
 
         //console.clear();
 
@@ -507,21 +507,21 @@ function buttonsDeleteAndCancelInsideTheAlertDelete() {
             currentIndex_historyArray = history_arr.length - 1;
 
             console.log("Showing previous item:", history_arr[currentIndex_historyArray]);
-            submitSection.hidden;
+            //submitSection.hidden;
             areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
 
         } else {
 
             // Show the item that shifted into the deleted position
             console.log("Showing next item:", history_arr[currentIndex_historyArray]);
-            submitSection.hidden;
+            //submitSection.hidden;
             areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
 
         }
 
-        arrowForwardBtn(history_arr);
+        /* arrowForwardBtn(history_arr);
         arrowBack_btn(history_arr);
-
+ */
         
         /* submitSection.classList.add("hidden"); */
     });
@@ -533,7 +533,7 @@ function buttonsDeleteAndCancelInsideTheAlertDelete() {
         currentScreenLocation.innerHTML = "Home";
 
         //submitSection.classList.remove("hidden");
-        delete_btn.classList.remove("hidden");
+        //delete_btn.classList.remove("hidden");
     });
 }
 
