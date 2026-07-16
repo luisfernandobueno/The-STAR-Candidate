@@ -809,7 +809,7 @@ function fetchPost(data) {
 
 /* SHOW THE SEARCH SECTION INTO THE SCREEN */
 function lastSearchedQuestion() {
-        console.log("index of question saved: ", localStorage.getItem("indexOfQuestionSearched"));
+    console.log("index of question saved: ", localStorage.getItem("indexOfQuestionSearched"));
     if (indexOfQuestionSearched) {
         console.log(searchedQuestion);
         console.log("index of question saved: ", localStorage.getItem("indexOfQuestionSearched"));
@@ -818,7 +818,7 @@ function lastSearchedQuestion() {
         currentIndex_jsonData = indexOfQuestionSearched;
         console.log(currentIndex_jsonData)
         console.log("history_arr: ", history_arr)
-        
+
 
         areaWhereTheTextIsGonnaBeShown(data[indexOfQuestionSearched]);
         //localStorage.removeItem("indexOfQuestionSearched");
@@ -905,6 +905,13 @@ document.addEventListener("DOMContentLoaded", function () {
             //favoriteState();
             // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
             showTextOnUserScreen(data);
+            arrowForwardBtn(data);
+            backArrowFunction();
+            switchVisibilityOrEditableState();
+            editDataScreen();
+            goToAddNewScreen();
+            visibilityOFAlertDeleteData();
+            
             lastSearchedQuestion();
 
 
@@ -918,11 +925,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error(error));
 
 
-    arrowForwardBtn(data);
-    backArrowFunction();
-    switchVisibilityOrEditableState();
-    editDataScreen();
-    goToAddNewScreen();
-    visibilityOFAlertDeleteData();
-    
+
+
 });
