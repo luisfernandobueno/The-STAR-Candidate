@@ -949,9 +949,9 @@ document.addEventListener("DOMContentLoaded", function () {
             arrowForwardBtn(data);
             backArrowFunction();
             switchVisibilityOrEditableState();
+            visibilityOFAlertDeleteData();
             editDataScreen();
             goToAddNewScreen();
-            visibilityOFAlertDeleteData();
 
             lastSearchedQuestion();
 
