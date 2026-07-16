@@ -144,15 +144,18 @@ function goToDisplayAllScreen(goTo) {
 
 /* DISPLAY ALL THE QUESTIONS ON SCREEN */
 function displayAll(questionsToBeDisplayed) {
+    const questionsAll = questionsToBeDisplayed.map(item => ({
+                question: item.question,
+                topic: item.topic
+            }));
+    const favoriteQuestions = questionsToBeDisplayed.filter(item => item.favorite)
+
     let index = 0;
 
     switch (displayScreen) {
 
         case "Search":
-            const questionsAll = questionsToBeDisplayed.map(item => ({
-                question: item.question,
-                topic: item.topic
-            }));
+            
 
             questionsAll.forEach(e => {
                 displayAllQuestions.innerHTML += `
@@ -161,9 +164,11 @@ function displayAll(questionsToBeDisplayed) {
                             </a>`;
                 index++;
             })
+            
             break;
 
         case "Favorites":
+            
 
             questionsToBeDisplayed.forEach(e => {
                 if (e.favorite) {
@@ -174,11 +179,16 @@ function displayAll(questionsToBeDisplayed) {
                 }
                 index++;
             })
-
+            
             break
     }
 
-    searchingQuestion(questionsToBeDisplayed);
+    if (displayScreen === "Search") {
+        searchingQuestion(questionsAll);
+    } else {
+        searchingQuestion(favoriteQuestions);
+    }
+    
     saveSelectedQuestionOnLocalStorage();
 
 }
@@ -205,26 +215,36 @@ function saveSelectedQuestionOnLocalStorage() {
 
 /* FILTER QUESTIONS IN REAL TIME */
 function searchingQuestion(questionsToBeDisplayed) {
+    console.log(questionsToBeDisplayed)
     inputSearch.addEventListener('keyup', () => {
 
-        displayAllQuestions.innerHTML = '';
-        const texto = inputSearch.value.toLowerCase();
+    displayAllQuestions.innerHTML = '';
+    const texto = inputSearch.value.toLowerCase();
 
-        for (let i = 0; i < questionsToBeDisplayed.length; i++) {
-            let typedQuestion = questionsToBeDisplayed[i].question.toLowerCase();
+    let found = false;
 
-            if (typedQuestion.indexOf(texto) !== -1) {
-                displayAllQuestions.innerHTML += `
-            <a id="${i}" href="index.html" class="searchQuestion">
-                ${questionsToBeDisplayed[i].question}
-            </a>
-        `;
-            }
+    for (let i = 0; i < questionsToBeDisplayed.length; i++) {
+        let typedQuestion = questionsToBeDisplayed[i].question.toLowerCase();
+
+        if (typedQuestion.indexOf(texto) !== -1) {
+            found = true;
+
+            displayAllQuestions.innerHTML += `
+                <a id="${i}" href="index.html" class="searchQuestion">
+                    ${questionsToBeDisplayed[i].question}
+                </a>
+            `;
         }
+    }
 
-        saveSelectedQuestionOnLocalStorage();
+    if (!found) {
+        displayAllQuestions.innerHTML = `
+            <div class="noResults">No results found</div>
+        `;
+    }
 
-    })
+    saveSelectedQuestionOnLocalStorage();
+});
 }
 
 
