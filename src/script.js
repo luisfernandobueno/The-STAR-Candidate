@@ -875,7 +875,13 @@ function goToDisplayAllScreen(goTo) {
         "history_arr",
         JSON.stringify(history_arr)
     );
-    localStorage.setItem("data", JSON.stringify(data));
+
+    let dataSearchSection = data.map(item => ({
+        question: item.question,
+        favorite: item.favorite,
+        topic: item.topic
+    }));
+    localStorage.setItem("data", JSON.stringify(dataSearchSection));
     window.location.href = 'showAllQuestions.html'
 }
 

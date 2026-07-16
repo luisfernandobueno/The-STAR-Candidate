@@ -149,22 +149,19 @@ function displayAll(questionsToBeDisplayed) {
     switch (displayScreen) {
 
         case "Search":
+            const questionsAll = questionsToBeDisplayed.map(item => ({
+                question: item.question,
+                topic: item.topic
+            }));
 
-
-
-
-
-            questionsToBeDisplayed.forEach(e => {
+            questionsAll.forEach(e => {
                 displayAllQuestions.innerHTML += `
                             <a id="${index}" href="index.html" class="searchQuestion">
                                 ${e.question.replace(/<[^>]*>/g, "")}
                             </a>`;
-
                 index++;
             })
-
             break;
-
 
         case "Favorites":
             const favoriteQuestions = questionsToBeDisplayed.filter(item => item.favorite)
@@ -174,10 +171,8 @@ function displayAll(questionsToBeDisplayed) {
                         <a id="${index}" href="index.html" class="searchQuestion">
                             ${e.question.replace(/<[^>]*>/g, "")}
                         </a> `;
-
                 index++;
             })
-
             break
     }
 
@@ -276,12 +271,13 @@ function displayScreenFunction(data) {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    data = data.map(item => ({
+    /* data = data.map(item => ({
         question: item.question,
         favorite: item.favorite,
         topic: item.topic
-    }));
+    })); */
 
+    console.log(data[0])
     displayScreenFunction(data)
     saveSelectedQuestionOnLocalStorage()
 
