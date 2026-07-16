@@ -277,6 +277,7 @@ function disableCategorySelector() {
 /* Finds the text areas where the info is gonna be displayed on the HTML
 and pastes there the corresponding data to finally be shown on screen*/
 function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
+
     //console.log(data[currentIndex_jsonData])
     document.getElementById("areaWhereTheTextIsGonnaBeShown").scrollTo({
         top: 0,
@@ -300,8 +301,9 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
 
     //localStorage.removeItem("indexOfQuestionSearched");
     //console.log("FINAL INDEX BEING SHOWN ON  SCREEN: ", currentIndex_jsonData);
-
+    submitSection.hidden;
     sectionCategoriesBehavior(randomQuestion.topic)
+    togglesDeleteEdit.classList.remove("hidden");
 }
 
 
@@ -456,80 +458,73 @@ function visibilityOFAlertDeleteData() {
 
 function buttonsDeleteAndCancelInsideTheAlertDelete() {
     // BEHAVIOR FOR "DELETE" BUTTON INSIDE THE ALERT TO EFFECTIVELY DELETE DATA:
-deleteDataAccepted_btn.addEventListener("click", () => {
+    deleteDataAccepted_btn.addEventListener("click", () => {
 
-    const togglesDeleteEdit = document.getElementById("togglesDeleteEdit");
+        currentScreenLocation.innerHTML = "Home";
 
-    submitSection.classList.add("hidden");
+        turningTheTextAreasEditable_array.forEach(c => {
+            c.contentEditable = "false";
+        });
 
-    document.querySelectorAll("button").forEach(b => {
-        b.hidden = true;
+        //console.clear();
+
+        console.log("========== DELETE ==========");
+        console.log("JSON index:", currentIndex_jsonData);
+        console.log("History index:", currentIndex_historyArray);
+
+        console.log("JSON length BEFORE:", data.length);
+        console.log("History length BEFORE:", history_arr.length);
+
+        console.log("JSON item about to delete:", data[currentIndex_jsonData]);
+        console.log("History item about to delete:", history_arr[currentIndex_historyArray]);
+
+        // Save and delete in one line
+        const deletedItemJson = data.splice(currentIndex_jsonData, 1)[0];
+        const deletedItemHistory = history_arr.splice(currentIndex_historyArray, 1)[0];
+
+        console.log("Deleted JSON item:", deletedItemJson);
+        console.log("Deleted History item:", deletedItemHistory);
+
+        console.log("JSON length AFTER:", data.length);
+        console.log("History length AFTER:", history_arr.length);
+
+        console.log("Remaining history:", history_arr);
+        console.log("Remaining json:", data);
+
+        fetchPost(data);
+
+        alert("DATA PERMANENTLY DELETED.");
+
+        // Decide what to display next
+        if (history_arr.length === 0) {
+
+
+            console.log("History is now empty.");
+
+        } else if (currentIndex_historyArray >= history_arr.length) {
+
+            // Deleted the last item
+            currentIndex_historyArray = history_arr.length - 1;
+
+            console.log("Showing previous item:", history_arr[currentIndex_historyArray]);
+            submitSection.hidden;
+            areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
+
+        } else {
+
+            // Show the item that shifted into the deleted position
+            console.log("Showing next item:", history_arr[currentIndex_historyArray]);
+            submitSection.hidden;
+            areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
+
+        }
+
+        arrowForwardBtn(history_arr);
+        arrowBack_btn(history_arr);
+
+        
+        /* submitSection.classList.add("hidden"); */
     });
-
-    togglesDeleteEdit.classList.remove("hidden");
-    currentScreenLocation.innerHTML = "Home";
-    navBar.classList.remove("hidden");
-
-    turningTheTextAreasEditable_array.forEach(c => {
-        c.contentEditable = "false";
-    });
-
-    //console.clear();
-
-    console.log("========== DELETE ==========");
-    console.log("JSON index:", currentIndex_jsonData);
-    console.log("History index:", currentIndex_historyArray);
-
-    console.log("JSON length BEFORE:", data.length);
-    console.log("History length BEFORE:", history_arr.length);
-
-    console.log("JSON item about to delete:", data[currentIndex_jsonData]);
-    console.log("History item about to delete:", history_arr[currentIndex_historyArray]);
-
-    // Save and delete in one line
-    const deletedItemJson = data.splice(currentIndex_jsonData, 1)[0];
-    const deletedItemHistory = history_arr.splice(currentIndex_historyArray, 1)[0];
-
-    console.log("Deleted JSON item:", deletedItemJson);
-    console.log("Deleted History item:", deletedItemHistory);
-
-    console.log("JSON length AFTER:", data.length);
-    console.log("History length AFTER:", history_arr.length);
-
-    console.log("Remaining history:", history_arr);
-    console.log("Remaining json:", data);
-
-    fetchPost(data);
-
-    alert("DATA PERMANENTLY DELETED.");
-
-    // Decide what to display next
-    if (history_arr.length === 0) {
-
-        console.log("History is now empty.");
-
-    } else if (currentIndex_historyArray >= history_arr.length) {
-
-        // Deleted the last item
-        currentIndex_historyArray = history_arr.length - 1;
-
-        console.log("Showing previous item:", history_arr[currentIndex_historyArray]);
-
-        areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
-
-    } else {
-
-        // Show the item that shifted into the deleted position
-        console.log("Showing next item:", history_arr[currentIndex_historyArray]);
-
-        areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray]);
-
-    }
-
-    arrowForwardBtn(history_arr);
-    arrowBack_btn(history_arr);
-
-});
 
 
     // BEHAVIOR FOR "CANCEL" BUTTON INSIDE THE ALERT TO CANCEL THE DELETE:
@@ -549,6 +544,7 @@ function editDataScreen() {
         favorite_btn.classList.toggle("hidden", true);   // Add the class
         edit();
         categorySelector();
+        !submitSection.hidden;
     });
 
 }
@@ -560,7 +556,7 @@ function edit() {
 
     toggleDeleteAlert_btn.classList.add("hidden");
     edit_btn.classList.add("hidden");
-    submitSection.classList.remove('hidden')
+
     floating_actions_container.classList.add("hidden");
 
     navBar.classList.add("hidden");
@@ -578,13 +574,14 @@ function edit() {
     favorite_btn.classList.toggle("hidden", false);  // Remove the class
     categorySelector();
     submittingNewDataOnline();
+
 }
 
 
 /* GO TO "ADD NEW" SCREEN */
 function goToAddNewScreen() {
     const categoriesSection = document.getElementById("categoriesSection");
-
+    submitSection.classList.remove('hidden')
     /* Text areas go empty on click the "Add New"" button */
     addNewData_btn.addEventListener("click", () => {
 
@@ -593,7 +590,7 @@ function goToAddNewScreen() {
         toggleDeleteAlert_btn.classList.add("hidden");
         edit_btn.classList.add("hidden");
         navBar.classList.add("hidden");
-        submitSection.classList.remove('hidden')
+
         currentScreenLocation.innerHTML = "Add New";
         floating_actions_container.classList.add("hidden");
         favorite_btn.classList.add("hidden");
@@ -611,6 +608,7 @@ function goToAddNewScreen() {
 
         submittingNewDataOnline();
         categorySelector();
+
     });
 }
 
