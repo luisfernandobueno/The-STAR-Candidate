@@ -957,16 +957,11 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error(error));
 
 
-
-
-
     arrowForwardBtn(data);
     backArrowFunction();
     switchVisibilityOrEditableState();
     editDataScreen();
     goToAddNewScreen();
-
     visibilityOFAlertDeleteData();
     lastSearchedQuestion();
-
 });
