@@ -44,7 +44,7 @@
 
         <div class="flex-1 ">
             <button id="menu" onclick="toggleSidebar()">
-                <span class="material-symbols-outlined cirledBackgroundButton">
+                <span class="material-symbols-outlined ">
                     dehaze
                 </span>
             </button>
@@ -53,14 +53,11 @@
         <div id="screenType" class="mr-auto flex-1 text-center text-xl"></div>
 
         <div class="flex-1 flex justify-end">
-            <button id="toggleDeleteAlert_btn" class="open-btn  hiddenBehavior" commandFor="modal-box"
+            <button id="deleteSomeQuestions" class="open-btn  hiddenBehavior" commandFor="modal-box"
                 command="show-modal">
-
-
-                <span class="material-symbols-outlined cirledBackgroundButton">
+                <span class="material-symbols-outlined ">
                     delete_forever
                 </span>
-
             </button>
         </div>
     </nav>
@@ -68,7 +65,7 @@
     <aside id="sidebar" class="p-3 shadow-xl">
         <div class="top mb-3">
             <button id="menu-2" onclick="toggleSidebar()">
-                <span class="material-symbols-outlined cirledBackgroundButton">
+                <span class="material-symbols-outlined ">
                     dehaze
                 </span>
             </button>
@@ -77,7 +74,7 @@
             <div id="myFavorite_screen" onclick="goToDisplayAllScreen('Favorites')" class="border rounded-xl mb-1 p-2 ">
                 <button class="hiddenBehaviorflex-1 flex items-center justify-center">
                     <div class="flex">
-                        <span class="material-symbols-outlined  cirledBackgroundButton flex-1">
+                        <span class="material-symbols-outlined   flex-1">
                             favorite
                         </span>
                         <p class="flex-1 pl-2">Favorites</p>
@@ -182,7 +179,7 @@
         <div id="navBar" class="flex py-1">
 
             <button onclick="window.location.href='index.html'" class=" flex-1 flex items-center justify-center">
-                <span class="material-symbols-outlined   rounded-full">home</span>
+                <span class="material-symbols-outlined  cirledBackgroundButton rounded-full">home</span>
             </button>
 
             <button id="search_screen" onclick="goToDisplayAllScreen('Search')"
@@ -193,7 +190,7 @@
             <button class="hiddenBehavior flex-1 flex items-center justify-center">
             </button>
 
-            <button class=" flex-1 flex items-center justify-center">
+            <button  onclick="goToDisplayAllScreen('Quiz')" class=" flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined"> cards_stack </span>
             </button>
 

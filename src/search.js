@@ -145,9 +145,9 @@ function goToDisplayAllScreen(goTo) {
 /* DISPLAY ALL THE QUESTIONS ON SCREEN */
 function displayAll(questionsToBeDisplayed) {
     const questionsAll = questionsToBeDisplayed.map(item => ({
-                question: item.question,
-                topic: item.topic
-            }));
+        question: item.question,
+        topic: item.topic
+    }));
     const favoriteQuestions = questionsToBeDisplayed.filter(item => item.favorite)
 
     let index = 0;
@@ -155,7 +155,7 @@ function displayAll(questionsToBeDisplayed) {
     switch (displayScreen) {
 
         case "Search":
-            
+
 
             questionsAll.forEach(e => {
                 displayAllQuestions.innerHTML += `
@@ -164,11 +164,11 @@ function displayAll(questionsToBeDisplayed) {
                             </a>`;
                 index++;
             })
-            
+
             break;
 
         case "Favorites":
-            
+
 
             questionsToBeDisplayed.forEach(e => {
                 if (e.favorite) {
@@ -179,7 +179,7 @@ function displayAll(questionsToBeDisplayed) {
                 }
                 index++;
             })
-            
+
             break
     }
 
@@ -188,7 +188,7 @@ function displayAll(questionsToBeDisplayed) {
     } else {
         searchingQuestion(favoriteQuestions);
     }
-    
+
     saveSelectedQuestionOnLocalStorage();
 
 }
@@ -218,33 +218,33 @@ function searchingQuestion(questionsToBeDisplayed) {
     console.log(questionsToBeDisplayed)
     inputSearch.addEventListener('keyup', () => {
 
-    displayAllQuestions.innerHTML = '';
-    const texto = inputSearch.value.toLowerCase();
+        displayAllQuestions.innerHTML = '';
+        const texto = inputSearch.value.toLowerCase();
 
-    let found = false;
+        let found = false;
 
-    for (let i = 0; i < questionsToBeDisplayed.length; i++) {
-        let typedQuestion = questionsToBeDisplayed[i].question.toLowerCase();
+        for (let i = 0; i < questionsToBeDisplayed.length; i++) {
+            let typedQuestion = questionsToBeDisplayed[i].question.toLowerCase();
 
-        if (typedQuestion.indexOf(texto) !== -1) {
-            found = true;
+            if (typedQuestion.indexOf(texto) !== -1) {
+                found = true;
 
-            displayAllQuestions.innerHTML += `
+                displayAllQuestions.innerHTML += `
                 <a id="${i}" href="index.html" class="searchQuestion">
                     ${questionsToBeDisplayed[i].question}
                 </a>
             `;
+            }
         }
-    }
 
-    if (!found) {
-        displayAllQuestions.innerHTML = `
+        if (!found) {
+            displayAllQuestions.innerHTML = `
             <div class="noResults">No results found</div>
         `;
-    }
+        }
 
-    saveSelectedQuestionOnLocalStorage();
-});
+        saveSelectedQuestionOnLocalStorage();
+    });
 }
 
 
@@ -265,23 +265,23 @@ function displayScreenFunction(data) {
             screenType.innerText = displayScreen;
             search_screen.disabled;
             console.log("Lenght data: ", data.length);
-
-            //takes data and creates a new array containing only the question property from each object.
-            //displayAll(data.map(item => item.question));
             displayAll(data);
-
-
             break;
 
 
 
         case "Favorites":
             screenType.innerText = displayScreen;
-
             console.log("Lenght data favorites: ", data.filter(item => item.favorite).length);
-            displayAll(data
+            displayAll(data);
+            break;
 
-            );
+        case "Quiz":
+            const deleteSomeQuestions = document.getElementById("deleteSomeQuestions")
+            screenType.innerText = displayScreen;
+            inputSearch.classList.add("hidden");
+            deleteSomeQuestions.classList.add("hidden");
+            //categoriesSection.classList.add("hidden");
             break;
     }
 }
