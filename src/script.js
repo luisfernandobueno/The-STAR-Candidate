@@ -556,19 +556,27 @@ function edit() {
     currentScreenLocation.innerText = "Edit"
     editDeleteOrAddNew = "edit";
     //console.log(editDeleteOrAddNew)
-    editing = true;
+    
     //console.log("EDITING DATA RIGHT NOW? ", editing)
     console.log("INDEX BEING EDITED: ", currentIndex_jsonData);
     turningTheTextAreasEditable_array.forEach(c => {
         //c.classList.add("px-3");
         c.classList.add('rounded-lg')
     });
-
+    !submitSection.hidden;
     favorite_btn.classList.toggle("hidden", false);  // Remove the class
     categorySelector();
     submittingNewDataOnline();
 
 }
+
+function editXlScreen() {
+    turningTheTextAreasEditable();
+    edit()
+    submitSection.classList.remove("hidden");
+}
+
+
 
 
 /* GO TO "ADD NEW" SCREEN */
@@ -576,33 +584,40 @@ function goToAddNewScreen() {
     const categoriesSection = document.getElementById("categoriesSection");
     submitSection.classList.remove('hidden')
     /* Text areas go empty on click the "Add New"" button */
-    addNewData_btn.addEventListener("click", () => {
 
-        console.log("add new screen")
-        stylingButtonsSection.classList.remove("hidden");
 
-        edit_btn.classList.add("hidden");
-        navBar.classList.add("hidden");
+    console.log("add new screen")
+    stylingButtonsSection.classList.remove("hidden");
 
-        currentScreenLocation.innerHTML = "Add New";
-        floating_actions_container.classList.add("hidden");
-        favorite_btn.classList.add("hidden");
-        editDeleteOrAddNew = "addNew";
-        //console.log(editDeleteOrAddNew)
+    edit_btn.classList.add("hidden");
+    navBar.classList.add("hidden");
 
-        turningTheTextAreasEditable_array.forEach(c => {
-            c.innerHTML = "";
-            c.classList.add("px-3");
-            c.classList.add('rounded-lg')
-        });
+    currentScreenLocation.innerHTML = "Add New";
+    floating_actions_container.classList.add("hidden");
+    favorite_btn.classList.add("hidden");
+    editDeleteOrAddNew = "addNew";
+    //console.log(editDeleteOrAddNew)
 
-        editing = false;
-        //console.log("EDITING DATA RIGHT NOW? ", editing)
-
-        submittingNewDataOnline();
-        categorySelector();
-
+    turningTheTextAreasEditable_array.forEach(c => {
+        c.innerHTML = "";
+        c.classList.add("px-3");
+        c.classList.add('rounded-lg')
     });
+
+    editing = false;
+    //console.log("EDITING DATA RIGHT NOW? ", editing)
+
+    submittingNewDataOnline();
+    categorySelector();
+
+
+}
+
+function addNewXl() {
+    turningTheTextAreasEditable()
+
+    goToAddNewScreen();
+    submitSection.classList.remove("hidden")
 }
 
 
@@ -944,7 +959,9 @@ document.addEventListener("DOMContentLoaded", function () {
             switchVisibilityOrEditableState();
             deleteData_alert()
             editDataScreen();
-            goToAddNewScreen();
+            addNewData_btn.addEventListener("click", () => {
+                goToAddNewScreen()
+            });
 
             lastSearchedQuestion();
 

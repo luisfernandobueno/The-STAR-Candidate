@@ -41,7 +41,7 @@ aside {
     margin: 0;
     width: 70%;
     height: 100%;
-    display: none; 
+    display: none;
     background-color: var(--base-color);
 
 
@@ -114,7 +114,7 @@ footer {
 
 #favorite_btn.active .outlineHeart {
     display: none;
-    
+
 }
 
 #favorite_btn.active .filled {
@@ -214,7 +214,7 @@ footer {
     flex-direction: column;
     gap: 8px;
 
-    padding: 8px ;
+    padding: 8px;
     /* border-radius: 12px; */
     background-color: var(--base-color);
     /* box-shadow: 0 5px 15px rgba(0, 0, 0, .2); */
@@ -270,9 +270,10 @@ footer {
 
 @media (max-width: 355px) {
 
-     body {
+    body {
         height: 100dvh;
     }
+
     #categoriesSection {
         display: none;
     }
@@ -282,9 +283,10 @@ footer {
 
 @media (max-width: 450px) {
 
-     body {
+    body {
         height: 100dvh;
     }
+
     aside {
         width: 100%;
     }
@@ -297,7 +299,7 @@ footer {
         display: none;
     } */
 
-     body {
+    body {
         height: 100dvh;
     }
 
@@ -309,7 +311,7 @@ footer {
 
 @media (min-width: 600px) {
 
-    
+
     body {
         height: 100dvh;
         display: grid;
@@ -320,7 +322,7 @@ footer {
         grid-template-rows: auto auto 1fr;
 
         grid-template-areas:
-        
+
             "categories grid-right"
             "styling grid-right"
             "content grid-right";
@@ -339,30 +341,30 @@ footer {
     #navBar {
         display: none;
     }
-    
+
     #menu-2 {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-}
+        position: absolute;
+        right: 20px;
+        top: 20px;
+    }
 
-#searchAndCategories {
-    padding: 0;
-}
+    #searchAndCategories {
+        padding: 0;
+    }
 
-aside {
-    position: fixed;
-    top: 0;
-    right: 0;
+    aside {
+        position: fixed;
+        top: 0;
+        right: 0;
 
-    z-index: 10;
-    margin: 0;
-    width: 30%;
-    height: 100vh;
+        z-index: 10;
+        margin: 0;
+        width: 30%;
+        height: 100vh;
 
-    display: none;
-    background-color: var(--base-color);
-}
+        display: none;
+        background-color: var(--base-color);
+    }
 
 
 
@@ -377,6 +379,7 @@ aside {
     #screenTitle {
         grid-area: screenTitle;
     }
+
     #stylingButtonsSection {
         grid-area: styling;
     }
@@ -395,19 +398,19 @@ aside {
 
     #categoriesSection,
     #areaWhereTheTextIsGonnaBeShown {
-    margin-left: 0;
-    margin-right: 0;
-}
+        margin-left: 0;
+        margin-right: 0;
+    }
 
- #searchAndCategories {
-    padding-left: 0;
-    padding-right: 0;
- }
+    #searchAndCategories {
+        padding-left: 0;
+        padding-right: 0;
+    }
 
-  #displayAllQuestions {
-     margin-left: 0;
-    margin-right: 0;
-  }
+    #displayAllQuestions {
+        margin-left: 0;
+        margin-right: 0;
+    }
 
 }
 
@@ -456,7 +459,8 @@ aside {
         grid-area: aside;
     }
 
-    #menu, aside {
+    #menu,
+    aside {
         display: none;
     }
 
