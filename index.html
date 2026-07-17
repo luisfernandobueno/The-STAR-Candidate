@@ -88,31 +88,19 @@
             </button>
         </div>
         <div class="bottom">
-            <div>
-                Profile
+            <div id="myFavorite_screen" onclick="goToDisplayAllScreen('Favorites')" class="border rounded-lg mb-1 p-2 ">
+                <button class="hiddenBehavior flex-1 flex items-center justify-center">
+                    <div class="flex">
+                        <span class="material-symbols-outlined flex-1">
+                            favorite
+                        </span>
+                        <p class="flex-1 pl-2">Favorites</p>
+                    </div>
+
+                </button>
             </div>
 
-            <div>
-                <br>
-            </div>
-
-            <div>
-                Login
-            </div>
-            <div>
-                Register
-            </div>
-            <div>
-                Settings
-            </div>
-            <div>
-                About
-            </div>
-            <div>
-                <br>
-            </div>
-
-            <div>
+            <div class="flex border rounded-lg p-2">
                 <button id="theme-switch">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                         fill="#000000">
@@ -125,7 +113,10 @@
                             d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
                     </svg>
                 </button>
-                Theme Switch
+                <div class="flex-1 mb-1 pl-2">
+                    <p>Theme Switch</p>
+                </div>
+
             </div>
         </div>
     </aside>
@@ -222,16 +213,17 @@
 
     <!-- ----------------------- CATEGORIES SECTION: ------------------------>
     <section id="categoriesSection" class="mx-3 mb-1 flex flex-wrap ">
-        <div id="Recruiter" class="category px-2 py-1 flex-1 text-center border shadow  rounded-lg text-xs ml-auto">
+        <div id="Recruiter" class="category px-2 py-1 flex-1 text-center border shadow   rounded-full text-xs ml-auto">
             Recruiter
         </div>
-        <div id="Candidate" class="category px-2 py-1  flex-1 text-center border shadow  rounded-lg text-xs ml-1">
+        <div id="Candidate" class="category px-2 py-1  flex-1 text-center border shadow   rounded-full text-xs ml-1">
             Candidate
         </div>
-        <div id="Advice" class="category  px-2 py-1  flex-1 text-center border shadow  rounded-lg text-xs mx-1">
+        <div id="Advice" class="category  px-2 py-1  flex-1 text-center border shadow   rounded-full text-xs mx-1">
             Advice
         </div>
-        <div id="Encouragement" class="category px-2 py-1  flex-1 text-center border shadow rounded-lg text-xs mr-auto">
+        <div id="Encouragement"
+            class="category px-2 py-1  flex-1 text-center border shadow  rounded-full text-xs mr-auto">
             Keep It Up
         </div>
     </section>
@@ -309,16 +301,16 @@
             <button id="addNewData_btn"
                 class="switchVisibilityOrEditableState hiddenBehavior flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">
-                    add
+                    sticker_add
                 </span>
             </button>
 
-            <button id="myFavorite_screen" onclick="goToDisplayAllScreen('Favorites')"
-                class="hiddenBehavior flex-1 flex items-center justify-center">
+            <button class=" flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined">
-                    favorite
+                    cards_stack
                 </span>
             </button>
+
 
             <button id="arrowForward_btn" onclick="moveForward()"
                 class="showNextAndPreviousData_btn hiddenBehavior  flex-1 flex items-center justify-center">
