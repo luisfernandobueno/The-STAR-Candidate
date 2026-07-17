@@ -79,14 +79,6 @@ footer {
     background-color: var(--base-color);
 }
 
-#deleteData_alert {
-    position: absolute;
-    bottom: 50%;
-
-
-
-    background-color: var(--base-color);
-}
 
 #modal-box {
     background-color: var(--base-color);
@@ -147,10 +139,21 @@ footer {
     display: block;
 }
 
+footer span,
+.cirledBackgroundButton {
+    box-sizing: border-box;
+    padding: 6px;
+    border-radius: 50%;
+    background-color: var(--base-variant);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
 
 #theme-switch {
-    height: 50px;
-    width: 50px;
+    height: 36px;
+    width: 36px;
     padding: 0;
     border-radius: 50%;
     background-color: var(--base-variant);
@@ -352,19 +355,7 @@ footer {
         padding: 0;
     }
 
-    aside {
-        position: fixed;
-        top: 0;
-        right: 0;
-
-        z-index: 10;
-        margin: 0;
-        width: 30%;
-        height: 100vh;
-
-        display: none;
-        background-color: var(--base-color);
-    }
+    
 
 
 

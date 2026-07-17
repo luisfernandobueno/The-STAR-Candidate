@@ -303,7 +303,7 @@ function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
     //console.log("FINAL INDEX BEING SHOWN ON  SCREEN: ", currentIndex_jsonData);
     submitSection.hidden;
     sectionCategoriesBehavior(randomQuestion.topic)
-    togglesDeleteEdit.classList.remove("hidden");
+    /* togglesDeleteEdit.classList.remove("hidden"); */
 }
 
 

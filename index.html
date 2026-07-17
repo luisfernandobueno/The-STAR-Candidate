@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="src/style.css" />
     <title>STAR Candidate</title>
     <link rel="icon"
-        href="https://images.vexels.com/media/users/3/136286/isolated/preview/619aebd588e40eb596c3fa768e9dff5e-lightning-bolt-icon.png"
+        href="https://static.vecteezy.com/system/resources/thumbnails/055/109/396/small/star-trophy-for-achievement-icon-illustration-png.png"
         type="image/x-icon" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet"
@@ -65,7 +65,7 @@
 
         <div class="flex-1 flex items-center">
             <button id="menu" onclick="toggleSidebar()">
-                <span class="material-symbols-outlined">
+                <span class="material-symbols-outlined cirledBackgroundButton">
                     dehaze
                 </span>
             </button>
@@ -79,19 +79,19 @@
 
     </nav>
 
-    <aside id="sidebar" class="p-3 border shadow-xl">
-        <div class="top mb-1">
+    <aside id="sidebar" class="p-3 shadow-xl">
+        <div class="top mb-3">
             <button id="menu-2" onclick="toggleSidebar()">
-                <span class="material-symbols-outlined">
+                <span class="material-symbols-outlined cirledBackgroundButton">
                     dehaze
                 </span>
             </button>
         </div>
         <div class="bottom">
-            <div id="myFavorite_screen" onclick="goToDisplayAllScreen('Favorites')" class="border rounded-lg mb-1 p-2 ">
-                <button class="hiddenBehavior flex-1 flex items-center justify-center">
+            <div id="myFavorite_screen" onclick="goToDisplayAllScreen('Favorites')" class="border rounded-xl mb-1 p-2 ">
+                <button class="hiddenBehaviorflex-1 flex items-center justify-center">
                     <div class="flex">
-                        <span class="material-symbols-outlined flex-1">
+                        <span class="material-symbols-outlined  cirledBackgroundButton flex-1">
                             favorite
                         </span>
                         <p class="flex-1 pl-2">Favorites</p>
@@ -100,7 +100,7 @@
                 </button>
             </div>
 
-            <div class="flex border rounded-lg p-2">
+            <div class="flex border rounded-xl p-2">
                 <button id="theme-switch">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                         fill="#000000">
@@ -228,6 +228,7 @@
         </div>
     </section>
 
+
     <!-- ----------------------- EDITABLE TEXT AREAS: ------------------------>
     <section id="areaWhereTheTextIsGonnaBeShown" class="content mx-3 border shadow rounded-xl p-1 rounded-xl bg-fixed">
         <div class="container">
@@ -239,52 +240,50 @@
 
         </div>
 
+
+
         <div id="floating-actions-container">
-            <button id="floating-actions-trigger" class="p-2 border shadow p-2 rounded-full  bg-sky-500 ">
 
-                <span class="material-symbols-outlined">
-                    more_horiz
-                </span>
-
+            <button id="floating-actions-trigger" class="mb-1 p-1 border shadow rounded-full  bg-sky-500 ">
+                <span class="material-symbols-outlined"> more_horiz </span>
             </button>
 
-            <div id="floating-actions-menu" class="p-2 border rounded-full shadow">
+
+
+            <div id="floating-actions-menu" class="p-1 border rounded-full shadow">
 
                 <button id="deleteThis_btn" class="open-btn rounded" commandFor="modal-box" command="show-modal">
-                    <span class="material-symbols-outlined">
-                        delete_forever
-                    </span>
+                    <span class="material-symbols-outlined"> delete_forever </span>
                 </button>
-                <div id="togglesDeleteEdit" class="ml-auto  flex-1 justify-end">
 
-                    <button id="edit_btn" onclick="" class="switchVisibilityOrEditableState ">
-                        <span class="material-symbols-outlined">
-                            edit_square
-                        </span>
-                    </button>
+                <button id="edit_btn" class="switchVisibilityOrEditableState ">
+                    <span class="material-symbols-outlined"> edit_square </span>
+                </button>
 
-                    <button id="favorite_btn" onclick="favoriteState()">
+                <button id="favorite_btn" onclick="favoriteState()">
 
-                        <span class="outlineHeart material-symbols-outlined" height="24px">
-                            favorite
-                        </span>
+                    <span class="outlineHeart material-symbols-outlined" height="24px">
+                        favorite
+                    </span>
 
-                        <svg class="filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px"
-                            fill="#ff004c">
-                            <path
-                                d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" />
-                        </svg>
+                    <svg class="filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px"
+                        fill="#ff004c">
+                        <path
+                            d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" />
+                    </svg>
 
-                    </button>
-                </div>
+                </button>
+                <!-- <div id="togglesDeleteEdit" class="ml-auto  flex-1 justify-end">
+
+                </div> -->
             </div>
         </div>
 
     </section>
 
     <!-- ----------------------- FOOTER NAV BAR ------------------------>
-    <footer class=" rounded-xl">
-        <div id="navBar" class="flex py-2">
+    <footer class="">
+        <div id="navBar" class="flex py-1">
             <button id="arrowBack_btn" onclick="backArrowFunction()"
                 class="showNextAndPreviousData_btn hiddenBehavior flex-1 flex items-center justify-center">
 
@@ -320,8 +319,8 @@
             </button>
         </div>
 
-        <div id="submitSection" class="flex switchVisibilityOrEditableState">
-            <button id="cancelChangesDoNotSubmit_btn" class="submitChangesAndCancelChanges hiddenBehavior " hidden>
+        <div id="submitSection" class="flex  switchVisibilityOrEditableState">
+            <button id="cancelChangesDoNotSubmit_btn" class="submitChangesAndCancelChanges  hiddenBehavior" hidden>
                 Cancel
             </button>
 
