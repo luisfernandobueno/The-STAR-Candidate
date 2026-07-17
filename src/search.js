@@ -281,7 +281,7 @@ function displayScreenFunction(data) {
             screenType.innerText = displayScreen;
             inputSearch.classList.add("hidden");
             deleteSomeQuestions.classList.add("hidden");
-            //categoriesSection.classList.add("hidden");
+            categoriesSection.classList.add("hidden");
             break;
     }
 }

@@ -493,7 +493,6 @@ function deleteData_alert() {
 
         fetchPost(data);
 
-        alert("DATA PERMANENTLY DELETED.");
 
         // Decide what to display next
         if (history_arr.length === 0) {
