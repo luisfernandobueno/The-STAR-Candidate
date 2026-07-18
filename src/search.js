@@ -15,6 +15,7 @@ const favorites_screen = document.getElementById("favorites_screen")
 
 let data = JSON.parse(localStorage.getItem("data"));
 const categoriesSection = document.querySelectorAll(".category");
+const searchAndCategories = document.getElementById("searchAndCategories")
 
 
 
@@ -134,11 +135,13 @@ function filterByTopic(data) {
 
 function goToDisplayAllScreen(goTo) {
     localStorage.setItem("displayScreen", goTo);
-    localStorage.setItem(
-        "history_arr",
-        JSON.stringify(history_arr)
-    );
-    window.location.href = 'showAllQuestions.html'
+
+    if (goTo === "Add New") {
+        window.location.href = 'index.html'
+    } else {
+        window.location.href = 'showAllQuestions.html'
+    }
+
 }
 
 
@@ -159,9 +162,11 @@ function displayAll(questionsToBeDisplayed) {
 
             questionsAll.forEach(e => {
                 displayAllQuestions.innerHTML += `
+                <div class="m-1 p-1 border rounded-xl shadow">
                             <a id="${index}" href="index.html" class="searchQuestion">
                                 ${e.question.replace(/<[^>]*>/g, "")}
-                            </a>`;
+                            </a>
+                </div>`;
                 index++;
             })
 
@@ -173,9 +178,11 @@ function displayAll(questionsToBeDisplayed) {
             questionsToBeDisplayed.forEach(e => {
                 if (e.favorite) {
                     displayAllQuestions.innerHTML += `
+                    <div class="m-1 p-1 border rounded-xl shadow">
                         <a id="${index}" href="index.html" class="searchQuestion">
                             ${e.question.replace(/<[^>]*>/g, "")}
-                        </a> `;
+                        </a> 
+                        </div>`;
                 }
                 index++;
             })
@@ -279,9 +286,9 @@ function displayScreenFunction(data) {
         case "Quiz":
             const deleteSomeQuestions = document.getElementById("deleteSomeQuestions")
             screenType.innerText = displayScreen;
-            inputSearch.classList.add("hidden");
+            searchAndCategories.classList.add("hidden");
             deleteSomeQuestions.classList.add("hidden");
-            categoriesSection.classList.add("hidden");
+
             break;
     }
 }

@@ -611,6 +611,7 @@ function editXlScreen() {
 /* GO TO "ADD NEW" SCREEN */
 function goToAddNewScreen() {
     const categoriesSection = document.getElementById("categoriesSection");
+    navBar.classList.add("hidden");
     submitSection.classList.remove('hidden')
     /* Text areas go empty on click the "Add New"" button */
 
@@ -618,12 +619,11 @@ function goToAddNewScreen() {
     console.log("add new screen")
     stylingButtonsSection.classList.remove("hidden");
 
-    edit_btn.classList.add("hidden");
-    navBar.classList.add("hidden");
+    
 
     currentScreenLocation.innerHTML = "Add New";
     floating_actions_container.classList.add("hidden");
-    favorite_btn.classList.add("hidden");
+    
     editDeleteOrAddNew = "addNew";
     //console.log(editDeleteOrAddNew)
 
@@ -940,9 +940,21 @@ function toggleSidebar() {
 document.addEventListener("DOMContentLoaded", function () {
 
     console.log(url_interview_data)
+    const displayScreen = localStorage.getItem("displayScreen");
+    
+    if (displayScreen === "Add New") {
+        console.log(displayScreen)
+        turningTheTextAreasEditable()
+        goToAddNewScreen();
+        //!submitSection.hidden;
+        
+        console.log(localStorage.removeItem("displayScreen"))
+        console.log(localStorage.removeItem("displayScreen"))
 
 
-    fetch(url_interview_data)
+    } else {
+
+        fetch(url_interview_data)
         .then((res) => res.json())
         .then((json) => {
 
@@ -1003,6 +1015,11 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(result => console.log(result))
         .catch(error => console.error(error));
+
+    }
+
+
+    
 
 
 

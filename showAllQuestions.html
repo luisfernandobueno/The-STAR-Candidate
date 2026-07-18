@@ -24,11 +24,7 @@
         <div class="flex border mr-auto  mt-3 p-2  rounded-lg  text-xl">
             <div id="screenTitle" class=" flex-1">
                 Search
-            </div><button id="menu" onclick="toggleSidebar()" class="">
-                <span class="material-symbols-outlined">
-                    dehaze
-                </span>
-            </button>
+            </div>
         </div>
 
         <div><br></div>
@@ -40,13 +36,19 @@
 
 
     <!-- HEADER NAVBAR -->
-    <nav id="header" class="px-3 pt-3 flex items-center text-xs">
-
+    <nav id="header" class="mb-3 px-3 pt-3 flex items-center text-xs">
         <div class="flex-1 ">
-            <button id="menu" onclick="toggleSidebar()">
-                <span class="material-symbols-outlined ">
-                    dehaze
-                </span>
+            <button id="theme-switch">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                    fill="#000000">
+                    <path
+                        d="M338.5-338.5Q280-397 280-480t58.5-141.5Q397-680 480-680t141.5 58.5Q680-563 680-480t-58.5 141.5Q563-280 480-280t-141.5-58.5ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                    fill="#000000">
+                    <path
+                        d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+                </svg>
             </button>
         </div>
 
@@ -62,7 +64,7 @@
         </div>
     </nav>
 
-    <aside id="sidebar" class="p-3 shadow-xl">
+    <!-- <aside id="sidebar" class="p-3 shadow-xl">
         <div class="top mb-3">
             <button id="menu-2" onclick="toggleSidebar()">
                 <span class="material-symbols-outlined ">
@@ -71,48 +73,29 @@
             </button>
         </div>
         <div class="bottom">
-            <div id="myFavorite_screen" onclick="goToDisplayAllScreen('Favorites')" class="border rounded-xl mb-1 p-2 ">
-                <button class="hiddenBehaviorflex-1 flex items-center justify-center">
-                    <div class="flex">
-                        <span class="material-symbols-outlined   flex-1">
-                            favorite
-                        </span>
-                        <p class="flex-1 pl-2">Favorites</p>
-                    </div>
 
-                </button>
-            </div>
 
             <div class="flex border rounded-xl p-2">
-                <button id="theme-switch">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                        fill="#000000">
-                        <path
-                            d="M338.5-338.5Q280-397 280-480t58.5-141.5Q397-680 480-680t141.5 58.5Q680-563 680-480t-58.5 141.5Q563-280 480-280t-141.5-58.5ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                        fill="#000000">
-                        <path
-                            d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
-                    </svg>
-                </button>
+                
                 <div class="flex-1 mb-1 pl-2">
                     <p>Theme Switch</p>
                 </div>
 
             </div>
         </div>
-    </aside>
+    </aside> -->
 
 
     <!-- INPUT SEACH AND CATEGORIES -->
-    <section id="searchAndCategories" class="p-3 pb-1  rounded-full text-xl">
+    <section id="searchAndCategories" class="mx-3 mb-1 flex rounded-full border shadow text-xl">
         <input id="inputSearch" type="search" name="inputSearch" placeholder="What's your question?"
-            class=" p-2 rounded-xl border shadow">
-            
-        </section>
+            class=" p-2 rounded-full ">
 
-    <section id="categoriesSection" class="mb-2 mx-3 flex flex-wrap">
+        <button class="cirledBackgroundButton m-1 px-3 shadow">...</button>
+
+    </section>
+
+    <!-- <section id="categoriesSection" class="mb-2 mx-3 flex flex-wrap">
         <div id="Recruiter" class="category  px-2 py-1 flex-1 text-center border shadow   rounded-full text-xs ml-auto">
             Recruiter
         </div>
@@ -126,11 +109,11 @@
             class="category  px-2 py-1  flex-1 text-center border shadow  rounded-full text-xs mr-auto">
             Keep It Up
         </div>
-    </section>
+    </section> -->
 
 
     <!-- TEXT AREAS TO DISPLAY ALL THE LINKS -->
-    <display id="displayAllQuestions" class="content mx-3 mt-0 border shadow rounded-xl p-2">
+    <display id="displayAllQuestions" class="content mx-3 mt-0 border shadow rounded-2xl ">
     </display>
 
     <div class="grid-left">
@@ -179,7 +162,7 @@
         <div id="navBar" class="flex py-1">
 
             <button onclick="window.location.href='index.html'" class=" flex-1 flex items-center justify-center">
-                <span class="material-symbols-outlined  cirledBackgroundButton rounded-full">home</span>
+                <span class="material-symbols-outlined rounded-full">home</span>
             </button>
 
             <button id="search_screen" onclick="goToDisplayAllScreen('Search')"
@@ -187,19 +170,28 @@
                 <span class="material-symbols-outlined">search</span>
             </button>
 
-            <button class="hiddenBehavior flex-1 flex items-center justify-center">
+            <button onclick="goToDisplayAllScreen('Add New')"
+                class="switchVisibilityOrEditableState  hiddenBehavior flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined cirledBackgroundButton">
+                    sticker_add
+                </span>
             </button>
 
-            <button  onclick="goToDisplayAllScreen('Quiz')" class=" flex-1 flex items-center justify-center">
+            <button onclick="goToDisplayAllScreen('Quiz')" class=" flex-1 flex items-center justify-center">
                 <span class="material-symbols-outlined"> cards_stack </span>
             </button>
 
-            <button class="hiddenBehavior flex-1 flex items-center justify-center">
+
+            <button id="myFavorite_screen" onclick="goToDisplayAllScreen('Favorites')"
+                class="hiddenBehavior flex-1 flex items-center justify-center">
+                <span class="material-symbols-outlined   flex-1">
+                    favorite
+                </span>
             </button>
+
 
         </div>
     </footer>
-
 
     <script src="src/search.js"></script>
 </body>
