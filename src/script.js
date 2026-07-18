@@ -434,6 +434,36 @@ function turningTheTextAreasEditable() {
 }
 
 
+const readOutLoud = () => {
+    console.log("Hello world from TTS");
+
+    // If TTS is already active, stop it and exit
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        console.log("TTS - Stopped!");
+        return;
+    }
+
+    const tts = `${history_arr[currentIndex_historyArray].question}
+${history_arr[currentIndex_historyArray].answer}`;
+
+    console.log(tts);
+
+    const utterance = new SpeechSynthesisUtterance(tts);
+
+    // English language
+    utterance.lang = "en-US";
+
+    // Voice settings
+    //utterance.pitch = 2
+
+    window.speechSynthesis.speak(utterance);
+
+    console.log("TTS - Text read!");
+
+    // To stop the TTS manually:
+    // window.speechSynthesis.cancel();
+};
 
 
 function deleteData_alert() {
