@@ -88,10 +88,32 @@
 
     <!-- INPUT SEACH AND CATEGORIES -->
     <section id="searchAndCategories" class="mx-3 mb-1 flex rounded-full border shadow text-xl">
-        <input id="inputSearch" type="search" name="inputSearch" placeholder="What's your question?"
-            class=" p-2 rounded-full ">
 
-        <button class="cirledBackgroundButton m-1 px-3 shadow">...</button>
+        <input id="inputSearch" type="search" name="inputSearch" placeholder="What's your question?"
+            class="px-3 rounded-full">
+
+        <button id="deleteThis_btn" class="open-btn m-1 rounded" commandFor="modal-filter" command="show-modal">
+            <span class="material-symbols-outlined cirledBackgroundButton">
+                tune
+            </span>
+
+        </button>
+
+        <dialog id="modal-filter" class="modal p-3 border rounded-2xl shadow-xl">
+            <h1 class="text-center">Filter by:</h1>
+
+
+            <div class="my-1 px-3 py-2 border rounded-2xl">
+
+                <div class="checkbox text-sm"><input type="checkbox" name="" id=""> Recruiter</div>
+                <div class="checkbox text-sm"><input type="checkbox" name="" id=""> Candidate</div>
+                <div class="checkbox text-sm"><input type="checkbox" name="" id=""> Advice</div>
+                <div class="checkbox text-sm"><input type="checkbox" name="" id=""> Keep it Up</div>
+            </div>
+
+            <button commandFor="modal-filter" command="close"
+                class="filter_btn p-2 border rounded-full bg-sky-500  text-sm">Filter</button>
+        </dialog>
 
     </section>
 
@@ -120,21 +142,7 @@
         <div>
             <br>
         </div>
-        <div class="mb-1 p-2 border rounded-lg">
-            Profile
-        </div>
-        <div class="mb-1 p-2 border rounded-lg">
-            Login
-        </div>
-        <div class="mb-1 p-2 border rounded-lg">
-            Register
-        </div>
-        <div class="mb-1 p-2 border rounded-lg">
-            Settings
-        </div>
-        <div class="mb-1 p-2 border rounded-lg">
-            About
-        </div>
+
         <div id="toggleDarkMode" onclick="darkmodeState()" class="mb-1 p-2 flex border rounded-lg">
 
             <button id="theme-switch" class="flex">

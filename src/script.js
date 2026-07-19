@@ -347,7 +347,7 @@ function moveForward() {
 }
 function arrowForwardBtn(data) {
     const arrowForward_btn = document.getElementById("arrowForward_btn");
-
+    window.speechSynthesis.cancel();
     //arrowForward_btn.addEventListener("click", () => {
 
     /* Clean all the divs categories to white */
@@ -374,7 +374,7 @@ function backArrowFunction() {
 
     // This line makes the counter go backwards every time you click.
     currentIndex_historyArray = (currentIndex_historyArray - 1 + history_arr.length) % history_arr.length;
-
+    window.speechSynthesis.cancel();
     areaWhereTheTextIsGonnaBeShown(history_arr[currentIndex_historyArray])
     enableArrowBack();
     //})
@@ -434,7 +434,7 @@ function turningTheTextAreasEditable() {
 }
 
 
-const readOutLoud = () => {
+function readOutLoud() {
     console.log("Hello world from TTS");
 
     // If TTS is already active, stop it and exit
@@ -445,7 +445,7 @@ const readOutLoud = () => {
     }
 
     const tts = `${history_arr[currentIndex_historyArray].question}
-${history_arr[currentIndex_historyArray].answer}`;
+    ${history_arr[currentIndex_historyArray].answer}`;
 
     console.log(tts);
 
@@ -469,6 +469,7 @@ ${history_arr[currentIndex_historyArray].answer}`;
 function deleteData_alert() {
 
     deleteThis_btn.addEventListener("click", () => {
+        window.speechSynthesis.cancel();
         console.clear();
         currentScreenLocation.innerHTML = "Delete"
         console.log("question to be deleted: ", history_arr[currentIndex_historyArray].question)
@@ -571,7 +572,7 @@ function editDataScreen() {
 
 }
 function edit() {
-
+    window.speechSynthesis.cancel();
     stylingButtonsSection.classList.remove("hidden");
     //favorite_btn.classList.toggle("hidden", true);   // Add the class
 
@@ -585,7 +586,7 @@ function edit() {
     currentScreenLocation.innerText = "Edit"
     editDeleteOrAddNew = "edit";
     //console.log(editDeleteOrAddNew)
-    
+
     //console.log("EDITING DATA RIGHT NOW? ", editing)
     console.log("INDEX BEING EDITED: ", currentIndex_jsonData);
     turningTheTextAreasEditable_array.forEach(c => {
@@ -611,6 +612,7 @@ function editXlScreen() {
 /* GO TO "ADD NEW" SCREEN */
 function goToAddNewScreen() {
     const categoriesSection = document.getElementById("categoriesSection");
+    window.speechSynthesis.cancel();
     navBar.classList.add("hidden");
     submitSection.classList.remove('hidden')
     /* Text areas go empty on click the "Add New"" button */
@@ -619,11 +621,11 @@ function goToAddNewScreen() {
     console.log("add new screen")
     stylingButtonsSection.classList.remove("hidden");
 
-    
+
 
     currentScreenLocation.innerHTML = "Add New";
     floating_actions_container.classList.add("hidden");
-    
+
     editDeleteOrAddNew = "addNew";
     //console.log(editDeleteOrAddNew)
 
@@ -667,44 +669,17 @@ function isItEditingDataRightNow() {
         explanation: explanation.innerHTML,
         answer: answer.innerHTML,
         example: example.innerHTML,
-        topic: topic, //data[currentIndex_jsonData].topic,
-        favorite: data[currentIndex_jsonData].favorite,
+        topic: history_arr[currentIndex_historyArray].topic,
+        favorite: history_arr[currentIndex_historyArray].favorite,
     };
 
 
     console.log("newDataToSubmitOnline editing:", newDataToSubmitOnline)
 
 
-    /*  FIRST: 
-    Find the specific index in where the new data will be replaced  */
-    //let currentIndex_jsonData = currentIndex_jsonData;
-
-
-    /*              - SECOND:
-                Replace the data into the array        */
-
-    /* console.log("CURRENT INDEX: ", currentIndex_jsonData)
-
-    console.log("DATA PREVIOUS EDITING: ", data[currentIndex_jsonData].question) */
-
-
     data[currentIndex_jsonData] = newDataToSubmitOnline;
 
-
-    /* console.log("DATA AFTER EDITING: ", data[currentIndex_jsonData].question)
-    console.log("FULL ARRAY AFTER EDITING: ", data); */
-    //console.log(data[currentIndex_jsonData].question)
-    data[currentIndex_jsonData] = newDataToSubmitOnline;
     history_arr[currentIndex_historyArray] = newDataToSubmitOnline;
-
-    //console.log("ORIGINAL DATA: ", data)
-
-
-    /*      - THIRD:
-                 Call to the fetch Put(data); function with the updated array       
-     */
-
-
 
     console.log("SUBMITTING EDITED DATA RIGHT NOW!!! ")
     console.log("Exiting the editing data function right now")
@@ -716,6 +691,10 @@ function isItEditingDataRightNow() {
 
 
 function creatingNewData() {
+
+    if (!topic) {
+        topic = "Encouragement";
+    }
 
     /* Save the new data into an object */
     newDataToSubmitOnline = {
@@ -824,7 +803,7 @@ function submittingNewDataOnline() {
     /* ACTUALLY HITTING THE SUBMIT BUTTON */
     submitChanges_btn.addEventListener("click", () => {
         stylingButtonsSection.classList.add("hidden");
-        favorite_btn.classList.remove("hidden");
+
         disableCategorySelector();
         navBar.classList.remove("hidden");
         currentScreenLocation.innerHTML = "Home";
@@ -931,6 +910,32 @@ function toggleSidebar() {
 }
 
 
+function tweakingJustFetchedData(data) {
+    data.forEach(e => {
+        if (e.topic === "Keep It Up" || e.topic === undefined) {
+            e.topic = "Encouragement";
+        }
+    });
+
+    console.log(data);
+
+    // Remove duplicate questions, keeping the first occurrence
+    const seen = new Set();
+
+    data = data.filter(item => {
+        if (seen.has(item.question)) {
+            return false;
+        }
+
+        seen.add(item.question);
+        return true;
+    });
+
+    // Overwrite the online data only if duplicates were removed
+    if (data.length !== json.lines.length) {
+        fetchPost(data);
+    }
+}
 
 
 
@@ -941,13 +946,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log(url_interview_data)
     const displayScreen = localStorage.getItem("displayScreen");
-    
+
     if (displayScreen === "Add New") {
+        submitSection.classList.remove("hidden");
         console.log(displayScreen)
         turningTheTextAreasEditable()
         goToAddNewScreen();
-        //!submitSection.hidden;
-        
+
         console.log(localStorage.removeItem("displayScreen"))
         console.log(localStorage.removeItem("displayScreen"))
 
@@ -955,71 +960,47 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
 
         fetch(url_interview_data)
-        .then((res) => res.json())
-        .then((json) => {
+            .then((res) => res.json())
+            .then((json) => {
 
-            console.log(json);
-            console.log("inside fetch");
+                console.log(json);
+                console.log("inside fetch");
 
-            data = json.lines;
+                data = json.lines;
 
+                tweakingJustFetchedData = (data);
 
-            data.forEach(e => {
-                if (e.topic === "Keep It Up" || e.topic === undefined) {
-                    e.topic = "Encouragement";
-                }
-            });
+                console.log(data)
+                console.log(url_interview_data);
 
-            console.log(data);
+                //favoriteState();
+                // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
+                showTextOnUserScreen(data);
+                arrowForwardBtn(data);
+                backArrowFunction();
+                switchVisibilityOrEditableState();
+                deleteData_alert()
+                editDataScreen();
+                addNewData_btn.addEventListener("click", () => {
+                    goToAddNewScreen()
+                });
 
-            // Remove duplicate questions, keeping the first occurrence
-            const seen = new Set();
-
-            data = data.filter(item => {
-                if (seen.has(item.question)) {
-                    return false;
-                }
-
-                seen.add(item.question);
-                return true;
-            });
-
-            // Overwrite the online data only if duplicates were removed
-            if (data.length !== json.lines.length) {
-                fetchPost(data);
-            }
-
-            console.log(data)
-            console.log(url_interview_data);
-
-            //favoriteState();
-            // CALL THE FUNCTIONS TO EXECUTE THE PROGRAM
-            showTextOnUserScreen(data);
-            arrowForwardBtn(data);
-            backArrowFunction();
-            switchVisibilityOrEditableState();
-            deleteData_alert()
-            editDataScreen();
-            addNewData_btn.addEventListener("click", () => {
-                goToAddNewScreen()
-            });
-
-            lastSearchedQuestion();
+                lastSearchedQuestion();
 
 
 
-        })
-        .then(response => {
-            console.log("Status:", response.status);
-            return response.json();
-        })
-        .then(result => console.log(result))
-        .catch(error => console.error(error));
+            })
+            .then(response => {
+                console.log("Status:", response.status);
+                return response.json();
+            })
+            .then(result => console.log(result))
+            .catch(error => console.error(error));
 
     }
 
 
-    
+
 
 
 

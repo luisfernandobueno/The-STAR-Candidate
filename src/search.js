@@ -13,7 +13,7 @@ const screenType = document.getElementById("screenType");
 const search_screen = document.getElementById("search_screen");
 const favorites_screen = document.getElementById("favorites_screen")
 
-let data = JSON.parse(localStorage.getItem("data"));
+let data;
 const categoriesSection = document.querySelectorAll(".category");
 const searchAndCategories = document.getElementById("searchAndCategories")
 
@@ -303,7 +303,27 @@ function displayScreenFunction(data) {
 document.addEventListener("DOMContentLoaded", function () {
 
 
-    displayScreenFunction(data)
-    saveSelectedQuestionOnLocalStorage()
+
+
+    fetch(url_interview_data)
+        .then((res) => res.json())
+        .then((json) => {
+            originalData = json;
+            data = json.lines;
+            console.log(data)
+
+
+            data = data.map(item => ({
+                question: item.question,
+                favorite: item.favorite,
+                topic: item.topic
+            }));
+
+            displayScreenFunction(data)
+            saveSelectedQuestionOnLocalStorage()
+
+        });
+
+
 
 });
