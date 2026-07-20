@@ -297,7 +297,6 @@ function displayScreenFunction(data) {
 
 
 
-
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -319,7 +318,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 topic: item.topic
             }));
 
+
+            
             displayScreenFunction(data)
+            
             saveSelectedQuestionOnLocalStorage()
 
         });

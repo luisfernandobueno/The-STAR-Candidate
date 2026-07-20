@@ -851,14 +851,42 @@ function fetchPost(data) {
         body: JSON.stringify(originalData)
     })
         .then(response => {
+            console.clear()
+            console.log("inside fetch post response")
             console.log("Status:", response.status);
+            console.log("FETCH POST response.json(): ", response.json())
             return response.json();
+
+            fetchGet();
         })
         .then(result => console.log(result))
         .catch(error => console.error(error));
 
     console.log("FINAL DATA AFTER FETCH")
     console.log(originalData)
+
+}
+
+
+const fetchGet = () => {
+    fetch(url_interview_data)
+            .then((res) => res.json())
+            .then((json) => {
+
+                console.log(json);
+                console.log("inside fetch");
+
+                data = json.lines;
+
+                tweakingJustFetchedData = (data);
+
+            })
+            .then(response => {
+                console.log("Status:", response.status);
+                return response.json();
+            })
+            .then(result => console.log(result))
+            .catch(error => console.error(error));
 }
 
 
