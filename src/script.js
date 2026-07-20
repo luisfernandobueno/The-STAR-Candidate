@@ -857,8 +857,8 @@ function fetchPost(data) {
             console.log("inside fetch post response")
             console.log("Status:", response.status);
             console.log("FETCH POST response.json(): ", response.json())
-            
-            fetchGet();
+
+
             return response.json();
         })
         .then(result => console.log(result))
@@ -866,29 +866,29 @@ function fetchPost(data) {
 
     console.log("FINAL DATA AFTER FETCH")
     console.log(originalData)
-
+    fetchGet();
 }
 
 
 const fetchGet = () => {
     fetch(url_interview_data)
-            .then((res) => res.json())
-            .then((json) => {
+        .then((res) => res.json())
+        .then((json) => {
 
-                console.log(json);
-                console.log("inside fetch");
+            console.log(json);
+            console.log("inside fetch");
 
-                data = json.lines;
+            data = json.lines;
 
-                tweakingJustFetchedData = (data);
+            tweakingJustFetchedData = (data);
 
-            })
-            .then(response => {
-                console.log("Status:", response.status);
-                return response.json();
-            })
-            .then(result => console.log(result))
-            .catch(error => console.error(error));
+        })
+        .then(response => {
+            console.log("Status:", response.status);
+            return response.json();
+        })
+        .then(result => console.log(result))
+        .catch(error => console.error(error));
 }
 
 
