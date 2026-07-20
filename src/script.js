@@ -278,6 +278,8 @@ function disableCategorySelector() {
 and pastes there the corresponding data to finally be shown on screen*/
 function areaWhereTheTextIsGonnaBeShown(randomQuestion) {
 
+    favoriteState();
+
     //console.log(data[currentIndex_jsonData])
     document.getElementById("areaWhereTheTextIsGonnaBeShown").scrollTo({
         top: 0,
