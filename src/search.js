@@ -294,7 +294,30 @@ function displayScreenFunction(data) {
 }
 
 
+function tweakingJustFetchedData(data) {
+    data.forEach(e => {
+        if (e.topic === "Keep It Up" || e.topic === undefined) {
+            e.topic = "Encouragement";
+        }
+    });
 
+    const seen = new Set();
+
+    const filtered = data.filter(item => {
+        if (seen.has(item.question)) {
+            return false;
+        }
+
+        seen.add(item.question);
+        return true;
+    });
+
+    // Replace the contents of the original array
+    data.length = 0;
+    data.push(...filtered);
+
+    console.log(data);
+}
 
 
 /* --------------- FROM HERE AND FORWARD, THE DOM BEHAVIOR STARTS ------------------ */
@@ -311,6 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
             data = json.lines;
             console.log(data)
 
+            tweakingJustFetchedData(data);
 
             data = data.map(item => ({
                 question: item.question,
@@ -321,7 +345,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             
             displayScreenFunction(data)
-            
             saveSelectedQuestionOnLocalStorage()
 
         });

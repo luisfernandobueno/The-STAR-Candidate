@@ -945,12 +945,9 @@ function tweakingJustFetchedData(data) {
         }
     });
 
-    console.log(data);
-
-    // Remove duplicate questions, keeping the first occurrence
     const seen = new Set();
 
-    data = data.filter(item => {
+    const filtered = data.filter(item => {
         if (seen.has(item.question)) {
             return false;
         }
@@ -958,6 +955,13 @@ function tweakingJustFetchedData(data) {
         seen.add(item.question);
         return true;
     });
+
+    // Replace the contents of the original array
+    data.length = 0;
+    data.push(...filtered);
+
+    console.log(data);
+
 
     // Overwrite the online data only if duplicates were removed
     if (data.length !== json.lines.length) {
