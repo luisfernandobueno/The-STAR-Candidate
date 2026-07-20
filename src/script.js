@@ -855,9 +855,9 @@ function fetchPost(data) {
             console.log("inside fetch post response")
             console.log("Status:", response.status);
             console.log("FETCH POST response.json(): ", response.json())
-            return response.json();
-
+            
             fetchGet();
+            return response.json();
         })
         .then(result => console.log(result))
         .catch(error => console.error(error));

@@ -343,7 +343,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }));
 
 
-            
             displayScreenFunction(data)
             saveSelectedQuestionOnLocalStorage()
 
